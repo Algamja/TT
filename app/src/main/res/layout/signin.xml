@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        //ID
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="ID"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        //ID입력창
+        <EditText
+            android:id="@+id/identify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ems="10"
+            android:hint="아이디"
+            android:inputType="textPersonName" />
+
+        //중복확인 버튼
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="중복확인" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        //비밀번호
+        <TextView
+            android:id="@+id/pw"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Password"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        //비밀번호 입력창
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:ems="10"
+            android:hint="비밀번호"
+            android:inputType="textPassword" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        //비밀번호 확인
+        <TextView
+            android:id="@+id/rightpw"
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Password 확인"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        //비민번호확인창
+        <EditText
+            android:id="@+id/right_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:ems="10"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        //이름
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="239dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="이름"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        //이름 입력 창
+        <EditText
+            android:id="@+id/w_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ems="10"
+            android:hint="이름"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        //휴대폰번호
+        <TextView
+            android:id="@+id/phone_n"
+            android:layout_width="239dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="휴대폰 번호"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        //폰번호입력 창
+        <EditText
+            android:id="@+id/phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ems="10"
+            android:inputType="phone" />
+
+    </LinearLayout>
+
+    //다음페이지 가는 버튼
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_gravity="center"
+        android:text="다음" />
+
+</LinearLayout>
