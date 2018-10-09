@@ -5,13 +5,20 @@ import android.app.LocalActivityManager;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TabHost;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+
+    String tag = this.getClass().getSimpleName();
 
     TabHost tabHost;
     LocalActivityManager mLocalActivityManager;
@@ -22,10 +29,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ViewPager pager=(ViewPager)findViewById(R.id.main_vp);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
+        pager.setAdapter(pageAdapter); //스와이프 부분 끝
+
         initTabs(savedInstanceState);
 
         btn_sign=(Button)findViewById(R.id.main_btn_sign);
-        btn_login=(Button)findViewById(R.id.main_btn_login);
+        btn_login=(Button)findViewById(R.id.main_btn_login); //main 로그인, 회원가입 버튼
 
         btn_sign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +45,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(getApplicationContext(),SigninActivity.class);
                 startActivity(intent);
             }
-        });
+        }); //버튼 눌렸을 때 intent
 
     }
 

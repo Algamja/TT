@@ -84,7 +84,7 @@
             android:textAlignment="center"
             android:textSize="25sp" />
 
-        //비민번호확인창
+        //비밀번호확인창
         <EditText
             android:id="@+id/right_password"
             android:layout_width="match_parent"

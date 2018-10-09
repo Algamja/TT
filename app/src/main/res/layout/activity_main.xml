@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/main_btn_sign"
 
-            android:background="@android:color/white"
+            android:background="#00ff0000"
             android:text="회원가입"
             android:textSize="17dp">
         </Button>
@@ -28,22 +28,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/main_btn_login"
 
-            android:background="@android:color/white"
+            android:background="#00ff0000"
             android:text="로그인"
             android:textSize="17dp">
         </Button>
     </LinearLayout>
     //상단 로그인, 회원가입버튼
 
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_vp"
+        android:layout_weight="4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
-        android:id="@+id/main_swipe"
-        android:orientation="horizontal"
-        android:background="@android:color/black">
-
-    </LinearLayout>
+        />
     //광고 등 스와이프 들어갈 자리
 
     <LinearLayout
