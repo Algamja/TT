@@ -5,51 +5,83 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    //성별
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="146dp" />
 
-    <TextView
-        android:id="@+id/gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="성별" />
-
-<LinearLayout
+    <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    //남자
-    <RadioButton
+        <Space
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        //성별
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="성별"
+            android:textSize="30sp" />
+
+        //남자
+        <RadioButton
         android:id="@+id/man"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="남자" />
+        android:text="남자"
+        android:textSize="18sp" />
 
-    //여자
-    <RadioButton
+        //여자
+        <RadioButton
         android:id="@+id/woman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="여자" />
+        android:text="여자"
+        android:textSize="18sp" />
 
 </LinearLayout>
-
-    <TextView
-        android:id="@+id/age"
-        android:layout_width="91dp"
-        android:layout_height="wrap_content"
-        android:text="나이" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <Space
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
         //나이
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="나이"
+            android:textSize="30sp" />
+
         <Spinner
+            android:id="@+id/spinnerage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:entries="@array/age"
+            android:layout_weight="1"/>
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="51dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="다음"/>
 
 </LinearLayout>

@@ -13,8 +13,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //나이스피너
+        String[] str=getResources().getStringArray(R.array.age);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, str);
+        Spinner spin_age=(Spinner)findViewById(R.id.spinnerage);
+        spin_age.setAdapter(adapter);
+        spin_age.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        print(view, position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
 
         ViewPager pager=(ViewPager)findViewById(R.id.main_vp);
         FragmentManager fm = getSupportFragmentManager();
@@ -47,6 +70,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //버튼 눌렸을 때 intent
 
+    }
+
+    //나이 스피너의 print()정의
+    private void print(View view, int position) {
+        Spinner sp=(Spinner)findViewById(R.id.spinnerage);
+        TextView textView=(TextView)findViewById(R.id.age);
+        String res="";
+        if(sp.getSelectedItemPosition()>0){
+            res=(String)sp.getAdapter().getItem(sp.getSelectedItemPosition());
+        }
+
+        if(res!=""){
+            textView.setText(res);
+        }
     }
 
     @Override

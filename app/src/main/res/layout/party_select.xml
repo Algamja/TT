@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="75dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        //파티원 성별
+
+        <TextView
+            android:id="@+id/partygen"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="파티원 성별"
+            android:textSize="24sp" />
+
+        //동성
+        <RadioButton
+            android:id="@+id/same"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="동성"
+            android:textSize="18sp" />
+
+        //무관
+        <RadioButton
+            android:id="@+id/anyone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="무관"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        //연령대
+        <TextView
+            android:id="@+id/agegroup"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="연령대"
+            android:textSize="30sp" />
+
+        //3
+        <RadioButton
+            android:id="@+id/three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3"
+            android:textSize="18sp" />
+
+        //5
+        <RadioButton
+            android:id="@+id/five"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5"
+            android:textSize="18sp" />
+
+        //10
+        <RadioButton
+            android:id="@+id/ten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="10"
+            android:textSize="18sp" />
+
+        //무관
+        <RadioButton
+            android:id="@+id/anyage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="무관"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        //스케쥴
+        <TextView
+            android:id="@+id/schedule"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="스케쥴"
+            android:textSize="30sp" />
+
+        //빡빡하게
+        <RadioButton
+            android:id="@+id/busy"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="빡빡하게"
+            android:textSize="18sp" />
+
+        //여유롭게
+        <RadioButton
+            android:id="@+id/lazy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="여유롭게"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        //숙소
+        <TextView
+            android:id="@+id/sleep"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="숙소"
+            android:textSize="30sp" />
+
+        //잠만 자는 곳
+        <RadioButton
+            android:id="@+id/dontcare"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="무관"
+            android:textSize="18sp" />
+
+        //편하게
+        <RadioButton
+            android:id="@+id/cozy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="편하게!"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/next"
+        android:text="다음"/>
+</LinearLayout>
