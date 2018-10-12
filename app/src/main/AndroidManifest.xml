@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SigninActivity"/>
+        <activity android:name=".Gen_ageActivity"/>
+        <activity android:name=".PartyselectActivity"/>
     </application>
 
 </manifest>

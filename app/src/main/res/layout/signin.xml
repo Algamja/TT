@@ -33,6 +33,7 @@
 
         //중복확인 버튼
         <Button
+            android:id="@+id/btn_idcheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -150,7 +151,7 @@
 
     //다음페이지 가는 버튼
     <Button
-        android:id="@+id/next"
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
