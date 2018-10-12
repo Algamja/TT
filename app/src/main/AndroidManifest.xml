@@ -19,9 +19,8 @@
         <activity android:name=".SigninActivity"/>
         <activity android:name=".Gen_ageActivity"/>
         <activity android:name=".PartyselectActivity"/>
-        <activity android:name=".FindIdPwActivity"/>
+        <activity android:name=".WelcomeActivity"/>
         <activity android:name=".LoginActivity"/>
     </application>
-
 
 </manifest>
