@@ -16,10 +16,15 @@ public class LoginActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        btn_login=(Button)findViewById(R.id.login_btn_login);
+        btn_find=(Button)findViewById(R.id.login_btn_find);
+        btn_sign=(Button)findViewById(R.id.login_btn_sign);
+
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),SigninActivity.class);
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -27,7 +32,7 @@ public class LoginActivity extends Activity{
         btn_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),FindIdPwActivity.class);
+                Intent intent = new Intent(getApplicationContext(),FindIdPwActivity.class);
                 startActivity(intent);
             }
         });
@@ -35,7 +40,7 @@ public class LoginActivity extends Activity{
         btn_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),SigninActivity.class);
+                Intent intent = new Intent(getApplicationContext(),SigninActivity.class);
                 startActivity(intent);
             }
         });
