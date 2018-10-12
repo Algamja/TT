@@ -51,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //버튼 눌렸을 때 intent
 
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
