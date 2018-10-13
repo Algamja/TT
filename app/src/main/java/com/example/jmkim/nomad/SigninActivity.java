@@ -22,8 +22,18 @@ public class SigninActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Gen_ageActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
-        });
+        }); //다음버튼 누르면 성별,나이 입력 페이지로 이동
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==RESULT_OK){
+            int MAIN=data.getIntExtra("END",0);
+            if(MAIN==1){
+                finish();
+            }
+        }
+    } //뒤로가기 버튼 안되게
 }

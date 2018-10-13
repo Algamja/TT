@@ -25,7 +25,10 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
+                int LogIn_Val=1;
+                intent.putExtra("LOG",LogIn_Val);
+                setResult(RESULT_OK,intent);
+                finish(); //로그인 버튼 누르면 바로 메인으로 감
             }
         });
 
@@ -33,7 +36,7 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),FindIdPwActivity.class);
-                startActivity(intent);
+                startActivity(intent); //아이디/비밀번호찾기 페이지
             }
         });
 
@@ -41,8 +44,9 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),SigninActivity.class);
-                startActivity(intent);
+                startActivity(intent); //회원가입 페이지
             }
         });
     }
+
 }

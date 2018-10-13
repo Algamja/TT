@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     TabHost tabHost;
     LocalActivityManager mLocalActivityManager;
-    Button btn_sign, btn_login;
+    Button btn_sign, btn_login, btn_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         initTabs(savedInstanceState);
 
         btn_sign=(Button)findViewById(R.id.main_btn_sign);
-        btn_login=(Button)findViewById(R.id.main_btn_login); //main 로그인, 회원가입 버튼
+        btn_login=(Button)findViewById(R.id.main_btn_login);
+        btn_logout=(Button)findViewById(R.id.main_btn_logout); //main 로그인, 회원가입 버튼
 
         btn_sign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +57,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,0);
+            }
+        }); //login버튼 눌렸을 때 intent
+
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btn_logout.setVisibility(View.GONE);
+                btn_login.setVisibility(View.VISIBLE);
             }
         });
 
@@ -94,5 +104,16 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(spec);
 
         tabHost.setCurrentTab(0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==RESULT_OK){
+            int Log_val=data.getIntExtra("LOG",0);
+            if(Log_val==1){
+                btn_logout.setVisibility(View.VISIBLE);
+                btn_login.setVisibility(View.GONE);
+            }
+        }
     }
 }

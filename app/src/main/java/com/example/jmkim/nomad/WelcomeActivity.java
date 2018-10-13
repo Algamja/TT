@@ -19,8 +19,12 @@ public class WelcomeActivity extends Activity{
         mainpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), PartyselectActivity.class);
+
+                int Main_Val=1;
+                intent.putExtra("END",Main_Val);
+                setResult(RESULT_OK,intent);
+                finish(); //뒤로가기 안하려고
             }
         });
     }
