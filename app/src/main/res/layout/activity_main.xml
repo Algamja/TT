@@ -16,6 +16,18 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/main_btn_mypage"
+
+            android:background="#00ff0000"
+            android:text="마이페이지"
+            android:textSize="17dp"
+
+            android:visibility="gone">
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/main_btn_sign"
 
             android:background="#00ff0000"

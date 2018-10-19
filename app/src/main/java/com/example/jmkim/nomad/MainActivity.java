@@ -27,28 +27,29 @@ public class MainActivity extends AppCompatActivity {
 
     TabHost tabHost;
     LocalActivityManager mLocalActivityManager;
-    Button btn_sign, btn_login, btn_logout;
+    Button btn_sign, btn_login, btn_logout, btn_mypage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager pager=(ViewPager)findViewById(R.id.main_vp);
+        ViewPager pager = (ViewPager) findViewById(R.id.main_vp);
         FragmentManager fm = getSupportFragmentManager();
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
         pager.setAdapter(pageAdapter); //스와이프 부분 끝
 
         initTabs(savedInstanceState);
 
-        btn_sign=(Button)findViewById(R.id.main_btn_sign);
-        btn_login=(Button)findViewById(R.id.main_btn_login);
-        btn_logout=(Button)findViewById(R.id.main_btn_logout); //main 로그인, 회원가입 버튼
+        btn_sign = (Button) findViewById(R.id.main_btn_sign);
+        btn_login = (Button) findViewById(R.id.main_btn_login);
+        btn_logout = (Button) findViewById(R.id.main_btn_logout); //main 로그인, 회원가입 버튼
+        btn_mypage = (Button) findViewById(R.id.main_btn_mypage);
 
         btn_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),SigninActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
                 startActivity(intent);
             }
         }); //sign버튼 눌렸을 때 intent
@@ -56,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                startActivityForResult(intent,0);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivityForResult(intent, 0);
             }
         }); //login버튼 눌렸을 때 intent
 
@@ -66,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 btn_logout.setVisibility(View.GONE);
                 btn_login.setVisibility(View.VISIBLE);
+            }
+        });
+
+        btn_mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MypageActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -83,23 +92,23 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private void initTabs(Bundle savedInstanceState){ //Tab사용하기 위함
-        Resources res=getResources();
-        tabHost=(TabHost)findViewById(android.R.id.tabhost);
-        mLocalActivityManager=new LocalActivityManager(this,false);
+    private void initTabs(Bundle savedInstanceState) { //Tab사용하기 위함
+        Resources res = getResources();
+        tabHost = (TabHost) findViewById(android.R.id.tabhost);
+        mLocalActivityManager = new LocalActivityManager(this, false);
         mLocalActivityManager.dispatchCreate(savedInstanceState);
         tabHost.setup(mLocalActivityManager);
 
         TabHost.TabSpec spec;
-        spec=tabHost.newTabSpec("Join").setIndicator("파티")
+        spec = tabHost.newTabSpec("Join").setIndicator("파티")
                 .setContent(R.id.main_tab_join);
         tabHost.addTab(spec);
 
-        spec=tabHost.newTabSpec("Review").setIndicator("후기")
+        spec = tabHost.newTabSpec("Review").setIndicator("후기")
                 .setContent(R.id.main_tab_review);
         tabHost.addTab(spec);
 
-        spec=tabHost.newTabSpec("Free").setIndicator("자유")
+        spec = tabHost.newTabSpec("Free").setIndicator("자유")
                 .setContent(R.id.main_tab_free);
         tabHost.addTab(spec);
 
@@ -108,11 +117,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK){
-            int Log_val=data.getIntExtra("LOG",0);
-            if(Log_val==1){
+        if (resultCode == RESULT_OK) {
+            int Log_val = data.getIntExtra("LOG", 0);
+            if (Log_val == 1) {
                 btn_logout.setVisibility(View.VISIBLE);
                 btn_login.setVisibility(View.GONE);
+                btn_sign.setVisibility(View.GONE);
+                btn_mypage.setVisibility(View.VISIBLE);
             }
         }
     }

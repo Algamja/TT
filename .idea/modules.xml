@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NOMAD.iml" filepath="$PROJECT_DIR$/NOMAD.iml" />
       <module fileurl="file://C:\Users\ceell\AndroidStudioProjects\TT\NOMAD.iml" filepath="C:\Users\ceell\AndroidStudioProjects\TT\NOMAD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TT.iml" filepath="$PROJECT_DIR$/TT.iml" />
       <module fileurl="file://C:\Users\user\AndroidStudioProjects\NOMAD\TT.iml" filepath="C:\Users\user\AndroidStudioProjects\NOMAD\TT.iml" />
       <module fileurl="file://C:\Users\JMKIM\AndroidStudioProjects\NOMAD\TT.iml" filepath="C:\Users\JMKIM\AndroidStudioProjects\NOMAD\TT.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
