@@ -5,188 +5,182 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Space
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="75dp" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+       <GridLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:columnCount="2"
+           android:rowCount="11">
 
-        <Space
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+           <Button
+               android:id="@+id/party_btn_1"
+               android:layout_row="0"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="1"
+               android:background="#00ff0000"/>
 
-        //파티원 성별
+           <Button
+               android:id="@+id/party_btn_2"
+               android:layout_row="0"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="2"
+               android:background="#00ff0000"/>
 
-        <TextView
-            android:id="@+id/partygen"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="파티원 성별"
-            android:textSize="24sp" />
+           <Button
+               android:id="@+id/party_btn_3"
+               android:layout_row="1"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="3"
+               android:background="#00ff0000"/>
 
-        <RadioGroup
-            android:id="@+id/rgroup2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+           <Button
+               android:id="@+id/party_btn_4"
+               android:layout_row="1"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="4"
+               android:background="#00ff0000"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="동성"/>
+           <Button
+               android:id="@+id/party_btn_5"
+               android:layout_row="2"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="5"
+               android:background="#00ff0000"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="무관"/>
-        </RadioGroup>
+           <Button
+               android:id="@+id/party_btn_6"
+               android:layout_row="2"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="6"
+               android:background="#00ff0000"/>
 
-    </LinearLayout>
+           <Button
+               android:id="@+id/party_btn_7"
+               android:layout_row="3"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="7"
+               android:background="#00ff0000"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
+           <Button
+               android:id="@+id/party_btn_8"
+               android:layout_row="3"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="8"
+               android:background="#00ff0000"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+           <Button
+               android:id="@+id/party_btn_9"
+               android:layout_row="4"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="9"
+               android:background="#00ff0000"/>
 
-        <Space
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+           <Button
+               android:id="@+id/party_btn_10"
+               android:layout_row="4"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="10"
+               android:background="#00ff0000"/>
 
-        //연령대
-        <TextView
-            android:id="@+id/agegroup"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="연령대"
-            android:textSize="30sp" />
+           <Button
+               android:id="@+id/party_btn_11"
+               android:layout_row="5"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="11"
+               android:background="#00ff0000"/>
 
-        <RadioGroup
-            android:id="@+id/rgroup3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+           <Button
+               android:id="@+id/party_btn_12"
+               android:layout_row="5"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="12"
+               android:background="#00ff0000"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+-3"/>
+           <Button
+               android:id="@+id/party_btn_13"
+               android:layout_row="6"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="13"
+               android:background="#00ff0000"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+-5"/>
+           <Button
+               android:id="@+id/party_btn_14"
+               android:layout_row="6"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="14"
+               android:background="#00ff0000"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+-10"/>
+           <Button
+               android:id="@+id/party_btn_15"
+               android:layout_row="7"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="15"
+               android:background="#00ff0000"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="무관"/>
-        </RadioGroup>
+           <Button
+               android:id="@+id/party_btn_16"
+               android:layout_row="7"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="16"
+               android:background="#00ff0000"/>
 
-    </LinearLayout>
+           <Button
+               android:id="@+id/party_btn_17"
+               android:layout_row="8"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="17"
+               android:background="#00ff0000"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
+           <Button
+               android:id="@+id/party_btn_18"
+               android:layout_row="8"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="18"
+               android:background="#00ff0000"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+           <Button
+               android:id="@+id/party_btn_19"
+               android:layout_row="9"
+               android:layout_column="0"
+               android:layout_columnWeight="1"
+               android:text="19"
+               android:background="#00ff0000"/>
 
-        <Space
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+           <Button
+               android:id="@+id/party_btn_20"
+               android:layout_row="9"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="20"
+               android:background="#00ff0000"/>
 
-        //스케쥴
-        <TextView
-            android:id="@+id/schedule"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="스케쥴"
-            android:textSize="30sp" />
-
-
-        <RadioGroup
-            android:id="@+id/rgroup4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="빡빡하게"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="여유롭게"/>
-
-        </RadioGroup>
-
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Space
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        //숙소
-        <TextView
-            android:id="@+id/sleep"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="숙소"
-            android:textSize="30sp" />
-
-
-        <RadioGroup
-            android:id="@+id/rgroup5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="편하게!"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="무관"/>
-        </RadioGroup>
-
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/next"
-        android:text="다음"/>
+           <Button
+               android:id="@+id/party_btn_next"
+               android:layout_row="10"
+               android:layout_column="1"
+               android:layout_columnWeight="1"
+               android:text="다음" />
+       </GridLayout>
+    </ScrollView>
 </LinearLayout>
