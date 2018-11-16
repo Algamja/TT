@@ -55,8 +55,22 @@ public class PartyselectActivity extends Activity{
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent getintent = getIntent();
+                String id = getintent.getStringExtra("ID");
+                String pw = getintent.getStringExtra("PW");
+                String name = getintent.getStringExtra("NAME");
+                String phone = getintent.getStringExtra("PHONE");
+                String sex = getintent.getStringExtra("SEX");
+                String age = getintent.getStringExtra("AGE");
+
                 if(checks.size()>=10) { //최소 10개버튼 이상 선택시
                     Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class); //가입완료 페이지로 이동
+                    intent.putExtra("ID",id);
+                    intent.putExtra("PW",pw);
+                    intent.putExtra("NAME",name);
+                    intent.putExtra("PHONE",phone);
+                    intent.putExtra("SEX",sex);
+                    intent.putExtra("AGE",age);
                     startActivityForResult(intent, 0);
                 }
                 else{
