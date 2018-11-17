@@ -14,9 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -26,7 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     TabHost tabHost;
     LocalActivityManager mLocalActivityManager;
-    Button btn_sign, btn_login, btn_logout, btn_mypage;
+
+    int Log_val;
+
+    Menu mMenu;
+    MenuItem item_sign_up,item_login,item_log_out,item_mypage;
 
     private DrawerLayout mDrawerLayout;
 
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setTitle("");
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -83,43 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
         initTabs(savedInstanceState);
 
-        btn_sign = (Button) findViewById(R.id.main_btn_sign);
-        btn_login = (Button) findViewById(R.id.main_btn_login);
-        btn_logout = (Button) findViewById(R.id.main_btn_logout); //main 로그인, 회원가입 버튼
-        btn_mypage = (Button) findViewById(R.id.main_btn_mypage);
-
-        btn_sign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SigninActivity.class);
-                startActivity(intent);
-            }
-        }); //sign버튼 눌렸을 때 intent
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        }); //login버튼 눌렸을 때 intent
-
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn_logout.setVisibility(View.GONE);
-                btn_login.setVisibility(View.VISIBLE);
-            }
-        });
-
-        btn_mypage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MypageActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     @Override
@@ -159,35 +130,56 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        item_sign_up = mMenu.findItem(R.id.item_sign_up);
+        item_login = mMenu.findItem(R.id.item_login);
+        item_log_out = mMenu.findItem(R.id.item_logout);
+        item_mypage = mMenu.findItem(R.id.item_mypage);
+
         if (resultCode == RESULT_OK) {
-            int Log_val = data.getIntExtra("LOG", 0);
+            Log_val = data.getIntExtra("LOG", 0);
             if (Log_val == 1) {
-                btn_logout.setVisibility(View.VISIBLE);
-                btn_login.setVisibility(View.GONE);
-                btn_sign.setVisibility(View.GONE);
-                btn_mypage.setVisibility(View.VISIBLE);
+                item_sign_up.setVisible(false);
+                item_login.setVisible(false);
+                item_mypage.setVisible(true);
+                item_log_out.setVisible(true);
             }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        mMenu = menu;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
 
         switch (id) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.action_settings:
-                return true;
+                break;
+            case R.id.item_sign_up:
+                intent = new Intent(getApplicationContext(), SigninActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.item_login:
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.item_mypage:
+                intent = new Intent(getApplicationContext(), MypageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.item_logout:
+                mMenu.setGroupVisible(R.id.at_login,false);
+                mMenu.setGroupVisible(R.id.at_logout,true);
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }
