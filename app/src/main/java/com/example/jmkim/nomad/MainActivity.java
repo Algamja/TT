@@ -1,8 +1,6 @@
 package com.example.jmkim.nomad;
 
-import android.app.LocalActivityManager;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -16,18 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     String tag = this.getClass().getSimpleName();
-
-    TabHost tabHost;
-    LocalActivityManager mLocalActivityManager;
 
     int Log_val;
 
@@ -45,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true); //toolbar 사용하기 위함
 
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(""); //app이름 없애기 위함
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view);
+        NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view); //햄버거바 사용위함
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -82,50 +73,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             }
-        });
+        }); //햄버거바 끝
 
         ViewPager pager = (ViewPager) findViewById(R.id.main_vp);
         FragmentManager fm = getSupportFragmentManager();
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
         pager.setAdapter(pageAdapter); //스와이프 부분 끝
 
-        initTabs(savedInstanceState);
-
-    }
-
-    @Override
-    protected void onResume() {
-        mLocalActivityManager.dispatchResume();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        mLocalActivityManager.dispatchPause(isFinishing());
-        super.onPause();
-    }
-
-    private void initTabs(Bundle savedInstanceState) { //Tab사용하기 위함
-        Resources res = getResources();
-        tabHost = (TabHost) findViewById(android.R.id.tabhost);
-        mLocalActivityManager = new LocalActivityManager(this, false);
-        mLocalActivityManager.dispatchCreate(savedInstanceState);
-        tabHost.setup(mLocalActivityManager);
-
-        TabHost.TabSpec spec;
-        spec = tabHost.newTabSpec("Join").setIndicator("파티")
-                .setContent(R.id.main_tab_join);
-        tabHost.addTab(spec);
-
-        spec = tabHost.newTabSpec("Review").setIndicator("후기")
-                .setContent(R.id.main_tab_review);
-        tabHost.addTab(spec);
-
-        spec = tabHost.newTabSpec("Free").setIndicator("자유")
-                .setContent(R.id.main_tab_free);
-        tabHost.addTab(spec);
-
-        tabHost.setCurrentTab(0);
     }
 
     @Override
@@ -136,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         item_mypage = mMenu.findItem(R.id.item_mypage);
 
         if (resultCode == RESULT_OK) {
-            Log_val = data.getIntExtra("LOG", 0);
+            Log_val = data.getIntExtra("LOG", 0); //로그인 버튼 눌렸을 때 return값 받음
             if (Log_val == 1) {
                 item_sign_up.setVisible(false);
                 item_login.setVisible(false);
@@ -147,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { //toolbar구성
         mMenu = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
@@ -155,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
         int id = item.getItemId();
         Intent intent;
 
