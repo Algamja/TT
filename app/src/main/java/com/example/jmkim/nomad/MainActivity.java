@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
     String tag = this.getClass().getSimpleName();
 
-    int Log_val;
+    Menu mMenu,navigation;
+    MenuItem item_sign_up,item_login,item_mypage,nav_item_logout;
 
-    Menu mMenu;
-    MenuItem item_sign_up,item_login,item_log_out,item_mypage;
+    NavigationView navigationView;
 
     private DrawerLayout mDrawerLayout;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -40,31 +40,42 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(""); //app이름 없애기 위함
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
 
-        NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view); //햄버거바 사용위함
+        navigationView = (NavigationView)findViewById(R.id.main_navigation_view); //햄버거바 사용위함
+
+        navigation = navigationView.getMenu();
+        nav_item_logout = navigation.findItem(R.id.nav_sub_item_logout); //item 들을 개별적으로 사용하기 위함
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Intent intent;
+
                 menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
 
                 int id = menuItem.getItemId();
                 switch (id) {
-                    case R.id.navigation_item_attachment:
-                        Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
+                    case R.id.navigation_item_main:
                         break;
 
-                    case R.id.navigation_item_images:
-                        Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
+                    case R.id.navigation_item_mypage:
+                        intent = new Intent(getApplicationContext(), MypageActivity.class);
+                        intent.putExtra("Mypage",1);
+                        startActivity(intent);
+                        finish();
                         break;
 
                     case R.id.navigation_item_location:
                         Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
                         break;
 
-                    case R.id.nav_sub_menu_item01:
-                        Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
+                    case R.id.nav_sub_item_logout:
+                        mMenu.setGroupVisible(R.id.at_login,false);
+                        mMenu.setGroupVisible(R.id.at_logout,true);
+                        nav_item_logout.setVisible(false);
                         break;
 
                     case R.id.nav_sub_menu_item02:
@@ -86,16 +97,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         item_sign_up = mMenu.findItem(R.id.item_sign_up);
         item_login = mMenu.findItem(R.id.item_login);
-        item_log_out = mMenu.findItem(R.id.item_logout);
         item_mypage = mMenu.findItem(R.id.item_mypage);
 
         if (resultCode == RESULT_OK) {
-            Log_val = data.getIntExtra("LOG", 0); //로그인 버튼 눌렸을 때 return값 받음
+            int Log_val = data.getIntExtra("LOG", 0); //로그인 버튼 눌렸을 때 return값 받음
+
             if (Log_val == 1) {
                 item_sign_up.setVisible(false);
                 item_login.setVisible(false);
                 item_mypage.setVisible(true);
-                item_log_out.setVisible(true);
+
+                nav_item_logout.setVisible(true); //햄버거바 로그아웃 구현
             }
         }
     }
@@ -103,8 +115,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //toolbar구성
         mMenu = menu;
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
+        Intent intent = getIntent();
+        int intToolbar = intent.getIntExtra("LOG",0);
+
+        if(intToolbar == -1){
+            mMenu.setGroupVisible(R.id.at_login,false);
+            mMenu.setGroupVisible(R.id.at_logout,true);
+            mMenu.setGroupVisible(R.id.at_mypage,false);
+        }
+        else if(intToolbar == 1){
+            mMenu.setGroupVisible(R.id.at_login,true);
+            mMenu.setGroupVisible(R.id.at_logout,false);
+            mMenu.setGroupVisible(R.id.at_mypage,false);
+
+            nav_item_logout.setVisible(true);
+        }
         return true;
     }
 
@@ -127,11 +155,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.item_mypage:
                 intent = new Intent(getApplicationContext(), MypageActivity.class);
+                intent.putExtra("Mypage",1);
                 startActivity(intent);
-                break;
-            case R.id.item_logout:
-                mMenu.setGroupVisible(R.id.at_login,false);
-                mMenu.setGroupVisible(R.id.at_logout,true);
+                finish();
                 break;
         }
         return true;

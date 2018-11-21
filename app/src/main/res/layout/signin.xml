@@ -13,7 +13,6 @@
 
         //ID
         <TextView
-            android:id="@+id/id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -23,7 +22,7 @@
 
         //ID입력창
         <EditText
-            android:id="@+id/identify"
+            android:id="@+id/signin_et_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -33,7 +32,7 @@
 
         //중복확인 버튼
         <Button
-            android:id="@+id/btn_idcheck"
+            android:id="@+id/signin_btn_idcheck"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -49,7 +48,6 @@
 
         //비밀번호
         <TextView
-            android:id="@+id/pw"
             android:layout_width="148dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -59,7 +57,7 @@
 
         //비밀번호 입력창
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/signin_et_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -77,7 +75,6 @@
 
         //비밀번호 확인
         <TextView
-            android:id="@+id/rightpw"
             android:layout_width="124dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -86,8 +83,9 @@
             android:textSize="25sp" />
 
         //비밀번호확인창
+
         <EditText
-            android:id="@+id/right_password"
+            android:id="@+id/signin_et_right_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -96,6 +94,11 @@
             android:inputType="textPassword" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signin_tv_check_pw"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,7 +106,6 @@
 
         //이름
         <TextView
-            android:id="@+id/name"
             android:layout_width="239dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -113,7 +115,7 @@
 
         //이름 입력 창
         <EditText
-            android:id="@+id/w_name"
+            android:id="@+id/signin_et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -130,7 +132,6 @@
 
         //휴대폰번호
         <TextView
-            android:id="@+id/phone_n"
             android:layout_width="239dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -140,7 +141,7 @@
 
         //폰번호입력 창
         <EditText
-            android:id="@+id/phonenumber"
+            android:id="@+id/signin_et_phonenumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -151,11 +152,13 @@
 
     //다음페이지 가는 버튼
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/signin_btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         android:layout_gravity="center"
-        android:text="다음" />
+        android:text="다음"
+
+        android:visibility="invisible"/>
 
 </LinearLayout>
