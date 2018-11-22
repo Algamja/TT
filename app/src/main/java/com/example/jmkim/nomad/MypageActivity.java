@@ -19,6 +19,7 @@ public class MypageActivity extends AppCompatActivity {
     Intent getintent;
 
     Menu mMenu,navigation;
+    MenuItem nav_item_logout;
 
     NavigationView navigationView;
 
@@ -48,6 +49,8 @@ public class MypageActivity extends AppCompatActivity {
 
         navigation = navigationView.getMenu();
 
+        nav_item_logout = navigation.findItem(R.id.nav_sub_item_logout);
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -60,19 +63,24 @@ public class MypageActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.navigation_item_main:
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent = new Intent(getApplicationContext(),MainActivity.class);
+                        intent.putExtra("LOG",1);
                         startActivity(intent);
+                        finish();
                         break;
 
                     case R.id.navigation_item_mypage:
-                        intent = new Intent(getApplicationContext(), MypageActivity.class);
-                        startActivity(intent);
                         break;
 
                     case R.id.navigation_item_location:
                         break;
 
                     case R.id.nav_sub_item_logout:
+                        intent = new Intent(getApplicationContext(),MainActivity.class);
+                        intent.putExtra("LOG",-1);
+                        startActivity(intent);
+                        finish();
+
                         mMenu.setGroupVisible(R.id.at_login,false);
                         mMenu.setGroupVisible(R.id.at_logout,true);
                         break;
@@ -97,6 +105,8 @@ public class MypageActivity extends AppCompatActivity {
             mMenu.setGroupVisible(R.id.at_login,false);
             mMenu.setGroupVisible(R.id.at_logout,false);
             mMenu.setGroupVisible(R.id.at_mypage,true);
+
+            nav_item_logout.setVisible(true);
         }
         return true;
     }
@@ -113,12 +123,6 @@ public class MypageActivity extends AppCompatActivity {
             case R.id.item_homepage:
                 intent = new Intent(getApplicationContext(),MainActivity.class);
                 intent.putExtra("LOG",1);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.item_logout:
-                intent = new Intent(getApplicationContext(),MainActivity.class);
-                intent.putExtra("LOG",-1);
                 startActivity(intent);
                 finish();
                 break;
