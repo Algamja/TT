@@ -8,6 +8,7 @@
             android:icon="@drawable/ic_attachment"
             android:title="메인페이지" />
         <item
+            android:visible="false"
             android:id="@+id/navigation_item_mypage"
             android:icon="@drawable/ic_image"
             android:title="마이페이지" />

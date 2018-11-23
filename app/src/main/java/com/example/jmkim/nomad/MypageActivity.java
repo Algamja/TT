@@ -19,7 +19,7 @@ public class MypageActivity extends AppCompatActivity {
     Intent getintent;
 
     Menu mMenu,navigation;
-    MenuItem nav_item_logout;
+    MenuItem nav_item_logout,nav_item_mypage;
 
     NavigationView navigationView;
 
@@ -49,6 +49,7 @@ public class MypageActivity extends AppCompatActivity {
 
         navigation = navigationView.getMenu();
 
+        nav_item_mypage = navigation.findItem(R.id.navigation_item_mypage);
         nav_item_logout = navigation.findItem(R.id.nav_sub_item_logout);
 
 
@@ -106,6 +107,7 @@ public class MypageActivity extends AppCompatActivity {
             mMenu.setGroupVisible(R.id.at_logout,false);
             mMenu.setGroupVisible(R.id.at_mypage,true);
 
+            nav_item_mypage.setVisible(true);
             nav_item_logout.setVisible(true);
         }
         return true;

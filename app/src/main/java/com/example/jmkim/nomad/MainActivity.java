@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     String tag = this.getClass().getSimpleName();
 
     Menu mMenu,navigation;
-    MenuItem item_sign_up,item_login,item_mypage,nav_item_logout;
+    MenuItem item_sign_up,item_login,item_mypage;
+    MenuItem nav_item_mypage,nav_item_logout;
 
     NavigationView navigationView;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView)findViewById(R.id.main_navigation_view); //햄버거바 사용위함
 
         navigation = navigationView.getMenu();
+        nav_item_mypage = navigation.findItem(R.id.navigation_item_mypage);
         nav_item_logout = navigation.findItem(R.id.nav_sub_item_logout); //item 들을 개별적으로 사용하기 위함
 
 
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_sub_item_logout:
                         mMenu.setGroupVisible(R.id.at_login,false);
                         mMenu.setGroupVisible(R.id.at_logout,true);
+
+                        nav_item_mypage.setVisible(false);
                         nav_item_logout.setVisible(false);
                         break;
 
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //햄버거바 끝
 
-        ViewPager pager = (ViewPager) findViewById(R.id.main_vp);
+        ViewPager pager = (ViewPager) findViewById(R.id.scroll_vp);
         FragmentManager fm = getSupportFragmentManager();
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
         pager.setAdapter(pageAdapter); //스와이프 부분 끝
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 item_login.setVisible(false);
                 item_mypage.setVisible(true);
 
+                nav_item_mypage.setVisible(true);
                 nav_item_logout.setVisible(true); //햄버거바 로그아웃 구현
             }
         }
@@ -131,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             mMenu.setGroupVisible(R.id.at_logout,false);
             mMenu.setGroupVisible(R.id.at_mypage,false);
 
+            nav_item_mypage.setVisible(true);
             nav_item_logout.setVisible(true);
         }
         return true;
