@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -94,11 +95,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //햄버거바 끝
 
-        ViewPager pager = (ViewPager) findViewById(R.id.scroll_vp);
+        ViewPager main_banner_vp = (ViewPager) findViewById(R.id.scroll_vp);
         FragmentManager fm = getSupportFragmentManager();
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
-        pager.setAdapter(pageAdapter); //스와이프 부분 끝
+        main_banner_vp.setAdapter(pageAdapter); //스와이프 부분 끝
 
+        ViewPager main_board_vp = (ViewPager) findViewById(R.id.scroll_vp_board);
+        FragmentPageAdapter boardAdapter = new FragmentPageAdapter(fm);
+        main_board_vp.setAdapter(boardAdapter);
     }
 
     @Override
