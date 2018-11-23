@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_drawer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -16,15 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="right">
-
-        <android.support.v4.widget.CircleImageView
-            android:id="@+id/img_profile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_account"
-            android:layout_weight="2"
-            android:layout_margin="5dp"
-            android:clickable="true"/>
 
         <Button
             android:id="@+id/mainbtn_logout"
@@ -95,14 +80,4 @@
 
         </ListView>
     </ScrollView>
-
 </LinearLayout>
-    <android.support.design.widget.NavigationView
-        android:id="@+id/main_drawer_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/menu_drawer"/>
-
-</android.support.v4.widget.DrawerLayout>
