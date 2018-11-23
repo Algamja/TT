@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.google.gms:google-services:4.0.1'
 
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 }
 
 
