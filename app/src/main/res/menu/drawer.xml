@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navigation_item_attachment"
-            android:checked="true"
+            android:id="@+id/navigation_item_main"
             android:icon="@drawable/ic_attachment"
-            android:title="@string/nav_item_attachment" />
+            android:title="메인페이지" />
         <item
-            android:id="@+id/navigation_item_images"
+            android:visible="false"
+            android:id="@+id/navigation_item_mypage"
             android:icon="@drawable/ic_image"
-            android:title="@string/nav_item_images" />
+            android:title="마이페이지" />
         <item
             android:id="@+id/navigation_item_location"
             android:icon="@drawable/ic_place"
@@ -20,9 +21,10 @@
     <item android:title="@string/nav_sub_menu">
         <menu>
             <item
-                android:icon="@drawable/ic_emoticon"
-                android:id="@+id/nav_sub_menu_item01"
-                android:title="@string/nav_sub_menu_item01" />
+                android:visible="false"
+                android:icon="@drawable/logout"
+                android:id="@+id/nav_sub_item_logout"
+                android:title="로그아웃" />
             <item
                 android:icon="@drawable/ic_emoticon"
                 android:id="@+id/nav_sub_menu_item02"
