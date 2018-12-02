@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Stack;
 
@@ -18,7 +19,7 @@ public class PartyselectActivity extends Activity{
             R.id.party_btn_11,R.id.party_btn_12,R.id.party_btn_13,R.id.party_btn_14,R.id.party_btn_15,R.id.party_btn_16,R.id.party_btn_17,R.id.party_btn_18,R.id.party_btn_19,R.id.party_btn_20};
     Button btn_next;
 
-    Hashtable checks = new Hashtable(); //선택된 버튼의 번호 저장
+   HashMap checks = new HashMap(); //선택된 버튼의 번호 저장
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,9 +44,9 @@ public class PartyselectActivity extends Activity{
                     click[index]++; //클릭될 때마다 click[i]증가
                     if(click[index]%2==1){
                         btns[index].setBackgroundResource(R.drawable.button); //홀수번 클릭시 버튼에 테두리표시
-                        checks.put(index,index); //홀수번 클릭시 hashtable에 버튼번호 저장
+                        checks.put(String.valueOf(index),String.valueOf(index)); //홀수번 클릭시 hashtable에 버튼번호 저장
                     }else{
-                        checks.remove(index); //짝수번 클릭시 hashtable에서 버튼 제거
+                        checks.remove(String.valueOf(index)); //짝수번 클릭시 hashtable에서 버튼 제거
                         btns[index].setBackgroundColor(000000);
                     }
                 }
@@ -73,6 +74,8 @@ public class PartyselectActivity extends Activity{
                     intent.putExtra("SEX",sex);
                     intent.putExtra("AGE",age);
                     intent.putExtra("IMAGE",img);
+
+                    intent.putExtra("Activities",checks);
                     startActivityForResult(intent, 0);
                 }
                 else{

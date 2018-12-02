@@ -11,15 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
+import static android.view.Gravity.START;
 
 public class MainActivity extends AppCompatActivity {
-
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     String tag = this.getClass().getSimpleName();
 
@@ -100,20 +97,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) { //toolbar구성
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
+        int id = item.getItemId();
 
-        return true;
+        switch (id) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(START);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

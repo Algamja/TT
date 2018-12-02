@@ -16,12 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.net.MalformedURLException;
+import java.util.HashMap;
 
 public class WelcomeActivity extends Activity{
 
@@ -44,9 +43,12 @@ public class WelcomeActivity extends Activity{
         final String age = intent.getStringExtra("AGE");
         final Uri img = Uri.parse(intent.getStringExtra("IMAGE"));
 
+        final HashMap activities = (HashMap)intent.getSerializableExtra("Activities");
+
         mainpage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FirebaseAuth.getInstance()
                         .createUserWithEmailAndPassword(email,password)
                         .addOnCompleteListener(WelcomeActivity.this, new OnCompleteListener<AuthResult>() {
@@ -80,6 +82,13 @@ public class WelcomeActivity extends Activity{
                                                 userModel.userSex = sex;
                                                 userModel.userAge=age;
                                                 userModel.profileImageUrl = imageUrl;
+
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference()
+                                                        .child("UserActivity")
+                                                        .child(uid)
+                                                        .setValue(activities);
 
                                                 FirebaseDatabase
                                                         .getInstance()
