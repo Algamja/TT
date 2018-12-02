@@ -3,152 +3,82 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_vertical">
 
-    <LinearLayout
+    <ImageView
+        android:src="@drawable/baseline_account_circle_black_24dp"
+        android:id="@+id/signin_image_profile"
+        android:layout_margin="30dp"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        />
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        //ID
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="ID"
-            android:textAlignment="center"
-            android:textSize="25sp" />
-
-        //ID입력창
         <EditText
             android:id="@+id/signin_et_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:ems="10"
             android:hint="아이디"
-            android:inputType="textPersonName" />
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
 
-        //중복확인 버튼
-        <Button
-            android:id="@+id/signin_btn_idcheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="중복확인" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        //비밀번호
-        <TextView
-            android:layout_width="148dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Password"
-            android:textAlignment="center"
-            android:textSize="25sp" />
-
-        //비밀번호 입력창
         <EditText
             android:id="@+id/signin_et_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:ems="10"
             android:hint="비밀번호"
             android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        //비밀번호 확인
-        <TextView
-            android:layout_width="124dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Password 확인"
-            android:textAlignment="center"
-            android:textSize="25sp" />
-
-        //비밀번호확인창
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/signin_et_right_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:ems="10"
             android:hint="비밀번호 확인"
             android:inputType="textPassword" />
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signin_tv_check_pw"/>
+        android:id="@+id/signin_tv_check" />
 
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
 
-        //이름
-        <TextView
-            android:layout_width="239dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="이름"
-            android:textAlignment="center"
-            android:textSize="25sp" />
-
-        //이름 입력 창
         <EditText
             android:id="@+id/signin_et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:ems="10"
             android:hint="이름"
             android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
 
-        //휴대폰번호
-        <TextView
-            android:layout_width="239dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="휴대폰 번호"
-            android:textAlignment="center"
-            android:textSize="25sp" />
-
-        //폰번호입력 창
         <EditText
             android:id="@+id/signin_et_phonenumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:ems="10"
+            android:hint="핸드폰 번호"
             android:inputType="phone" />
-
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
 
     //다음페이지 가는 버튼
     <Button
@@ -157,8 +87,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         android:layout_gravity="center"
-        android:text="다음"
-
-        android:visibility="invisible"/>
+        android:text="다음"/>
 
 </LinearLayout>

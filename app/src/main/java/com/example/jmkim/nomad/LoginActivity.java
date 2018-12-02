@@ -2,49 +2,50 @@ package com.example.jmkim.nomad;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+
 public class LoginActivity extends Activity{
 
-    Button btn_login, btn_sign, btn_find;
+    private Button login;
+    private Button signup;
+
+    private FirebaseRemoteConfig firebaseRemoteConfig;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        String splash_background = firebaseRemoteConfig.getString("splash_background");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor(splash_background));
+        }
 
-        btn_login=(Button)findViewById(R.id.login_btn_login);
-        btn_find=(Button)findViewById(R.id.login_btn_find);
-        btn_sign=(Button)findViewById(R.id.login_btn_sign);
+        login = (Button)findViewById(R.id.loginActivity_btn_login);
+        signup = (Button)findViewById(R.id.loginActivity_btn_signup);
+        login.setBackgroundColor(Color.parseColor(splash_background));
+        signup.setBackgroundColor(Color.parseColor(splash_background));
 
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                int LogIn_Val=1;
-                intent.putExtra("LOG",LogIn_Val);
-                setResult(RESULT_OK,intent);
-                finish(); //로그인 버튼 누르면 바로 메인으로 감
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                finish();
             }
         });
 
-        btn_find.setOnClickListener(new View.OnClickListener() {
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),FindIdPwActivity.class);
-                startActivity(intent); //아이디/비밀번호찾기 페이지
-            }
-        });
-
-        btn_sign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),SigninActivity.class);
-                startActivity(intent); //회원가입 페이지
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,SigninActivity.class));
+                finish();
             }
         });
     }

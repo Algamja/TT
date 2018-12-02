@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -14,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -25,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     String tag = this.getClass().getSimpleName();
 
-    Menu mMenu,navigation;
-    MenuItem item_sign_up,item_login,item_mypage;
+    Menu navigation;
     MenuItem nav_item_mypage,nav_item_logout;
 
     NavigationView navigationView;
@@ -80,9 +77,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_sub_item_logout:
-                        mMenu.setGroupVisible(R.id.at_login,false);
-                        mMenu.setGroupVisible(R.id.at_logout,true);
-
                         nav_item_mypage.setVisible(false);
                         nav_item_logout.setVisible(false);
                         break;
@@ -107,73 +101,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        item_sign_up = mMenu.findItem(R.id.item_sign_up);
-        item_login = mMenu.findItem(R.id.item_login);
-        item_mypage = mMenu.findItem(R.id.item_mypage);
 
-        if (resultCode == RESULT_OK) {
-            int Log_val = data.getIntExtra("LOG", 0); //로그인 버튼 눌렸을 때 return값 받음
-
-            if (Log_val == 1) {
-                item_sign_up.setVisible(false);
-                item_login.setVisible(false);
-                item_mypage.setVisible(true);
-
-                nav_item_mypage.setVisible(true);
-                nav_item_logout.setVisible(true); //햄버거바 로그아웃 구현
-            }
-        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //toolbar구성
-        mMenu = menu;
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
-        Intent intent = getIntent();
-        int intToolbar = intent.getIntExtra("LOG",0);
-
-        if(intToolbar == -1){
-            mMenu.setGroupVisible(R.id.at_login,false);
-            mMenu.setGroupVisible(R.id.at_logout,true);
-            mMenu.setGroupVisible(R.id.at_mypage,false);
-        }
-        else if(intToolbar == 1){
-            mMenu.setGroupVisible(R.id.at_login,true);
-            mMenu.setGroupVisible(R.id.at_logout,false);
-            mMenu.setGroupVisible(R.id.at_mypage,false);
-
-            nav_item_mypage.setVisible(true);
-            nav_item_logout.setVisible(true);
-        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
-        int id = item.getItemId();
-        Intent intent;
 
-        switch (id) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.item_sign_up:
-                intent = new Intent(getApplicationContext(), SigninActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.item_login:
-                intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, 0);
-                break;
-            case R.id.item_mypage:
-                intent = new Intent(getApplicationContext(), MypageActivity.class);
-                intent.putExtra("Mypage",1);
-                startActivity(intent);
-                finish();
-                break;
-        }
         return true;
     }
 }

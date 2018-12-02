@@ -41,6 +41,7 @@ public class Gen_ageActivity extends Activity{
                 String pw = getintent.getStringExtra("PW");
                 String name = getintent.getStringExtra("NAME");
                 String phone = getintent.getStringExtra("PHONE");
+                String img = getintent.getStringExtra("IMAGE");
 
                 Intent intent = new Intent(getApplicationContext(), PartyselectActivity.class); //파티원 고르는 페이지로 이동
                 intent.putExtra("ID",id);
@@ -49,6 +50,7 @@ public class Gen_ageActivity extends Activity{
                 intent.putExtra("PHONE",phone);
                 intent.putExtra("SEX",sex);
                 intent.putExtra("AGE",age);
+                intent.putExtra("IMAGE",img);
                 startActivityForResult(intent,0);
             }
         });

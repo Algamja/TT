@@ -62,6 +62,7 @@ public class PartyselectActivity extends Activity{
                 String phone = getintent.getStringExtra("PHONE");
                 String sex = getintent.getStringExtra("SEX");
                 String age = getintent.getStringExtra("AGE");
+                String img = getintent.getStringExtra("IMAGE");
 
                 if(checks.size()>=10) { //최소 10개버튼 이상 선택시
                     Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class); //가입완료 페이지로 이동
@@ -71,6 +72,7 @@ public class PartyselectActivity extends Activity{
                     intent.putExtra("PHONE",phone);
                     intent.putExtra("SEX",sex);
                     intent.putExtra("AGE",age);
+                    intent.putExtra("IMAGE",img);
                     startActivityForResult(intent, 0);
                 }
                 else{

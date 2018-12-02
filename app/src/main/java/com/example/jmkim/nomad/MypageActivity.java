@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +17,7 @@ public class MypageActivity extends AppCompatActivity {
 
     Intent getintent;
 
-    Menu mMenu,navigation;
+    Menu navigation;
     MenuItem nav_item_logout,nav_item_mypage;
 
     NavigationView navigationView;
@@ -52,7 +51,6 @@ public class MypageActivity extends AppCompatActivity {
         nav_item_mypage = navigation.findItem(R.id.navigation_item_mypage);
         nav_item_logout = navigation.findItem(R.id.nav_sub_item_logout);
 
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -82,8 +80,6 @@ public class MypageActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
 
-                        mMenu.setGroupVisible(R.id.at_login,false);
-                        mMenu.setGroupVisible(R.id.at_logout,true);
                         break;
 
                     case R.id.nav_sub_menu_item02:
@@ -92,45 +88,19 @@ public class MypageActivity extends AppCompatActivity {
                 return true;
             }
         }); //햄버거바 끝
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //toolbar구성
-        mMenu = menu;
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
 
-        if(intToolbar == 1){
-            mMenu.setGroupVisible(R.id.at_login,false);
-            mMenu.setGroupVisible(R.id.at_logout,false);
-            mMenu.setGroupVisible(R.id.at_mypage,true);
-
-            nav_item_mypage.setVisible(true);
-            nav_item_logout.setVisible(true);
-        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
-        int id = item.getItemId();
-        Intent intent;
 
-        switch (id) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.item_homepage:
-                intent = new Intent(getApplicationContext(),MainActivity.class);
-                intent.putExtra("LOG",1);
-                startActivity(intent);
-                finish();
-                break;
-            case R.id.item_infofix:
-                break;
-        }
         return true;
     }
 }
