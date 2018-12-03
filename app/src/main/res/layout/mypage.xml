@@ -18,51 +18,106 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
-        <TextView
-            android:id="@+id/mypage_tv_scrap_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00ff0000"
-            android:text="스크랩"
-            android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
 
-        <ScrollView
-            android:id="@+id/mypage_sv_scrap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:layout_weight="1">
+            <com.github.siyamed.shapeimageview.CircularImageView
+                android:layout_margin="10dp"
+                android:id="@+id/mypage_iv_profile"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/profile"/>
 
-            <ListView
-                android:id="@+id/mypage_listview1"
+            <TextView
+                android:id="@+id/mypage_tv_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:listSelector="@android:color/transparent">
-            </ListView>
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:text="최하영"
+                android:gravity=""/>
 
-        <TextView
-            android:id="@+id/mypage_tv_board_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00ff0000"
-            android:text="게시판"
-            android:textSize="18sp" />
+        </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/mypage_sv_board"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
-            <ListView
-                android:id="@+id/mapage_listview2"
+            <Button
+                android:id="@+id/mypage_btn_mygeul"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:listSelector="@android:color/transparent">
-            </ListView>
-        </ScrollView>
+                android:layout_weight="1"
+                android:text="내가 쓴 글" />
+
+            <Button
+                android:id="@+id/mypage_btn_myplan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="나의 여행 계획" />
+
+            <Button
+                android:id="@+id/mypage_btn_scrap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="스크랩" />
+
+            <Button
+                android:id="@+id/mypage_btn_myactivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="나의 활동" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mypage_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/scroll_vp"
+            android:orientation="vertical"
+            android:background="#9ccfe1">
+
+            <LinearLayout
+                android:id="@+id/mypage_ll_mygeul"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mypage_ll_myplan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mypage_ll_scrap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mypage_ll_myactivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
