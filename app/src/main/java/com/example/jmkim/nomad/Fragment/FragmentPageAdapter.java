@@ -1,5 +1,5 @@
 //메인페이지 중간 스와이프(광고) 넣기 위한 Adapter
-package com.example.jmkim.nomad;
+package com.example.jmkim.nomad.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

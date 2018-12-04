@@ -9,6 +9,6 @@ public class FindIdPwActivity extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.find_id_pw);
+        setContentView(R.layout.activity_find_id_pw);
     }
 }

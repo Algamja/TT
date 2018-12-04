@@ -18,7 +18,7 @@ public class Gen_ageActivity extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gen_age);
+        setContentView(R.layout.activity_gen_age);
 
         male = (RadioButton)findViewById(R.id.male);
         female = (RadioButton)findViewById(R.id.female);

@@ -1,4 +1,4 @@
-package com.example.jmkim.nomad;
+package com.example.jmkim.nomad.Fragment;
 
 
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.example.jmkim.nomad.R;
 
 public class SecondFragment extends Fragment {
     @Nullable

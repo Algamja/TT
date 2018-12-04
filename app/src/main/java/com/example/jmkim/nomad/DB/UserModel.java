@@ -1,6 +1,6 @@
-package com.example.jmkim.nomad;
+package com.example.jmkim.nomad.DB;
 
-class UserModel {
+public class UserModel {
     public String userEmail;
     public String userName;
     public String userPhone;

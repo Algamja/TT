@@ -35,7 +35,7 @@ public class LoginActivity extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String loginEmail = auto.getString("inputId",null);

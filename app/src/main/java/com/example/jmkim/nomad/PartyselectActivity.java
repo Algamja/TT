@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Stack;
 
 public class PartyselectActivity extends Activity{
     Button[] btns = new Button[20];
@@ -24,7 +22,7 @@ public class PartyselectActivity extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.party_select);
+        setContentView(R.layout.activity_party_select);
 
         for(int i=0;i<20;i++){
             btns[i]=(Button)findViewById(numBtnID[i]);
