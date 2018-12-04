@@ -3,85 +3,147 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="146dp" />
+    android:orientation="vertical"
+    android:gravity="center_vertical">
 
     <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-        <Space
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
         //성별
         <TextView
-            android:id="@+id/gender"
-            android:layout_width="100dp"
+            android:id="@+id/genAgeActivity_tv_userSex"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:text="성별"
             android:textSize="30sp" />
 
         <RadioGroup
-            android:id="@+id/rgroup1"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/getnAgeActivity_rg_userSex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/male"
+                android:id="@+id/genAgeActivity_rb_userMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="남자"/>
 
             <RadioButton
-                android:id="@+id/female"
+                android:id="@+id/genAgeActivity_rb_userFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="여자"/>
 
         </RadioGroup>
-
-
-
-</LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <Space
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         //나이
         <TextView
-            android:id="@+id/age"
-            android:layout_width="100dp"
+            android:id="@+id/genAgeActivity_tv_userAge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="나이"
             android:textSize="30sp" />
 
         <Spinner
-            android:id="@+id/spinnerage"
-            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/genAgeActivity_spinnerAge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/age"
-            android:layout_weight="1"/>
+            android:entries="@array/age" />
 
     </LinearLayout>
 
-    <Space
+    <CheckBox
+        android:id="@+id/genAgeActivity_cb_party"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="파티원 모집에 동의합니다."/>
+
+    <LinearLayout
+        android:id="@+id/genAgeActivity_partySex"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="51dp" />
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="파티원 성별"
+            android:textSize="30sp" />
+
+        <RadioGroup
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/genAgeActivity_rb_sameSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="동성만"/>
+
+            <RadioButton
+                android:id="@+id/genAgeActivity_rb_donCareSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="무관"/>
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/genAgeActivity_partyAge"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="파티원 나이"
+            android:textSize="30sp" />
+
+        <RadioGroup
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/genAgeActivity_rb_donCareAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="무관"/>
+
+            <RadioButton
+                android:id="@+id/genAgeActivity_rb_3Age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3살차이"/>
+
+            <RadioButton
+                android:id="@+id/genAgeActivity_rb_5Age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5살차이"/>
+
+        </RadioGroup>
+    </LinearLayout>
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/btn_nnext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -6,23 +6,67 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 public class Gen_ageActivity extends Activity{
 
-    RadioButton male,female;
-    Spinner spinner;
-    Button btn_nnext;
+    private RadioButton userMale;
+    private RadioButton userFemale;
+
+    private Spinner spinner;
+
+    private CheckBox partyCheck;
+
+    private LinearLayout partySex;
+    private RadioButton partySameSex;
+    private RadioButton partyDonCareSex;
+
+    private LinearLayout partyAge;
+    private RadioButton partyDoncareAge;
+    private RadioButton party3Age;
+    private RadioButton party5Age;
+
+    private Button btn_nnext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gen_age);
 
-        male = (RadioButton)findViewById(R.id.male);
-        female = (RadioButton)findViewById(R.id.female);
-        spinner = (Spinner)findViewById(R.id.spinnerage);
+        userMale = (RadioButton)findViewById(R.id.genAgeActivity_rb_userMale);
+        userFemale = (RadioButton)findViewById(R.id.genAgeActivity_rb_userFemale);
+
+        spinner = (Spinner)findViewById(R.id.genAgeActivity_spinnerAge);
+
+        partyCheck = (CheckBox) findViewById(R.id.genAgeActivity_cb_party);
+
+        partySex = (LinearLayout) findViewById(R.id.genAgeActivity_partySex);
+        partySameSex = (RadioButton)findViewById(R.id.genAgeActivity_rb_sameSex);
+        partyDonCareSex = (RadioButton)findViewById(R.id.genAgeActivity_rb_donCareSex);
+
+        partyAge = (LinearLayout) findViewById(R.id.genAgeActivity_partyAge);
+        partyDoncareAge = (RadioButton)findViewById(R.id.genAgeActivity_rb_donCareAge);
+        party3Age = (RadioButton)findViewById(R.id.genAgeActivity_rb_3Age);
+        party5Age = (RadioButton)findViewById(R.id.genAgeActivity_rb_5Age);
+
+        partyCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(partyCheck.isChecked()){
+                    partySex.setVisibility(View.VISIBLE);
+                    partyAge.setVisibility(View.VISIBLE);
+                }else{
+                    partySex.setVisibility(View.GONE);
+                    partyAge.setVisibility(View.GONE);
+                }
+            }
+        });
+
         btn_nnext = (Button)findViewById(R.id.btn_nnext);
 
         btn_nnext.setOnClickListener(new View.OnClickListener() {
@@ -30,11 +74,12 @@ public class Gen_ageActivity extends Activity{
             public void onClick(View v) {
                 String age = spinner.getSelectedItem().toString();
                 String sex;
-                if(male.isChecked()){
+                if(userMale.isChecked()){
                     sex = "남성";
                 }else{
                     sex = "여성";
                 }
+
 
                 Intent getintent = getIntent();
                 String id = getintent.getStringExtra("ID");
