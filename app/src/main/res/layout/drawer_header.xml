@@ -9,15 +9,33 @@
 
     <ImageView
         android:id="@+id/drawerHeader_imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
 
     <TextView
         android:layout_marginTop="10dp"
-        android:id="@+id/drawerHeader_textView"
+        android:id="@+id/drawerHeader_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textSize="13dp"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/drawerHeader_tv_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="13dp"
+        android:text="test@test.com"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/drawerHeader_tv_stateMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="13dp"
+        android:text="집에 가고 싶다."/>
 
 </LinearLayout>

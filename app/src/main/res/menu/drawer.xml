@@ -8,13 +8,13 @@
             android:icon="@drawable/ic_attachment"
             android:title="메인페이지" />
         <item
-            android:id="@+id/navigation_item_mypage"
+            android:id="@+id/navigation_item_myPage"
             android:icon="@drawable/ic_image"
             android:title="마이페이지" />
         <item
-            android:id="@+id/navigation_item_location"
+            android:id="@+id/navigation_item_infoEdit"
             android:icon="@drawable/ic_place"
-            android:title="@string/nav_item_location" />
+            android:title="정보수정" />
     </group>
 
     <item android:title="@string/nav_sub_menu">

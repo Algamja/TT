@@ -83,6 +83,7 @@ public class WelcomeActivity extends Activity{
                                                 userModel.userSex = sex;
                                                 userModel.userAge=age;
                                                 userModel.profileImageUrl = imageUrl;
+                                                userModel.stateMessage = "상태메시지를 입력해주세요";
 
                                                 FirebaseDatabase
                                                         .getInstance()
