@@ -96,6 +96,7 @@
 
     //다음페이지 가는 버튼
     <Button
+        android:visibility="invisible"
         android:id="@+id/signin_btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

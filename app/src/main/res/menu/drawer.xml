@@ -8,7 +8,6 @@
             android:icon="@drawable/ic_attachment"
             android:title="메인페이지" />
         <item
-            android:visible="false"
             android:id="@+id/navigation_item_mypage"
             android:icon="@drawable/ic_image"
             android:title="마이페이지" />
@@ -21,7 +20,6 @@
     <item android:title="@string/nav_sub_menu">
         <menu>
             <item
-                android:visible="false"
                 android:icon="@drawable/logout"
                 android:id="@+id/nav_sub_item_logout"
                 android:title="로그아웃" />

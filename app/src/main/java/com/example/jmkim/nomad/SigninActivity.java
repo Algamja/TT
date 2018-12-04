@@ -1,7 +1,9 @@
 package com.example.jmkim.nomad;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,25 +57,25 @@ public class SigninActivity extends Activity{
         phone = (EditText)findViewById(R.id.signin_et_phonenumber);
         btn_next=(Button)findViewById(R.id.signin_btn_next);
 
-        profile.setOnClickListener(new View.OnClickListener() {
+        profile.setOnClickListener(new View.OnClickListener() { //가운데 프로필 사진 클릭 이벤트 시작
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 startActivityForResult(intent,PICK_FROM_ALBUM);
             }
-        });
+        }); //프로필 이벤트 끝
 
-        btn_check.setOnClickListener(new View.OnClickListener() {
+        btn_check.setOnClickListener(new View.OnClickListener() { //중복확인 클릭 이벤트 시작
             @Override
             public void onClick(View v) {
                 final List<UserModel> userModels;
-                userModels = new ArrayList<>();
+                userModels = new ArrayList<>(); //UserModel형의 List만듦
                 FirebaseDatabase
                         .getInstance()
                         .getReference()
                         .child("UserBasic")
-                        .addValueEventListener(new ValueEventListener() {
+                        .addValueEventListener(new ValueEventListener() { //UserBasic하위의 모든 데이터를 List에 저장하기 위함
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for(DataSnapshot snapshot :dataSnapshot.getChildren()){
@@ -82,10 +84,10 @@ public class SigninActivity extends Activity{
 
                                 for(int i=0;i<userModels.size();i++){
                                     if(userModels.get(i).userEmail.equals(id.getText().toString())){
-                                        checking = 1;
+                                        checking = -1;
                                         break;
                                     }else{
-                                        checking=-1;
+                                        checking = 1;
                                     }
                                 }
                             }
@@ -95,15 +97,14 @@ public class SigninActivity extends Activity{
 
                             }
                         });
-                if(checking == 1){
+                if(checking == -1){
                     Toast.makeText(SigninActivity.this, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
-                    checking = 0;
-                }else if(checking == -1){
+                }else if(checking == 1){
                     Toast.makeText(SigninActivity.this, "회원가입이 가능합니다.", Toast.LENGTH_SHORT).show();
-                    checking = 0;
+                    btn_next.setVisibility(View.VISIBLE);
                 }
             }
-        });
+        }); //중복확인 이벤트 끝
 
         rigth_pw.addTextChangedListener(new TextWatcher() { //비밀번호 확인 시작
             @Override
@@ -130,13 +131,25 @@ public class SigninActivity extends Activity{
         btn_next.setOnClickListener(new View.OnClickListener() { //다음버튼 시작
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Gen_ageActivity.class);
-                intent.putExtra("ID",id.getText().toString());
-                intent.putExtra("PW",pw.getText().toString());
-                intent.putExtra("NAME",name.getText().toString());
-                intent.putExtra("PHONE",phone.getText().toString());
-                intent.putExtra("IMAGE",imageUri.toString());
-                startActivityForResult(intent,0);
+                String Sid = id.getText().toString();
+                String Spw = pw.getText().toString();
+                String Sname = name.getText().toString();
+                String Sphone = phone.getText().toString();
+
+                if(imageUri == null){
+                   imageUri = Uri.parse("android.resource://com.example.jmkim.nomad/drawable/profile");
+                }
+                if(Sid == null || Spw == null || Sname == null || Sphone == null){
+                    Toast.makeText(getApplicationContext(), "모든 항목을 입력해주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), Gen_ageActivity.class);
+                    intent.putExtra("ID", Sid);
+                    intent.putExtra("PW", Spw);
+                    intent.putExtra("NAME", Sname);
+                    intent.putExtra("PHONE", Sphone);
+                    intent.putExtra("IMAGE", imageUri.toString());
+                    startActivityForResult(intent, 0);
+                }
             }
         }); //다음버튼 누르면 성별,나이 입력 페이지로 이동
     }

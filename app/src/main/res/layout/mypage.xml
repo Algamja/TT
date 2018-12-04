@@ -23,7 +23,7 @@
             android:layout_height="100dp"
             android:orientation="horizontal">
 
-            <com.github.siyamed.shapeimageview.CircularImageView
+            <ImageView
                 android:layout_margin="10dp"
                 android:id="@+id/mypage_iv_profile"
                 android:layout_width="70dp"
