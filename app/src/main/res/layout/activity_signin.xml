@@ -68,7 +68,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signin_tv_check" />
+        android:id="@+id/signin_tv_check"
+        android:textSize="13dp"
+        android:textColor="@android:color/black"/>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -103,5 +105,12 @@
         android:layout_marginTop="45dp"
         android:layout_gravity="center"
         android:text="다음"/>
+
+    <Button
+        android:id="@+id/signin_btn_back"
+        android:layout_gravity="left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="뒤로가기" />
 
 </LinearLayout>

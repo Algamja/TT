@@ -27,10 +27,13 @@ public class LoginActivity extends Activity{
 
     private Button login;
     private Button signup;
+    private Button findIdPw;
 
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+
+    private Close close;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,12 +58,19 @@ public class LoginActivity extends Activity{
 
         login = (Button)findViewById(R.id.loginActivity_btn_login);
         signup = (Button)findViewById(R.id.loginActivity_btn_signup);
+        findIdPw = (Button)findViewById(R.id.loginActivity_btn_findIdPw);
+
         login.setBackgroundColor(Color.parseColor(splash_background));
         signup.setBackgroundColor(Color.parseColor(splash_background));
+        findIdPw.setBackgroundColor(Color.parseColor(splash_background));
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(email.getText().toString().equals("") || password.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                loginEvent();
             }
         });
@@ -69,6 +79,15 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this,SigninActivity.class));
+                finish();
+            }
+        });
+
+        findIdPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,FindIdPwActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -86,6 +105,8 @@ public class LoginActivity extends Activity{
                 }
             }
         };
+
+        close = new Close(this);
     }
 
     private void loginEvent() {
@@ -93,9 +114,6 @@ public class LoginActivity extends Activity{
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(email.getText().toString() == null || password.getText().toString() == null){
-                            Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호를 입력해주세요", Toast.LENGTH_SHORT).show();
-                        }
                         if(!task.isSuccessful()){
                             Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                         }
@@ -113,5 +131,10 @@ public class LoginActivity extends Activity{
     protected void onStop() {
         super.onStop();
         firebaseAuth.removeAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        close.onBackPressed();
     }
 }

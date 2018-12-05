@@ -8,4 +8,5 @@ public class UserModel {
     public String userAge;
     public String profileImageUrl;
     public String stateMessage;
+    public String party;
 }

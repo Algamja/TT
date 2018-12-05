@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class Gen_ageActivity extends Activity{
 
@@ -32,6 +33,11 @@ public class Gen_ageActivity extends Activity{
     private RadioButton party5Age;
 
     private Button btn_nnext;
+
+    String userSex;
+    String SpartySex;
+    String SpartyAge;
+    String userAge;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +60,7 @@ public class Gen_ageActivity extends Activity{
         party3Age = (RadioButton)findViewById(R.id.genAgeActivity_rb_3Age);
         party5Age = (RadioButton)findViewById(R.id.genAgeActivity_rb_5Age);
 
-        partyCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        partyCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { //파티원 동의하면 동작
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(partyCheck.isChecked()){
@@ -65,21 +71,54 @@ public class Gen_ageActivity extends Activity{
                     partyAge.setVisibility(View.GONE);
                 }
             }
-        });
+        }); //파티원 동의 동작 끝
+
+
+
 
         btn_nnext = (Button)findViewById(R.id.btn_nnext);
 
-        btn_nnext.setOnClickListener(new View.OnClickListener() {
+        btn_nnext.setOnClickListener(new View.OnClickListener() { //다음 버튼 눌렸을 때 동작 시작
             @Override
             public void onClick(View v) {
-                String age = spinner.getSelectedItem().toString();
-                String sex;
                 if(userMale.isChecked()){
-                    sex = "남성";
+                    userSex = "남성";
+                }else if(userFemale.isChecked()){
+                    userSex = "여성";
                 }else{
-                    sex = "여성";
+                    Toast.makeText(getApplicationContext(), "성별을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
+                userAge = spinner.getSelectedItem().toString();
+
+                if(partySameSex.isChecked()){
+                    SpartySex = "동성만";
+                }else if(partyDonCareSex.isChecked()){
+                    SpartySex = "무관";
+                }else{
+                    if(partyCheck.isChecked()){
+                        Toast.makeText(getApplicationContext(), "파티원 성별을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        SpartySex="";
+                    }
+                }
+
+                if(partyDoncareAge.isChecked()){
+                    SpartyAge = "무관";
+                }else if(party3Age.isChecked()){
+                    SpartyAge = "3살차이";
+                }else if(party5Age.isChecked()){
+                    SpartyAge = "5살차이";
+                }else{
+                    if(partyCheck.isChecked()){
+                        Toast.makeText(getApplicationContext(), "파티원 나이를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        SpartyAge="";
+                    }
+                }
 
                 Intent getintent = getIntent();
                 String id = getintent.getStringExtra("ID");
@@ -93,12 +132,21 @@ public class Gen_ageActivity extends Activity{
                 intent.putExtra("PW",pw);
                 intent.putExtra("NAME",name);
                 intent.putExtra("PHONE",phone);
-                intent.putExtra("SEX",sex);
-                intent.putExtra("AGE",age);
+                intent.putExtra("SEX",userSex);
+                intent.putExtra("AGE",userAge);
                 intent.putExtra("IMAGE",img);
+                if(partyCheck.isChecked()){
+                    intent.putExtra("PARTY","파티원 동의");
+                }else{
+                    intent.putExtra("PARTY","파티원 미동의");
+                }
+
+                intent.putExtra("PARTY_SEX",SpartySex);
+                intent.putExtra("PARTY_AGE",SpartyAge);
+
                 startActivityForResult(intent,0);
             }
-        });
+        }); //다음 버튼 동작 끝
     }
 
     @Override

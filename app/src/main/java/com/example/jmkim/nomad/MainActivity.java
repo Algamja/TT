@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private Menu navigation;
     private MenuItem nav_item_mypage;
     private MenuItem nav_item_logout;
+    private MenuItem nav_item_infoEdit;
 
     private NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     String[] UserImageArray = new String[] {"기본 이미지로 설정", "앨범에서 사진 선택"};
     private Uri imageUri;
     private RequestManager mGlide;
+
+    private Close close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         Nav_UserProfile = (ImageView) header.findViewById(R.id.drawerHeader_imageView);
         Nav_UserName = (TextView) header.findViewById(R.id.drawerHeader_tv_name);
         Nav_UserEmail = (TextView) header.findViewById(R.id.drawerHeader_tv_email);
-        Nav_UserStateMsg = (TextView) header.findViewById(R.id.drawerHeader_tv_stateMsg);
+        Nav_UserStateMsg = (TextView) header.findViewById(R.id.drawerHeader_tv_stateMsg); //햄버거바 상단 사용자 정보
 
         mGlide = Glide.with(this);
 
@@ -159,10 +162,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        navigation = navigationView.getMenu();
-        nav_item_mypage = navigation.findItem(R.id.navigation_item_myPage);
-        nav_item_logout = navigation.findItem(R.id.nav_sub_item_logout); //item 들을 개별적으로 사용하기 위함
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() { //햄버거 바 시작
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -178,13 +177,14 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.navigation_item_myPage:
                         intent = new Intent(getApplicationContext(), MypageActivity.class);
-                        intent.putExtra("Mypage",1);
                         startActivity(intent);
                         finish();
                         break;
 
                     case R.id.navigation_item_infoEdit:
-                        Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
+                        intent = new Intent(getApplicationContext(),UserInfoEditActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
 
                     case R.id.nav_sub_item_logout:
@@ -201,6 +201,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //햄버거바 끝
 
+        Nav_UserStateMsg.setOnClickListener(new View.OnClickListener() { //햄버거바 내의 상태메시지 클릭 이벤트
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UserInfoEditActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }); //햄버거바 상태메시지 클릭 종료
+
         ViewPager main_banner_vp = (ViewPager) findViewById(R.id.scroll_vp);
         FragmentManager fm = getSupportFragmentManager();
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
@@ -209,6 +218,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPager main_board_vp = (ViewPager) findViewById(R.id.scroll_vp_board);
         FragmentPageAdapter boardAdapter = new FragmentPageAdapter(fm);
         main_board_vp.setAdapter(boardAdapter);
+
+        close = new Close(this);
     }
 
     @Override
@@ -260,5 +271,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        close.onBackPressed();
     }
 }

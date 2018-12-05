@@ -29,10 +29,17 @@ public class SigninActivity extends Activity{
 
     private static final int PICK_FROM_ALBUM = 10;
 
-    TextView check_pw;
-    EditText id, pw, rigth_pw, name, phone;
-    Button btn_next,btn_check;
-    ImageView profile;
+    private ImageView profile;
+    private EditText email;
+    private Button btn_check;
+    private EditText pw;
+    private EditText rigth_pw;
+    private TextView check_pw;
+    private EditText name;
+    private EditText phone;
+    private Button btn_next;
+    private Button btn_back;
+
     Uri imageUri;
 
     int checking;
@@ -43,7 +50,7 @@ public class SigninActivity extends Activity{
         setContentView(R.layout.activity_signin);
 
         profile = (ImageView)findViewById(R.id.signin_image_profile);
-        id = (EditText)findViewById(R.id.signin_et_id);
+        email = (EditText)findViewById(R.id.signin_et_id);
         btn_check = (Button)findViewById(R.id.signin_btn_check);
         pw = (EditText)findViewById(R.id.signin_et_pw);
         rigth_pw = (EditText)findViewById(R.id.signin_et_right_pw);
@@ -51,6 +58,7 @@ public class SigninActivity extends Activity{
         name = (EditText)findViewById(R.id.signin_et_name);
         phone = (EditText)findViewById(R.id.signin_et_phonenumber);
         btn_next=(Button)findViewById(R.id.signin_btn_next);
+        btn_back = (Button)findViewById(R.id.signin_btn_back);
 
         profile.setOnClickListener(new View.OnClickListener() { //가운데 프로필 사진 클릭 이벤트 시작
             @Override
@@ -78,7 +86,7 @@ public class SigninActivity extends Activity{
                                 }
 
                                 for(int i=0;i<userModels.size();i++){
-                                    if(userModels.get(i).userEmail.equals(id.getText().toString())){
+                                    if(userModels.get(i).userEmail.equals(email.getText().toString())){
                                         checking = -1;
                                         break;
                                     }else{
@@ -126,10 +134,15 @@ public class SigninActivity extends Activity{
         btn_next.setOnClickListener(new View.OnClickListener() { //다음버튼 시작
             @Override
             public void onClick(View v) {
-                String Sid = id.getText().toString();
+                String Sid = email.getText().toString();
                 String Spw = pw.getText().toString();
                 String Sname = name.getText().toString();
                 String Sphone = phone.getText().toString();
+
+                if(!(pw.getText().toString().equals(rigth_pw.getText().toString()))){
+                    Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(imageUri == null){
                    imageUri = Uri.parse("android.resource://com.example.jmkim.nomad/drawable/profile");
@@ -147,6 +160,14 @@ public class SigninActivity extends Activity{
                 }
             }
         }); //다음버튼 누르면 성별,나이 입력 페이지로 이동
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SigninActivity.this,LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override

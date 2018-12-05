@@ -56,8 +56,6 @@ public class MypageActivity extends AppCompatActivity {
     private TextView Nav_UserEmail;
     private TextView Nav_UserStateMsg;
 
-    int intToolbar;
-
     String uid;
     private int PICK_FROM_ALBUM = 10;
 
@@ -71,13 +69,14 @@ public class MypageActivity extends AppCompatActivity {
 
     private RequestManager mGlide;
 
+    private Close close;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
-        Intent getintent = getIntent();
-        intToolbar = getintent.getIntExtra("Mypage",0);
+        final Intent getintent = getIntent();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.mypage_toolbar);
         setSupportActionBar(toolbar);
@@ -85,7 +84,7 @@ public class MypageActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true); //toolbar 사용하기 위함
 
-        getSupportActionBar().setTitle(""); //app이름 없애기 위함
+        getSupportActionBar().setTitle("마이 페이지"); //app이름
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.mypage_drawer_layout);
 
@@ -208,11 +207,6 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        navigation = navigationView.getMenu();
-
-        nav_item_mypage = navigation.findItem(R.id.navigation_item_myPage);
-        nav_item_logout = navigation.findItem(R.id.nav_sub_item_logout);
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -233,6 +227,9 @@ public class MypageActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_item_infoEdit:
+                        intent = new Intent(getApplicationContext(),UserInfoEditActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
 
                     case R.id.nav_sub_item_logout:
@@ -248,6 +245,26 @@ public class MypageActivity extends AppCompatActivity {
                 return true;
             }
         }); //햄버거바 끝
+
+        Nav_UserStateMsg.setOnClickListener(new View.OnClickListener() { //햄버거바 내의 상태메시지 클릭 이벤트
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MypageActivity.this,UserInfoEditActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }); //햄버거바 상태메시지 클릭 종료
+
+        Mypage_UserStateMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MypageActivity.this,UserInfoEditActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        close = new Close(this);
     }
 
     @Override
@@ -299,5 +316,10 @@ public class MypageActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        close.onBackPressed();
     }
 }
