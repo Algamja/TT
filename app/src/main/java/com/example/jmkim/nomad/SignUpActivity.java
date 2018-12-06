@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SigninActivity extends Activity{
+public class SignUpActivity extends Activity{
 
     private static final int PICK_FROM_ALBUM = 10;
 
@@ -47,18 +47,18 @@ public class SigninActivity extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_sign_up);
 
-        profile = (ImageView)findViewById(R.id.signin_image_profile);
-        email = (EditText)findViewById(R.id.signin_et_id);
-        btn_check = (Button)findViewById(R.id.signin_btn_check);
-        pw = (EditText)findViewById(R.id.signin_et_pw);
-        rigth_pw = (EditText)findViewById(R.id.signin_et_right_pw);
-        check_pw = (TextView)findViewById(R.id.signin_tv_check);
-        name = (EditText)findViewById(R.id.signin_et_name);
-        phone = (EditText)findViewById(R.id.signin_et_phonenumber);
-        btn_next=(Button)findViewById(R.id.signin_btn_next);
-        btn_back = (Button)findViewById(R.id.signin_btn_back);
+        profile = (ImageView)findViewById(R.id.signUpActivity_iv_profile);
+        email = (EditText)findViewById(R.id.signUpActivity_et_email);
+        btn_check = (Button)findViewById(R.id.signUp_btn_emailCheck);
+        pw = (EditText)findViewById(R.id.signUpActivity_et_password);
+        rigth_pw = (EditText)findViewById(R.id.signUpActivity_et_pwCheck);
+        check_pw = (TextView)findViewById(R.id.signUpActivity_tv_pwCheck);
+        name = (EditText)findViewById(R.id.signUpActivity_et_name);
+        phone = (EditText)findViewById(R.id.signUpActivity_et_phone);
+        btn_next=(Button)findViewById(R.id.signUpActivity_btn_next);
+        btn_back = (Button)findViewById(R.id.signUPActivity_btn_back);
 
         profile.setOnClickListener(new View.OnClickListener() { //가운데 프로필 사진 클릭 이벤트 시작
             @Override
@@ -101,9 +101,9 @@ public class SigninActivity extends Activity{
                             }
                         });
                 if(checking == -1){
-                    Toast.makeText(SigninActivity.this, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
                 }else if(checking == 1){
-                    Toast.makeText(SigninActivity.this, "회원가입이 가능합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "회원가입이 가능합니다.", Toast.LENGTH_SHORT).show();
                     btn_next.setVisibility(View.VISIBLE);
                 }
             }
@@ -164,7 +164,7 @@ public class SigninActivity extends Activity{
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SigninActivity.this,LoginActivity.class));
+                startActivity(new Intent(SignUpActivity.this,SignInsActivity.class));
                 finish();
             }
         });
@@ -180,7 +180,7 @@ public class SigninActivity extends Activity{
         if(resultCode==RESULT_OK){
             int MAIN=data.getIntExtra("END",0);
             if(MAIN==1){
-                Intent intent = new Intent(SigninActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SignUpActivity.this,SignInsActivity.class);
                 startActivity(intent);
                 finish();
             }

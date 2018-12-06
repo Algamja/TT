@@ -1,27 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".WelcomeActivity"
+    android:background="#2E3649"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="177dp" />
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/ic_loading_logo" />
 
     <TextView
-        android:id="@+id/welcome"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="환영합니다!"
-        android:textSize="50sp" />
+        android:text="Welcome to"
+        android:textColor="@android:color/white"
+        android:textSize="60dp"/>
 
-    <Button
-        android:id="@+id/mainpage"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="가입완료"/> //로그인에서 가입하면 로그인창으로 가길래 버튼 이름 수정함
+        android:text="TripBox"
+        android:textColor="@android:color/white"
+        android:textSize="60dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/welcomeActivity_btn_signIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SIGN IN"
+            android:textColor="@android:color/white"
+            android:textSize="30dp"
+            android:background="@drawable/btn_singin_round" />
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/welcomeActivity_btn_signUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SIGN UP"
+            android:textColor="@android:color/white"
+            android:textSize="30dp"
+            android:background="@drawable/btn_signup_round"/>
+    </LinearLayout>
 
 </LinearLayout>

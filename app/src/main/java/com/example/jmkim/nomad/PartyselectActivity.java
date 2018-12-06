@@ -41,7 +41,7 @@ public class PartyselectActivity extends Activity{
                 public void onClick(View v) {
                     click[index]++; //클릭될 때마다 click[i]증가
                     if(click[index]%2==1){
-                        btns[index].setBackgroundResource(R.drawable.button); //홀수번 클릭시 버튼에 테두리표시
+                        btns[index].setBackgroundResource(R.drawable.select_button_red); //홀수번 클릭시 버튼에 테두리표시
                         checks.put(String.valueOf(index),String.valueOf(index)); //홀수번 클릭시 hashtable에 버튼번호 저장
                     }else{
                         checks.remove(String.valueOf(index)); //짝수번 클릭시 hashtable에서 버튼 제거
@@ -68,7 +68,7 @@ public class PartyselectActivity extends Activity{
                 String partyAge = getintent.getStringExtra("PARTY_AGE");
 
                 if(checks.size()>=10) { //최소 10개버튼 이상 선택시
-                    Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class); //가입완료 페이지로 이동
+                    Intent intent = new Intent(getApplicationContext(), SignEndActivity.class); //가입완료 페이지로 이동
                     intent.putExtra("ID",id);
                     intent.putExtra("PW",pw);
                     intent.putExtra("NAME",name);

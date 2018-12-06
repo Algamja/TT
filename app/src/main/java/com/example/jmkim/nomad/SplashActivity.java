@@ -3,10 +3,15 @@ package com.example.jmkim.nomad;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.media.Image;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +22,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 public class SplashActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
+
     private FirebaseRemoteConfig firebaseRemoteConfig;
 
     @Override
@@ -65,7 +71,7 @@ public class SplashActivity extends AppCompatActivity {
             });
             builder.create().show();
         }else{
-            startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this,WelcomeActivity.class));
             finish();
         }
     }

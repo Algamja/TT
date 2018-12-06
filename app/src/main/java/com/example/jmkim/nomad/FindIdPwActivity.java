@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -78,7 +77,7 @@ public class FindIdPwActivity extends Activity{
                                         dlg.setNegativeButton("로그인 하기", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                startActivity(new Intent(FindIdPwActivity.this,LoginActivity.class));
+                                                startActivity(new Intent(FindIdPwActivity.this,SignInsActivity.class));
                                                 finish();
                                             }
                                         });
@@ -153,7 +152,7 @@ public class FindIdPwActivity extends Activity{
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FindIdPwActivity.this, LoginActivity.class));
+                startActivity(new Intent(FindIdPwActivity.this, SignInsActivity.class));
                 finish();
             }
         });

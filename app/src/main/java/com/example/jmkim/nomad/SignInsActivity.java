@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,14 +21,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
-public class LoginActivity extends Activity{
+public class SignInsActivity extends Activity{
 
+    private ImageView back;
     private EditText email;
     private EditText password;
-
-    private Button login;
-    private Button signup;
-    private Button findIdPw;
+    private Button signIn;
+    private Button forgot;
 
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private FirebaseAuth firebaseAuth;
@@ -38,7 +38,7 @@ public class LoginActivity extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_in);
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String loginEmail = auto.getString("inputId",null);
@@ -53,18 +53,21 @@ public class LoginActivity extends Activity{
             getWindow().setStatusBarColor(Color.parseColor(splash_background));
         }
 
-        email = (EditText)findViewById(R.id.loginActivity_et_id);
-        password = (EditText)findViewById(R.id.loginActivity_et_password);
+        back = (ImageView) findViewById(R.id.signInActivity_iv_back);
+        email = (EditText)findViewById(R.id.signInActivity_et_email);
+        password = (EditText)findViewById(R.id.signInActivity_et_password);
+        signIn = (Button)findViewById(R.id.signInActivity_btn_signIn);
+        forgot = (Button)findViewById(R.id.signInActivity_btn_forgot);
 
-        login = (Button)findViewById(R.id.loginActivity_btn_login);
-        signup = (Button)findViewById(R.id.loginActivity_btn_signup);
-        findIdPw = (Button)findViewById(R.id.loginActivity_btn_findIdPw);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignInsActivity.this,WelcomeActivity.class));
+                finish();
+            }
+        });
 
-        login.setBackgroundColor(Color.parseColor(splash_background));
-        signup.setBackgroundColor(Color.parseColor(splash_background));
-        findIdPw.setBackgroundColor(Color.parseColor(splash_background));
-
-        login.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(email.getText().toString().equals("") || password.getText().toString().equals("")){
@@ -75,18 +78,10 @@ public class LoginActivity extends Activity{
             }
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,SigninActivity.class));
-                finish();
-            }
-        });
-
-        findIdPw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,FindIdPwActivity.class);
+                Intent intent = new Intent(SignInsActivity.this,FindIdPwActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -97,7 +92,7 @@ public class LoginActivity extends Activity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user != null){
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    Intent intent = new Intent(SignInsActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();
                 }else{

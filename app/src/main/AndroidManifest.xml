@@ -18,17 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SigninActivity" />
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".Gen_ageActivity" />
         <activity android:name=".PartyselectActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignEndActivity" />
+        <activity android:name=".SignInsActivity" />
         <activity android:name=".FindIdPwActivity" />
         <activity android:name=".MypageActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".UserInfoEditActivity" />
         <activity android:name=".BasicEditActivity" />
-        <activity android:name=".PartyEditActivity"></activity>
+        <activity android:name=".PartyEditActivity" />
+        <activity android:name=".WelcomeActivity"></activity>
     </application>
 
 </manifest>

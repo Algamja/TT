@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -154,7 +153,7 @@ public class Gen_ageActivity extends Activity{
         if(resultCode==RESULT_OK){
             int MAIN=data.getIntExtra("END",0);
             if(MAIN==1){
-                Intent intent=new Intent(getApplicationContext(),SigninActivity.class);
+                Intent intent=new Intent(getApplicationContext(),SignUpActivity.class);
                 int Main_Val=1;
                 intent.putExtra("END",Main_Val);
                 setResult(RESULT_OK,intent);
