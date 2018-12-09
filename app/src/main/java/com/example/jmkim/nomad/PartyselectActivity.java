@@ -57,7 +57,7 @@ public class PartyselectActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent getintent = getIntent();
-                String id = getintent.getStringExtra("ID");
+                String email = getintent.getStringExtra("EMAIL");
                 String pw = getintent.getStringExtra("PW");
                 String name = getintent.getStringExtra("NAME");
                 String phone = getintent.getStringExtra("PHONE");
@@ -71,7 +71,7 @@ public class PartyselectActivity extends Activity{
 
                 if(checks.size()>=10) { //최소 10개버튼 이상 선택시
                     Intent intent = new Intent(getApplicationContext(), SignEndActivity.class); //가입완료 페이지로 이동
-                    intent.putExtra("ID",id);
+                    intent.putExtra("EMAIL",email);
                     intent.putExtra("PW",pw);
                     intent.putExtra("NAME",name);
                     intent.putExtra("PHONE",phone);

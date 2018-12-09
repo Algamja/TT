@@ -37,7 +37,7 @@ public class SignEndActivity extends Activity{
 
         final Intent intent = getIntent();
 
-        final String email = intent.getStringExtra("ID");
+        final String email = intent.getStringExtra("EMAIL");
         final String password = intent.getStringExtra("PW");
         final String name = intent.getStringExtra("NAME");
         final String phone = intent.getStringExtra("PHONE");

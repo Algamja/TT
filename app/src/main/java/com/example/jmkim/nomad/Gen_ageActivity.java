@@ -121,14 +121,14 @@ public class Gen_ageActivity extends Activity{
                     }
                 }
                 Intent getintent = getIntent();
-                String id = getintent.getStringExtra("ID");
+                String email = getintent.getStringExtra("EMAIL");
                 String pw = getintent.getStringExtra("PW");
                 String name = getintent.getStringExtra("NAME");
                 String phone = getintent.getStringExtra("PHONE");
                 String img = getintent.getStringExtra("IMAGE"); //SignUpActivity에서 값 받아옴
 
                 Intent intent = new Intent(getApplicationContext(), PartyselectActivity.class); //파티원 고르는 페이지로 이동
-                intent.putExtra("ID",id);
+                intent.putExtra("EMAIL",email);
                 intent.putExtra("PW",pw);
                 intent.putExtra("NAME",name);
                 intent.putExtra("PHONE",phone);
