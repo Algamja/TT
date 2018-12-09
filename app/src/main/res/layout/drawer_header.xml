@@ -27,8 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:textSize="13dp"
-        android:text="test@test.com"/>
+        android:textSize="13dp" />
 
     <TextView
         android:layout_marginTop="10dp"
@@ -36,7 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:textSize="13dp"
-        android:text="집에 가고 싶다."/>
+        android:textSize="13dp" />
 
 </LinearLayout>

@@ -43,7 +43,8 @@
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/scroll_main"/>
+        <include layout="@layout/scroll_main"
+            android:id="@+id/main_scroll_view"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

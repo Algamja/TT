@@ -14,17 +14,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.jmkim.nomad.DB.Board;
 import com.example.jmkim.nomad.DB.UserModel;
+import com.example.jmkim.nomad.Fragment.DB_FragmentPageAdapter;
 import com.example.jmkim.nomad.Fragment.FragmentPageAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,11 +47,6 @@ import static android.view.Gravity.START;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Menu navigation;
-    private MenuItem nav_item_mypage;
-    private MenuItem nav_item_logout;
-    private MenuItem nav_item_infoEdit;
-
     private NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private FirebaseUser user;
@@ -60,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView Nav_UserName;
     private TextView Nav_UserEmail;
     private TextView Nav_UserStateMsg;
+
+    private LinearLayout linear_board_1;
+    private LinearLayout linear_board_2;
+    private LinearLayout linear_board_3;
+
+    private ImageView board_image_2;
+    private ImageView board_image_3;
 
     String uid;
     private int PICK_FROM_ALBUM = 10;
@@ -92,6 +95,59 @@ public class MainActivity extends AppCompatActivity {
         Nav_UserName = (TextView) header.findViewById(R.id.drawerHeader_tv_name);
         Nav_UserEmail = (TextView) header.findViewById(R.id.drawerHeader_tv_email);
         Nav_UserStateMsg = (TextView) header.findViewById(R.id.drawerHeader_tv_stateMsg); //햄버거바 상단 사용자 정보
+
+        linear_board_1 = (LinearLayout)findViewById(R.id.scroll_linear_board_1);
+        linear_board_2 = (LinearLayout)findViewById(R.id.scroll_linear_board_2);
+        linear_board_3 = (LinearLayout)findViewById(R.id.scroll_linear_board_3);
+
+        board_image_2 = (ImageView)findViewById(R.id.scroll_vp_board_2);
+        board_image_3 = (ImageView)findViewById(R.id.scroll_vp_board_3);
+
+        final List<Board> boards = new ArrayList<>();
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Board")
+                .child("글글")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boards.clear();
+
+                        boards.add(dataSnapshot.getValue(Board.class));
+
+                        mGlide.load(boards.get(0).img_1)
+                                .into(board_image_2);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Board")
+                .child("글글글")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boards.clear();
+
+                        boards.add(dataSnapshot.getValue(Board.class));
+
+                        mGlide.load(boards.get(0).img_1)
+                                .into(board_image_3);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
         mGlide = Glide.with(this);
 
@@ -193,9 +249,6 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         break;
 
-                    case R.id.nav_sub_menu_item02:
-                        Toast.makeText(MainActivity.this, menuItem.getTitle(), Toast.LENGTH_LONG).show();
-                        break;
                 }
                 return true;
             }
@@ -215,9 +268,19 @@ public class MainActivity extends AppCompatActivity {
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
         main_banner_vp.setAdapter(pageAdapter); //스와이프 부분 끝
 
-        ViewPager main_board_vp = (ViewPager) findViewById(R.id.scroll_vp_board);
-        FragmentPageAdapter boardAdapter = new FragmentPageAdapter(fm);
+        ViewPager main_board_vp = (ViewPager) findViewById(R.id.scroll_vp_board_1);
+        FragmentManager dbfm = getSupportFragmentManager();
+        DB_FragmentPageAdapter boardAdapter = new DB_FragmentPageAdapter(dbfm);
         main_board_vp.setAdapter(boardAdapter);
+
+        linear_board_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(MainActivity.this,UserActivity.class);
+               startActivity(intent);
+               finish();
+            }
+        });
 
         close = new Close(this);
     }

@@ -77,7 +77,7 @@ public class FindIdPwActivity extends Activity{
                                         dlg.setNegativeButton("로그인 하기", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                startActivity(new Intent(FindIdPwActivity.this,SignInsActivity.class));
+                                                startActivity(new Intent(FindIdPwActivity.this,SignInActivity.class));
                                                 finish();
                                             }
                                         });
@@ -152,7 +152,7 @@ public class FindIdPwActivity extends Activity{
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FindIdPwActivity.this, SignInsActivity.class));
+                startActivity(new Intent(FindIdPwActivity.this, SignInActivity.class));
                 finish();
             }
         });

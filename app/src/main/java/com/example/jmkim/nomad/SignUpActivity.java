@@ -29,6 +29,7 @@ public class SignUpActivity extends Activity{
 
     private static final int PICK_FROM_ALBUM = 10;
 
+    private ImageView back;
     private ImageView profile;
     private EditText email;
     private Button btn_check;
@@ -38,7 +39,6 @@ public class SignUpActivity extends Activity{
     private EditText name;
     private EditText phone;
     private Button btn_next;
-    private Button btn_back;
 
     Uri imageUri;
 
@@ -49,16 +49,24 @@ public class SignUpActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        back = (ImageView)findViewById(R.id.signUpActivity_iv_back);
         profile = (ImageView)findViewById(R.id.signUpActivity_iv_profile);
         email = (EditText)findViewById(R.id.signUpActivity_et_email);
-        btn_check = (Button)findViewById(R.id.signUp_btn_emailCheck);
+        btn_check = (Button)findViewById(R.id.signUpActivity_btn_emailCheck);
         pw = (EditText)findViewById(R.id.signUpActivity_et_password);
         rigth_pw = (EditText)findViewById(R.id.signUpActivity_et_pwCheck);
         check_pw = (TextView)findViewById(R.id.signUpActivity_tv_pwCheck);
         name = (EditText)findViewById(R.id.signUpActivity_et_name);
         phone = (EditText)findViewById(R.id.signUpActivity_et_phone);
         btn_next=(Button)findViewById(R.id.signUpActivity_btn_next);
-        btn_back = (Button)findViewById(R.id.signUPActivity_btn_back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUpActivity.this,WelcomeActivity.class));
+                finish();
+            }
+        });
 
         profile.setOnClickListener(new View.OnClickListener() { //가운데 프로필 사진 클릭 이벤트 시작
             @Override
@@ -131,10 +139,11 @@ public class SignUpActivity extends Activity{
             }
         }); //비밀번호 확인 끝
 
+
         btn_next.setOnClickListener(new View.OnClickListener() { //다음버튼 시작
             @Override
             public void onClick(View v) {
-                String Sid = email.getText().toString();
+                String Semail = email.getText().toString();
                 String Spw = pw.getText().toString();
                 String Sname = name.getText().toString();
                 String Sphone = phone.getText().toString();
@@ -147,11 +156,11 @@ public class SignUpActivity extends Activity{
                 if(imageUri == null){
                    imageUri = Uri.parse("android.resource://com.example.jmkim.nomad/drawable/profile");
                 }
-                if(Sid == null || Spw == null || Sname == null || Sphone == null){
+                if(Semail == null || Spw == null || Sname == null || Sphone == null){
                     Toast.makeText(getApplicationContext(), "모든 항목을 입력해주세요", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(getApplicationContext(), Gen_ageActivity.class);
-                    intent.putExtra("ID", Sid);
+                    intent.putExtra("EMAIL", Semail);
                     intent.putExtra("PW", Spw);
                     intent.putExtra("NAME", Sname);
                     intent.putExtra("PHONE", Sphone);
@@ -161,13 +170,6 @@ public class SignUpActivity extends Activity{
             }
         }); //다음버튼 누르면 성별,나이 입력 페이지로 이동
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignUpActivity.this,SignInsActivity.class));
-                finish();
-            }
-        });
     }
 
     @Override
@@ -180,7 +182,7 @@ public class SignUpActivity extends Activity{
         if(resultCode==RESULT_OK){
             int MAIN=data.getIntExtra("END",0);
             if(MAIN==1){
-                Intent intent = new Intent(SignUpActivity.this,SignInsActivity.class);
+                Intent intent = new Intent(SignUpActivity.this,WelcomeActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -299,8 +299,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
                         break;
 
-                    case R.id.nav_sub_menu_item02:
-                        break;
                 }
                 return true;
             }

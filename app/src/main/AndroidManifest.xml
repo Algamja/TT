@@ -22,14 +22,15 @@
         <activity android:name=".Gen_ageActivity" />
         <activity android:name=".PartyselectActivity" />
         <activity android:name=".SignEndActivity" />
-        <activity android:name=".SignInsActivity" />
+        <activity android:name=".SignInActivity" />
         <activity android:name=".FindIdPwActivity" />
         <activity android:name=".MypageActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".UserInfoEditActivity" />
         <activity android:name=".BasicEditActivity" />
         <activity android:name=".PartyEditActivity" />
-        <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>

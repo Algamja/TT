@@ -22,7 +22,7 @@ public class WelcomeActivity extends Activity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this,SignInsActivity.class));
+                startActivity(new Intent(WelcomeActivity.this,SignInActivity.class));
                 finish();
             }
         });
