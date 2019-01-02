@@ -1,19 +1,19 @@
 package com.example.jmkim.nomad;
 
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
 
-public class PartyselectActivity extends Activity{
+import androidx.annotation.Nullable;
+
+public class PartyselectActivity extends Activity {
     Button[] btns = new Button[20];
     Integer[] numBtnID = {R.id.party_btn_1,R.id.party_btn_2,R.id.party_btn_3,R.id.party_btn_4,R.id.party_btn_5,R.id.party_btn_6,R.id.party_btn_7,R.id.party_btn_8,R.id.party_btn_9,R.id.party_btn_10,
             R.id.party_btn_11,R.id.party_btn_12,R.id.party_btn_13,R.id.party_btn_14,R.id.party_btn_15,R.id.party_btn_16,R.id.party_btn_17,R.id.party_btn_18,R.id.party_btn_19,R.id.party_btn_20};

@@ -2,11 +2,12 @@
 package com.example.jmkim.nomad.Fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
-public class FragmentPageAdapter extends FragmentPagerAdapter{
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+
+public class FragmentPageAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 3; //스와이프 화면 개수
 
