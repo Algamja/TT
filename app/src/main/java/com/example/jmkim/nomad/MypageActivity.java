@@ -278,14 +278,14 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
+/*        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 startActivityForResult(intent,PICK_FROM_ALBUM_BOARD);
             }
-        });
+        });*/
 
         close = new Close(this);
     }

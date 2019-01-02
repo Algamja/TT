@@ -154,7 +154,7 @@ public class PartyEditActivity extends AppCompatActivity {
                     FirebaseDatabase
                             .getInstance()
                             .getReference()
-                            .child("UserBasic")
+                            .child("UserParty")
                             .child(uid)
                             .removeValue();
                 }

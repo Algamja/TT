@@ -111,8 +111,6 @@ public class SignEndActivity extends Activity{
                                                         .child(uid)
                                                         .setValue(activities); //UserActivity에 값 저장
 
-
-
                                                 FirebaseDatabase
                                                         .getInstance()
                                                         .getReference()
