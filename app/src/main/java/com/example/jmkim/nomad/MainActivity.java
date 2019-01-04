@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         final List<Board> boards = new ArrayList<>();
 
-        FirebaseDatabase
+        /*FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child("Board")
@@ -127,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                });
+                });*/
 
-        FirebaseDatabase
+        /*FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child("Board")
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                });
+                });*/
 
         mGlide = Glide.with(this);
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
         linear_board_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this,UserActivity.class);
+               Intent intent = new Intent(MainActivity.this,WriterActivity.class);
                startActivity(intent);
                finish();
             }

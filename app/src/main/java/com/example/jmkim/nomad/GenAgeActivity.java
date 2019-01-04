@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-public class Gen_ageActivity extends Activity{
+public class GenAgeActivity extends Activity{
 
     private ImageView back;
     private RadioButton userMale;
@@ -73,7 +73,7 @@ public class Gen_ageActivity extends Activity{
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Gen_ageActivity.this,WelcomeActivity.class));
+                startActivity(new Intent(GenAgeActivity.this,WelcomeActivity.class));
                 finish();
             }
         });
@@ -128,7 +128,7 @@ public class Gen_ageActivity extends Activity{
                 String phone = getintent.getStringExtra("PHONE");
                 String img = getintent.getStringExtra("IMAGE"); //SignUpActivity에서 값 받아옴
 
-                Intent intent = new Intent(getApplicationContext(), PartyselectActivity.class); //파티원 고르는 페이지로 이동
+                Intent intent = new Intent(getApplicationContext(), ActivitySelectActivity.class); //파티원 고르는 페이지로 이동
                 intent.putExtra("EMAIL",email);
                 intent.putExtra("PW",pw);
                 intent.putExtra("NAME",name);

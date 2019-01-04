@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jmkim.nomad.DB.UserModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,6 +29,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class SignUpActivity extends Activity{
+
+    private FirebaseUser firebaseUser;
 
     private static final int PICK_FROM_ALBUM = 10;
 
@@ -60,6 +64,8 @@ public class SignUpActivity extends Activity{
         name = (EditText)findViewById(R.id.signUpActivity_et_name);
         phone = (EditText)findViewById(R.id.signUpActivity_et_phone);
         btn_next=(Button)findViewById(R.id.signUpActivity_btn_next);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +115,12 @@ public class SignUpActivity extends Activity{
 
                             }
                         });
-                if(checking == -1){
+
+                if(firebaseUser != null){
+                    Toast.makeText(SignUpActivity.this, "회원가입이 가능합니다.", Toast.LENGTH_SHORT).show();
+                    btn_next.setVisibility(View.VISIBLE);
+                }
+                else if(checking == -1){
                     Toast.makeText(SignUpActivity.this, "아이디가 중복되었습니다.", Toast.LENGTH_SHORT).show();
                 }else if(checking == 1){
                     Toast.makeText(SignUpActivity.this, "회원가입이 가능합니다.", Toast.LENGTH_SHORT).show();
@@ -160,7 +171,7 @@ public class SignUpActivity extends Activity{
                 if(Semail == null || Spw == null || Sname == null || Sphone == null){
                     Toast.makeText(getApplicationContext(), "모든 항목을 입력해주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), Gen_ageActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), GenAgeActivity.class);
                     intent.putExtra("EMAIL", Semail);
                     intent.putExtra("PW", Spw);
                     intent.putExtra("NAME", Sname);

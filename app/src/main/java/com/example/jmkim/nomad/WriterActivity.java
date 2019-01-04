@@ -20,7 +20,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class UserActivity extends AppCompatActivity {
+public class WriterActivity extends AppCompatActivity {
 
     private FirebaseUser user;
     String uid;
@@ -31,7 +31,7 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_writer);
 
         back = (ImageView)findViewById(R.id.userActivity_iv_back);
         userName = (TextView)findViewById(R.id.userActivity_tv_name);
@@ -62,7 +62,7 @@ public class UserActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserActivity.this, MainActivity.class));
+                startActivity(new Intent(WriterActivity.this, MainActivity.class));
                 finish();
             }
         });

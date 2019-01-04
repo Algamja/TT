@@ -123,7 +123,7 @@ public class SignEndActivity extends Activity{
                                                             public void onSuccess(Void aVoid) {
                                                                 Toast.makeText(getApplicationContext(), "가입완료", Toast.LENGTH_SHORT).show();
 
-                                                                Intent backintent = new Intent(getApplicationContext(), PartyselectActivity.class);
+                                                                Intent backintent = new Intent(getApplicationContext(), ActivitySelectActivity.class);
 
                                                                 int Main_Val=1;
                                                                 backintent.putExtra("END",Main_Val);

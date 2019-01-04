@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".Gen_ageActivity" />
-        <activity android:name=".PartyselectActivity" />
+        <activity android:name=".GenAgeActivity" />
+        <activity android:name=".ActivitySelectActivity" />
         <activity android:name=".SignEndActivity" />
         <activity android:name=".SignInActivity" />
         <activity android:name=".FindIdPwActivity" />
@@ -30,7 +30,8 @@
         <activity android:name=".BasicEditActivity" />
         <activity android:name=".PartyEditActivity" />
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".UserActivity" />
+        <activity android:name=".ActivityEditActivity"></activity>
     </application>
 
 </manifest>

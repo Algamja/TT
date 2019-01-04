@@ -1,5 +1,6 @@
 package com.example.jmkim.nomad;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -37,6 +39,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import static android.view.Gravity.START;
@@ -254,16 +257,52 @@ public class UserInfoEditActivity extends AppCompatActivity {
         linear_editBasic.setOnClickListener(new View.OnClickListener() { //기본정보 변경 시작
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserInfoEditActivity.this,BasicEditActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(UserInfoEditActivity.this, BasicEditActivity.class));
             }
         }); //기본정보 변경 끝
 
-        linear_editParty.setOnClickListener(new View.OnClickListener() {
+        linear_editParty.setOnClickListener(new View.OnClickListener() { //파티원 변경 시작
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserInfoEditActivity.this,PartyEditActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(UserInfoEditActivity.this, PartyEditActivity.class));
+            }
+        }); //파티원 변경 끝
+
+        linear_editActivity.setOnClickListener(new View.OnClickListener() { //액티비티 변경 시작
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserInfoEditActivity.this, ActivityEditActivity.class));
+            }
+        }); //액티비티 변경 끝
+
+        linear_leave.setOnClickListener(new View.OnClickListener() { //탈퇴 시작
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfoEditActivity.this);
+                dlg.setTitle("회원 탈퇴");
+                dlg.setMessage("정말 탈퇴하시겠습니까?");
+                dlg.setPositiveButton("학인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        user.delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(Task<Void> task) {
+                                        finish();
+
+                                        FirebaseDatabase.getInstance().getReference().child("UserParty").child(uid).removeValue();
+                                        FirebaseDatabase.getInstance().getReference().child("UserBasic").child(uid).removeValue();
+                                        FirebaseDatabase.getInstance().getReference().child("UserActivity").child(uid).removeValue();
+
+                                        ActivityCompat.finishAffinity(UserInfoEditActivity.this);
+                                        System.runFinalizersOnExit(true);
+                                        System.exit(0);
+                                    }
+                                });
+                    }
+                });
+                dlg.setNegativeButton("취소",null);
+                dlg.show();
             }
         });
 
@@ -307,6 +346,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
         close = new Close(this);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
         int id = item.getItemId();

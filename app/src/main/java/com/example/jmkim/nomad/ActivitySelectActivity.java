@@ -13,10 +13,10 @@ import java.util.HashMap;
 
 import androidx.annotation.Nullable;
 
-public class PartyselectActivity extends Activity {
+public class ActivitySelectActivity extends Activity {
     Button[] btns = new Button[20];
-    Integer[] numBtnID = {R.id.party_btn_1,R.id.party_btn_2,R.id.party_btn_3,R.id.party_btn_4,R.id.party_btn_5,R.id.party_btn_6,R.id.party_btn_7,R.id.party_btn_8,R.id.party_btn_9,R.id.party_btn_10,
-            R.id.party_btn_11,R.id.party_btn_12,R.id.party_btn_13,R.id.party_btn_14,R.id.party_btn_15,R.id.party_btn_16,R.id.party_btn_17,R.id.party_btn_18,R.id.party_btn_19,R.id.party_btn_20};
+    Integer[] numBtnID = {R.id.ActivitySelect_btn1,R.id.ActivitySelect_btn2,R.id.ActivitySelect_btn3,R.id.ActivitySelect_btn4,R.id.ActivitySelect_btn5,R.id.ActivitySelect_btn6,R.id.ActivitySelect_btn7,R.id.ActivitySelect_btn8,R.id.ActivitySelect_btn9,R.id.ActivitySelect_btn10,
+            R.id.ActivitySelect_btn11,R.id.ActivitySelect_btn12,R.id.ActivitySelect_btn13,R.id.ActivitySelect_btn14,R.id.ActivitySelect_btn15,R.id.ActivitySelect_btn16,R.id.ActivitySelect_btn17,R.id.ActivitySelect_btn18,R.id.ActivitySelect_btn19,R.id.ActivitySelect_btn20};
     Button btn_next;
 
    HashMap checks = new HashMap(); //선택된 버튼의 번호 저장
@@ -24,13 +24,13 @@ public class PartyselectActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_party_select);
+        setContentView(R.layout.activity_activity_select);
 
         for(int i=0;i<20;i++){
             btns[i]=(Button)findViewById(numBtnID[i]);
         }//각 버튼의 id와 이름 매핑
 
-        btn_next = (Button)findViewById(R.id.party_btn_next);
+        btn_next = (Button)findViewById(R.id.ActivitySelect_btn_next);
 
         final int click[] = new int[20]; //선택된 버튼 표시하기 위한 배열
 
@@ -38,15 +38,16 @@ public class PartyselectActivity extends Activity {
             click[i]=0;
             final int index;
             index = i;
+            checks.put("Activity_"+String.valueOf(index),"false");
             btns[index].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     click[index]++; //클릭될 때마다 click[i]증가
                     if(click[index]%2==1){
                         btns[index].setBackgroundResource(R.drawable.select_button_red); //홀수번 클릭시 버튼에 테두리표시
-                        checks.put(String.valueOf(index),String.valueOf(index)); //홀수번 클릭시 hashtable에 버튼번호 저장
+                        checks.put("Activity_"+String.valueOf(index),"true"); //홀수번 클릭시 hashtable에 버튼번호 저장
                     }else{
-                        checks.remove(String.valueOf(index)); //짝수번 클릭시 hashtable에서 버튼 제거
+                        checks.put("Activity_"+String.valueOf(index),"false"); //짝수번 클릭시 hashtable에서 버튼 제거
                         btns[index].setBackgroundColor(000000);
                     }
                 }
@@ -98,7 +99,7 @@ public class PartyselectActivity extends Activity {
         if(resultCode==RESULT_OK){
             int MAIN=data.getIntExtra("END",0);
             if(MAIN==1){
-                Intent intent=new Intent(getApplicationContext(),Gen_ageActivity.class);
+                Intent intent=new Intent(getApplicationContext(),GenAgeActivity.class);
                 int Main_Val=1;
                 intent.putExtra("END",Main_Val);
                 setResult(RESULT_OK,intent);
