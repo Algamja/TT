@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:background="#9ccfe1">
+
+    <LinearLayout
+        android:id="@+id/scroll_linear_profile_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ccebec">
+
+        <com.github.siyamed.shapeimageview.CircularImageView
+            android:layout_margin="10dp"
+            android:id="@+id/scroll_iv_profile_1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile"/>
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/scroll_tv_title_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="글 제목"/>
+
+            <TextView
+                android:id="@+id/scroll_tv_country_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여행할 국가"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/scroll_vp_board_1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+
+    <LinearLayout
+        android:layout_below="@id/scroll_vp_board_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ToggleButton
+            android:id="@+id/scroll_btn_like_1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_favorite"
+            android:checked="false"
+            android:text=""
+            android:textOff=""
+            android:textOn=""/>
+    </LinearLayout>
+</LinearLayout>
