@@ -41,6 +41,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -53,19 +54,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="0dp" />
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="2dp" />
 
-                <include layout="@layout/scroll_main"
+                <include
                     android:id="@+id/main_scroll_view"
-                    android:layout_below="@+id/scroll_vp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent" />
+                    layout="@layout/scroll_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/scroll_vp" />
             </RelativeLayout>
         </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/mainActivity_bottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/windowBackground"
+                app:itemIconTint="@color/selector"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_navigation"
+                android:foregroundGravity="bottom"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView

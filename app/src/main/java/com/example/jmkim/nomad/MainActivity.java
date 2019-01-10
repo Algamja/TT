@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
+        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
 
         MyAdapter myAdapter = new MyAdapter(boardInfos);
 
