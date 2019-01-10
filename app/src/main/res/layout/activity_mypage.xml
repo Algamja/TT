@@ -100,63 +100,71 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/mypage_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/scroll_vp"
-            android:orientation="vertical"
-            android:background="#9ccfe1">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/mypage_ll_mygeul"
+                android:id="@+id/mypage_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_below="@id/scroll_vp"
+                android:orientation="vertical"
+                android:background="#9ccfe1"
+                android:layout_weight="1">
 
-                <!--<EditText
+                <LinearLayout
+                    android:id="@+id/mypage_ll_mygeul"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mypage_ll_myplan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mypage_ll_scrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mypage_ll_myactivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:layout_weight="7">
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/mypage_bottomNavigation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/mypage_et"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/mypage_btn"
-                    android:text="글쓰기"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/mypage_btn_end"
-                    android:text="글쓰기완료"/>-->
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mypage_ll_myplan"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mypage_ll_scrap"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/mypage_ll_myactivity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-            </LinearLayout>
+                    android:background="?android:attr/windowBackground"
+                    app:itemIconTint="@color/selector"
+                    app:labelVisibilityMode="unlabeled"
+                    app:menu="@menu/bottom_navigation"
+                    android:foregroundGravity="bottom"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

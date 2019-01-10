@@ -103,20 +103,33 @@ public class ActivityEditActivity extends Activity {
         btn_end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase
-                        .getInstance()
-                        .getReference()
-                        .child("UserActivity")
-                        .child(user.getUid())
-                        .setValue(checks)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(Task<Void> task) {
-                                Toast.makeText(ActivityEditActivity.this, "액티비티 수정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(ActivityEditActivity.this, UserInfoEditActivity.class));
-                                finish();
-                            }
-                        });
+                int check_count = 0;
+
+                for(int i=0;i<numBtnID.length;i++){
+                    if(click[i]%2 == 1){
+                        check_count++;
+                    }
+                }
+
+                if(check_count < 10){
+                    Toast.makeText(ActivityEditActivity.this, "최소 10개 이상 선택하세요.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    FirebaseDatabase
+                            .getInstance()
+                            .getReference()
+                            .child("UserActivity")
+                            .child(user.getUid())
+                            .setValue(checks)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(Task<Void> task) {
+                                    Toast.makeText(ActivityEditActivity.this, "액티비티 수정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(ActivityEditActivity.this, UserInfoEditActivity.class));
+                                    finish();
+                                }
+                            });
+                }
             }
         });
     }

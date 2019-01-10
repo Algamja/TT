@@ -21,6 +21,7 @@ import com.example.jmkim.nomad.DB.Board;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,25 +60,18 @@ public class MypageActivity extends AppCompatActivity {
     private TextView Nav_UserEmail;
     private TextView Nav_UserStateMsg;
 
-
-    String uid;
-    private int PICK_FROM_ALBUM_PROFILE = 10;
-    private int PICK_FROM_ALBUM_BOARD = 11;
-
-    String[] UserImageArray = new String[] {"기본 이미지로 설정", "앨범에서 사진 선택"};
-    private Uri profileImageUri;
-    private Uri boardImageUri;
-
     private ImageView Mypage_UserProfile;
     private TextView Mypage_UserName;
     private TextView Mypage_UserEmail;
     private TextView Mypage_UserStateMsg;
 
-    private EditText et;
-    private Button btn;
-    private Button end;
+    private BottomNavigationView Mypage_bottomNavigationView;
 
-    String et_title;
+    String uid;
+    private int PICK_FROM_ALBUM_PROFILE = 10;
+
+    String[] UserImageArray = new String[] {"기본 이미지로 설정", "앨범에서 사진 선택"};
+    private Uri profileImageUri;
 
     private RequestManager mGlide;
 
@@ -114,9 +108,10 @@ public class MypageActivity extends AppCompatActivity {
         Mypage_UserEmail = (TextView)findViewById(R.id.mypage_tv_email);
         Mypage_UserStateMsg = (TextView)findViewById(R.id.mypage_tv_stateMsg);
 
-        /*et = (EditText)findViewById(R.id.mypage_et);
-        btn = (Button)findViewById(R.id.mypage_btn);
-        end = (Button)findViewById(R.id.mypage_btn_end);*/
+        Mypage_bottomNavigationView = (BottomNavigationView)findViewById(R.id.mypage_bottomNavigation);
+        Mypage_bottomNavigationView.setOnNavigationItemSelectedListener(mypage_navigationItemSelectedListener);
+
+        Mypage_bottomNavigationView.setSelectedItemId(R.id.nav_profile);
 
         mGlide = Glide.with(this);
 
@@ -283,6 +278,29 @@ public class MypageActivity extends AppCompatActivity {
         close = new Close(this);
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mypage_navigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()){
+
+                        case R.id.nav_home:
+                            startActivity(new Intent(MypageActivity.this, MainActivity.class));
+                            finish();
+
+                        case R.id.nav_add:
+                            BottomSheetDialog bottomSheetDialog = BottomSheetDialog.getInstance();
+                            bottomSheetDialog.show(getSupportFragmentManager(),"bottomSheet");
+                            break;
+
+                        case R.id.nav_profile:
+                            break;
+                    }
+
+                    return true;
+                }
+            };
+
     @SuppressLint("WrongConstant")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
@@ -331,53 +349,6 @@ public class MypageActivity extends AppCompatActivity {
                                     .child(uid)
                                     .child("profileImageUrl")
                                     .setValue(imageUrl);
-                        }
-                    });
-        }
-
-        if (requestCode == PICK_FROM_ALBUM_BOARD && resultCode == RESULT_OK) {
-
-            Random random = new Random();
-
-            final int i_random = random.nextInt(1000);
-
-            et_title = et.getText().toString();
-
-            FirebaseStorage
-                    .getInstance()
-                    .getReference()
-                    .child("boardImages")
-                    .child(et_title)
-                    .child(String.valueOf(i_random))
-                    .putFile(data.getData())
-                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-
-                        StorageReference boardImageRef = FirebaseStorage
-                                .getInstance()
-                                .getReference()
-                                .child("boardImages")
-                                .child(et_title)
-                                .child(String.valueOf(i_random));
-
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
-                            Task<Uri> uriTask = boardImageRef.getDownloadUrl();
-                            while (!uriTask.isSuccessful());
-                            Uri downloadUrl = uriTask.getResult();
-                            String imageUrl = String.valueOf(downloadUrl);
-
-                            Board board = new Board();
-                            board.title = et_title;
-                            board.writer = uid;
-                            board.img_1 = imageUrl;
-
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("Board")
-                                    .child(et_title)
-                                    .setValue(board);
                         }
                     });
         }

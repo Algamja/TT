@@ -70,7 +70,15 @@ public class ActivitySelectActivity extends Activity {
                 String partySex = getintent.getStringExtra("PARTY_SEX");
                 String partyAge = getintent.getStringExtra("PARTY_AGE");
 
-                if(checks.size()>=10) { //최소 10개버튼 이상 선택시
+                int check_count = 0;
+
+                for(int i=0;i<numBtnID.length;i++){
+                    if(click[i]%2 == 1){
+                        check_count++;
+                    }
+                }
+
+                if(check_count >= 10){
                     Intent intent = new Intent(getApplicationContext(), SignEndActivity.class); //가입완료 페이지로 이동
                     intent.putExtra("EMAIL",email);
                     intent.putExtra("PW",pw);

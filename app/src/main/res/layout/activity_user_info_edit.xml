@@ -188,6 +188,25 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray">
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:layout_weight="1">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/editInfo_bottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/windowBackground"
+                app:itemIconTint="@color/selector"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_navigation"
+                android:foregroundGravity="bottom"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -13,17 +13,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.Board;
 import com.example.jmkim.nomad.DB.UserModel;
-import com.example.jmkim.nomad.Fragment.DB_FragmentPageAdapter;
 import com.example.jmkim.nomad.Fragment.FragmentPageAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,7 +34,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView board_recycler;
     private RecyclerView.LayoutManager board_layoutManager;
+
+    private BottomNavigationView Main_bottomNavigationView;
 
     private LinearLayout linear_board_1;
     private LinearLayout linear_board_2;
@@ -106,18 +106,16 @@ public class MainActivity extends AppCompatActivity {
         Nav_UserEmail = (TextView) header.findViewById(R.id.drawerHeader_tv_email);
         Nav_UserStateMsg = (TextView) header.findViewById(R.id.drawerHeader_tv_stateMsg); //햄버거바 상단 사용자 정보
 
-        /*linear_board_1 = (LinearLayout)findViewById(R.id.scroll_linear_board_1);
-        linear_board_2 = (LinearLayout)findViewById(R.id.scroll_linear_board_2);
-        linear_board_3 = (LinearLayout)findViewById(R.id.scroll_linear_board_3);*/
-
-        /*board_image_2 = (ImageView)findViewById(R.id.scroll_vp_board_2);
-        board_image_3 = (ImageView)findViewById(R.id.scroll_vp_board_3);*/
-
         board_recycler = findViewById(R.id.recycler_view);
         board_recycler.setHasFixedSize(true);
 
         board_layoutManager = new LinearLayoutManager(this);
         board_recycler.setLayoutManager(board_layoutManager);
+
+        Main_bottomNavigationView = (BottomNavigationView)findViewById(R.id.main_bottomNavigation);
+        Main_bottomNavigationView.setOnNavigationItemSelectedListener(main_navigationItemSelectedListener);
+
+        Main_bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
         ArrayList<BoardInfo> boardInfos = new ArrayList<>();
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
@@ -130,50 +128,6 @@ public class MainActivity extends AppCompatActivity {
         board_recycler.setAdapter(myAdapter);
 
         final List<Board> boards = new ArrayList<>();
-
-        /*FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("Board")
-                .child("글글")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        boards.clear();
-
-                        boards.add(dataSnapshot.getValue(Board.class));
-
-                        mGlide.load(boards.get(0).img_1)
-                                .into(board_image_2);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
-
-        /*FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("Board")
-                .child("글글글")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        boards.clear();
-
-                        boards.add(dataSnapshot.getValue(Board.class));
-
-                        mGlide.load(boards.get(0).img_1)
-                                .into(board_image_3);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
 
         mGlide = Glide.with(this);
 
@@ -296,6 +250,30 @@ public class MainActivity extends AppCompatActivity {
 
         close = new Close(this);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener main_navigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()){
+
+                        case R.id.nav_home:
+                            break;
+
+                        case R.id.nav_add:
+                            BottomSheetDialog bottomSheetDialog = BottomSheetDialog.getInstance();
+                            bottomSheetDialog.show(getSupportFragmentManager(),"bottomSheet");
+                            break;
+
+                        case R.id.nav_profile:
+                            startActivity(new Intent(MainActivity.this, MypageActivity.class));
+                            finish();
+                            break;
+                    }
+
+                    return true;
+                }
+            };
 
     @SuppressLint("WrongConstant")
     @Override
