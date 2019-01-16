@@ -5,7 +5,7 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId "com.example.jmkim.nomad"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,9 @@ dependencies {
     implementation 'com.mcxiaoke.volley:library:1.0.18'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup:android-times-square:1.6.5@aar'
+    implementation 'com.archit.calendar:awesome-calendar:1.1.4'
+    implementation 'com.borax12.materialdaterangepicker:library:1.9'
 }
 apply plugin: 'com.google.gms.google-services'
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

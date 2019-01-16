@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WritePlanActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/WP_ll_where"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"> <!-- 상단 국가, 도시 -->
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/search"
+            android:layout_marginRight="10dp"/> <!-- 검색 아이콘 -->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="여행지 검색"/> <!-- Search -->
+
+        <ImageView
+            android:id="@+id/WP_iv_flag"
+            android:layout_width="99dp"
+            android:layout_height="66dp"
+            android:visibility="gone"/> <!-- 국기 이미지 -->
+
+        <TextView
+            android:id="@+id/WP_tv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="도시"
+            android:textSize="30dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/WP_tv_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="국가"
+            android:textSize="15dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/WP_ll_when"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:orientation="horizontal"> <!-- 여행 날짜 -->
+
+        <TextView
+            android:id="@+id/WP_tv_choose_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="언제 여행을 떠나시나요?"
+            android:textSize="30dp"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"> <!-- 날짜 나오는 부분 -->
+
+            <TextView
+                android:id="@+id/WP_tv_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/WP_tv_DN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/WP_ll_people"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/WP_tv_howmanyppl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="몇명이서 가시나요?"
+            android:textSize="30dp"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/WP_ll_go_people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/WP_tv_totalppl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/WP_tv_currentppl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

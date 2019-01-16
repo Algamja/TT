@@ -1,5 +1,6 @@
 package com.example.jmkim.nomad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,11 @@ public class BottomSheetDialog extends BottomSheetDialogFragment implements View
     @Override
     public void onClick(View v) {
 
-        dismiss();
+        switch (v.getId()){
+            case R.id.bottomSheet_schedule:
+                startActivity(new Intent(getContext(), WritePlanActivity.class));
+                dismiss();
+                break;
+        }
     }
 }

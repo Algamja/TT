@@ -32,7 +32,8 @@
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".ActivityEditActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".WritePlanActivity" />
     </application>
 
 </manifest>
