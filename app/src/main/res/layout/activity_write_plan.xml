@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WritePlanActivity"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -38,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:text="도시"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:visibility="gone"/>
 
         <TextView
@@ -47,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="국가"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:visibility="gone"/>
     </LinearLayout>
 
@@ -64,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="언제 여행을 떠나시나요?"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:gravity="center"/>
 
         <LinearLayout
@@ -76,14 +81,14 @@
                 android:id="@+id/WP_tv_range"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/WP_tv_DN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:visibility="gone"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
@@ -99,9 +104,9 @@
             android:id="@+id/WP_tv_howmanyppl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="몇명이서 가시나요?"
-            android:textSize="30dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="몇 명이서 가시나요?"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:id="@+id/WP_ll_go_people"
@@ -114,15 +119,86 @@
                 android:id="@+id/WP_tv_totalppl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center"/>
 
             <TextView
                 android:id="@+id/WP_tv_currentppl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/WP_ll_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/WP_ll_recom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/WP_tv_recomplan"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="취향저격 일정!"
+                android:textSize="30sp" />
+
+            <ImageButton
+                android:id="@+id/WP_ib_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:contentDescription="도움말"
+                android:src="@drawable/ic_help" />
+        </LinearLayout>
+
+        <include
+            layout="@layout/activity_recommend_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/WP_ib_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:src="@drawable/ic_add" /><!--취향저격 일정! 더 보기-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/WP_ll_recomhot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/WP_tv_currenthot"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:text="요즘 뜨는 여행지"
+            android:textSize="23sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/WP_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </LinearLayout>
+
+</ScrollView>
