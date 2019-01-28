@@ -31,6 +31,7 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <TextView
+                    android:id="@+id/main_et_tripbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TRIPBOX"
@@ -79,20 +80,12 @@
                 android:id="@+id/main_bottomNavigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:background="?android:attr/windowBackground"
+                android:foregroundGravity="bottom"
                 app:itemIconTint="@color/selector"
                 app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_navigation"
-                android:foregroundGravity="bottom"
-                android:layout_alignParentBottom="true"/>
+                app:menu="@menu/bottom_navigation" />
         </RelativeLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/main_navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

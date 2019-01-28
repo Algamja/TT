@@ -1,18 +1,15 @@
 package com.example.jmkim.nomad;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -20,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,21 +36,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import static android.view.Gravity.START;
 
 public class UserInfoEditActivity extends AppCompatActivity {
 
-    private NavigationView navigationView;
-    private DrawerLayout mDrawerLayout;
     private FirebaseUser user;
-
-    private View header;
-    private ImageView Nav_UserProfile;
-    private TextView Nav_UserText;
-    private TextView Nav_UserEmail;
-    private TextView Nav_UserStateMsg;
 
     String uid;
     private int PICK_FROM_ALBUM = 10;
@@ -79,8 +64,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
     private RequestManager mGlide;
 
-    private Close close;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,21 +71,9 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.editInfo_toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setDisplayHomeAsUpEnabled(true); //toolbar 사용하기 위함
+        ActionBar actionBar = getSupportActionBar();//toolbar 사용하기 위함
 
         getSupportActionBar().setTitle("정보 수정"); //app이름
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.editInfo_drawer_layout);
-
-        navigationView = (NavigationView)findViewById(R.id.editInfo_navigation_view);
-
-        header = navigationView.getHeaderView(0);
-        Nav_UserProfile = (ImageView) header.findViewById(R.id.drawerHeader_imageView);
-        Nav_UserText = (TextView) header.findViewById(R.id.drawerHeader_tv_name);
-        Nav_UserEmail = (TextView) header.findViewById(R.id.drawerHeader_tv_email);
-        Nav_UserStateMsg = (TextView) header.findViewById(R.id.drawerHeader_tv_stateMsg);
 
         InfoEdit_UserProfile = (ImageView)findViewById(R.id.editInfo_iv_profile);
         InfoEdit_UserName = (TextView)findViewById(R.id.editInfo_tv_name);
@@ -137,13 +108,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
                         mGlide.load(userModel.get(0).profileImageUrl)
                                 .apply(new RequestOptions().circleCrop())
-                                .into(Nav_UserProfile);
-                        Nav_UserText.setText(userModel.get(0).userName + " 님 환영합니다.");
-                        Nav_UserEmail.setText(userModel.get(0).userEmail);
-                        Nav_UserStateMsg.setText(userModel.get(0).stateMessage);//햄버거바 내용
-
-                        mGlide.load(userModel.get(0).profileImageUrl)
-                                .apply(new RequestOptions().circleCrop())
                                 .into(InfoEdit_UserProfile);
                         InfoEdit_UserName.setText(userModel.get(0).userName);
                         InfoEdit_UserEmail.setText(userModel.get(0).userEmail);
@@ -157,40 +121,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
                     }
                 }); //DB에서 읽어오기 종료
-
-        Nav_UserProfile.setOnClickListener(new View.OnClickListener() { //햄버거바 프로필 사진 눌렸을 때 이벤트 시작
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfoEditActivity.this);
-                dlg.setTitle("프로필 사진 수정");
-                dlg.setItems(UserImageArray,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch(which){
-                                    case 0: //기본 이미지로 설정
-                                        final List<UserModel> userModel = new ArrayList<>();
-                                        FirebaseDatabase
-                                                .getInstance()
-                                                .getReference()
-                                                .child("UserBasic")
-                                                .child(uid)
-                                                .child("profileImageUrl")
-                                                .setValue("android.resource://com.example.jmkim.nomad/drawable/profile");
-                                        break;
-
-                                    case 1: //앨범에서 선택하기
-                                        Intent intent = new Intent(Intent.ACTION_PICK);
-                                        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                                        startActivityForResult(intent,PICK_FROM_ALBUM);
-                                        break;
-                                }
-                            }
-                        });
-                dlg.setPositiveButton("닫기",null);
-                dlg.show();
-            }
-        }); //햄버거바 프로필 수정 종료
 
         InfoEdit_UserProfile.setOnClickListener(new View.OnClickListener() { //상단 프로필 사진 눌렸을 때 이벤트 시작
             @Override
@@ -281,7 +211,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(UserInfoEditActivity.this);
                 dlg.setTitle("회원 탈퇴");
                 dlg.setMessage("정말 탈퇴하시겠습니까?");
-                dlg.setPositiveButton("학인", new DialogInterface.OnClickListener() {
+                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         user.delete()
@@ -305,59 +235,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
                 dlg.show();
             }
         });
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() { //햄버거바 시작
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Intent intent;
-
-                menuItem.setChecked(true);
-                mDrawerLayout.closeDrawers();
-
-                int id = menuItem.getItemId();
-                switch (id) {
-                    case R.id.navigation_item_main:
-                        intent = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-
-                    case R.id.navigation_item_myPage:
-                        intent = new Intent(getApplicationContext(),MypageActivity.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-
-                    case R.id.navigation_item_infoEdit:
-                        break;
-
-                    case R.id.nav_sub_item_logout:
-                        intent = new Intent(getApplicationContext(),SplashActivity.class);
-                        startActivity(intent);
-                        finish();
-
-                        break;
-
-                }
-                return true;
-            }
-        }); //햄버거바 끝
-
-        close = new Close(this);
-    }
-
-    @SuppressLint("WrongConstant")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
-        int id = item.getItemId();
-
-        switch (id) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -396,10 +273,5 @@ public class UserInfoEditActivity extends AppCompatActivity {
                         }
                     });
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        close.onBackPressed();
     }
 }

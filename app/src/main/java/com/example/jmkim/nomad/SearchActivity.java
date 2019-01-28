@@ -1,11 +1,17 @@
 package com.example.jmkim.nomad;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -15,15 +21,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
-
-    private final String dbName = "tripbbox";
-    private final String tblName = "tb_city";
 
     private RadioButton city;
     private RadioButton activity;
@@ -50,16 +54,28 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayout focus;
     private ListView city_list;
 
+    private BottomNavigationView Search_bottomNavigationView;
+
     private List<String> list;
     private SearchAdapter adapter;
     private ArrayList<String> arrayList;
 
     int click = 0;
 
+    private DbOpenHelper mDbOpenHelper;
+    private Cursor iCursor;
+
+    private Close close;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.searchActivity_toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar  = getSupportActionBar();
+        getSupportActionBar().setTitle("검색");
 
         city = (RadioButton) findViewById(R.id.searchActivity_rb_city);
         activity = (RadioButton) findViewById(R.id.searchActivity_rb_activity);
@@ -85,6 +101,11 @@ public class SearchActivity extends AppCompatActivity {
         focus = (LinearLayout)findViewById(R.id.searchActivity_ll_focus);
         nonfocus = (LinearLayout)findViewById(R.id.searchActivity_ll_nonfocus);
         city_list = (ListView)findViewById(R.id.searchActivity_lv_city);
+
+        Search_bottomNavigationView = (BottomNavigationView) findViewById(R.id.searchActivity_bottomNavigation);
+        Search_bottomNavigationView.setOnNavigationItemSelectedListener(search_navigationItemSelectedListner);
+
+        Search_bottomNavigationView.setSelectedItemId(R.id.nav_search);
 
         city.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -227,14 +248,14 @@ public class SearchActivity extends AppCompatActivity {
                 search(text);
             }
         });
+
+        close = new Close(this);
     }
 
     public void search(String charText){
         list.clear();
 
-        if (charText.length() == 0) {
-
-        }else{
+        if (charText.length() != 0) {
             for(int i=0;i<arrayList.size();i++){
                 if(arrayList.get(i).toLowerCase().contains(charText)){
                     list.add(arrayList.get(i));
@@ -245,32 +266,48 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void settingList(){
-        list.add("채수빈");
-        list.add("박지현");
-        list.add("수지");
-        list.add("남태현");
-        list.add("하성운");
-        list.add("크리스탈");
-        list.add("강승윤");
-        list.add("손나은");
-        list.add("남주혁");
-        list.add("루이");
-        list.add("진영");
-        list.add("슬기");
-        list.add("이해인");
-        list.add("고원희");
-        list.add("설리");
-        list.add("공명");
-        list.add("김예림");
-        list.add("혜리");
-        list.add("웬디");
-        list.add("박혜수");
-        list.add("카이");
-        list.add("진세연");
-        list.add("동호");
-        list.add("박세완");
-        list.add("도희");
-        list.add("창모");
-        list.add("허영지");
+        mDbOpenHelper = new DbOpenHelper(this);
+        mDbOpenHelper.open();
+
+        iCursor = mDbOpenHelper.selectColumns();
+        while(iCursor.moveToNext()){
+            String tmpCity = iCursor.getString(iCursor.getColumnIndex("city"));
+            list.add(tmpCity);
+        }
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener search_navigationItemSelectedListner =
+            new BottomNavigationView.OnNavigationItemSelectedListener(){
+
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()){
+
+                        case R.id.nav_home:
+                            startActivity(new Intent(SearchActivity.this, MainActivity.class));
+                            finish();
+                            break;
+
+                        case R.id.nav_search:
+                            break;
+
+                        case R.id.nav_add:
+                            BottomSheetDialog bottomSheetDialog = BottomSheetDialog.getInstance();
+                            bottomSheetDialog.show(getSupportFragmentManager(),"bottomSheet");
+                            break;
+
+                        case R.id.nav_profile:
+                            startActivity(new Intent(SearchActivity.this, MypageActivity.class));
+                            finish();
+                            break;
+
+                    }
+                    return true;
+                }
+            };
+
+    @Override
+    public void onBackPressed() {
+        close.onBackPressed();
     }
 }

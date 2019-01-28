@@ -20,7 +20,7 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="horizontal">
@@ -36,6 +36,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/mypage_iv_profile"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
@@ -62,7 +63,15 @@
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
             </LinearLayout>
-        </LinearLayout>
+
+            <ImageView
+                android:id="@+id/mypage_iv_infoedit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_infoedit"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,12 +176,4 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/mypage_navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>
