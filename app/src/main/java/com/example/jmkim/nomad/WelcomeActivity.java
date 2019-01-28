@@ -49,6 +49,7 @@ public class WelcomeActivity extends Activity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     pd = new ProgressDialog(WelcomeActivity.this);
+                    
                     pd.show();
                     new getData().execute();
                 }
