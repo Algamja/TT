@@ -2,16 +2,20 @@ package com.example.jmkim.nomad;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class WritePlanActivity extends AppCompatActivity implements com.borax12.materialdaterangepicker.date.DatePickerDialog.OnDateSetListener {
@@ -32,6 +36,14 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
     private EditText dlg_ppl_total;
     private EditText dlg_ppl_cur;
 
+    private LinearLayout layout_recommend;
+    private ImageButton btn_help;
+    private ImageButton btn_add;
+    private View dlg_help;
+    //private LinearLayout layout_title;
+
+    private RecyclerView planhot_recycler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +59,25 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         layout_go_ppl = (LinearLayout)findViewById(R.id.WP_ll_go_people);
         total_ppl = (TextView)findViewById(R.id.WP_tv_totalppl);
         cur_ppl = (TextView)findViewById(R.id.WP_tv_currentppl);
+        layout_recommend = (LinearLayout)findViewById(R.id.WP_ll_recommend);
+        btn_help = (ImageButton)findViewById(R.id.WP_ib_help);
+        btn_add = (ImageButton)findViewById(R.id.WP_ib_add);
+        //layout_title = (LinearLayout)findViewById(R.id.WP_ll_title);
+
+        planhot_recycler = findViewById(R.id.WP_recyclerview);
+        planhot_recycler.setHasFixedSize(true);
+
+        planhot_recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        ArrayList<PlanHotInfo> planHotInfos = new ArrayList<>();
+        planHotInfos.add(new PlanHotInfo(R.drawable.one, "PLACE"));
+        planHotInfos.add(new PlanHotInfo(R.drawable.one, "PLACE"));
+        planHotInfos.add(new PlanHotInfo(R.drawable.one, "PLACE"));
+        planHotInfos.add(new PlanHotInfo(R.drawable.one, "PLACE"));
+        planHotInfos.add(new PlanHotInfo(R.drawable.one, "PLACE"));
+
+        PlanAdapter planAdapter = new PlanAdapter(planHotInfos);
+        planhot_recycler.setAdapter(planAdapter);
 
         layout_where.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +117,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
                         String cur = dlg_ppl_cur.getText().toString();
 
                         total_ppl.setText(total + " 명과 함께 여행을 떠나요!");
-                        cur_ppl.setText("현재 " + cur + " 명이 함께 해요!");
+                        cur_ppl.setText("현재 " + cur + " 명을 구해요!");
 
                         layout_go_ppl.setVisibility(View.VISIBLE);
                         ques_ppl.setVisibility(View.GONE);
@@ -97,6 +128,29 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
             }
         });
 
+        btn_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dlg_help = (View) View.inflate(WritePlanActivity.this, R.layout.recom_help_dialog, null);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(WritePlanActivity.this);
+                dlg.setView(dlg_help);
+                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                    dlg.show();
+            }
+        });//취향저격 일정 물음표 dialog
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Sub layout_title = new Sub(getApplicationContext());
+                layout_recommend.addView(layout_title);
+            }
+        });//취향저격 일정 더보기
     }
 
     @Override

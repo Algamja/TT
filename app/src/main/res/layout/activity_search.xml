@@ -83,10 +83,10 @@
                 android:layout_marginVertical="10dp">
 
                 <ImageView
-                    android:layout_width="25dp"
+                    android:layout_width="26dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/search"
-                    android:layout_marginRight="10dp"/> <!-- 검색 아이콘 -->
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/search" /> <!-- 검색 아이콘 -->
 
                 <EditText
                     android:layout_width="match_parent"
