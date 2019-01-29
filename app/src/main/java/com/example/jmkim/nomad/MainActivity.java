@@ -1,13 +1,23 @@
 package com.example.jmkim.nomad;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.example.jmkim.nomad.Fragment.FragmentPageAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -34,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageView board_image_2;
     private ImageView board_image_3;
 
+    private View view;
+
+    private FrameLayout fb_layout;
+    private FloatingActionButton write_plan;
+    private FloatingActionButton write_review;
+
+    private Boolean is_clicked = false;
+
     private Close close;
 
     @Override
@@ -53,6 +71,17 @@ public class MainActivity extends AppCompatActivity {
         board_layoutManager = new LinearLayoutManager(this);
         board_recycler.setLayoutManager(board_layoutManager);
 
+        view = (View)findViewById(R.id.black_view);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        view.setMinimumHeight((size.y)*3);
+
+        fb_layout = (FrameLayout)findViewById(R.id.main_ll_write_float);
+        write_plan = (FloatingActionButton)findViewById(R.id.main_fb_write_plan);
+        write_review = (FloatingActionButton)findViewById(R.id.main_fb_write_review);
+
         Main_bottomNavigationView = (BottomNavigationView)findViewById(R.id.main_bottomNavigation);
         Main_bottomNavigationView.setOnNavigationItemSelectedListener(main_navigationItemSelectedListener);
 
@@ -68,10 +97,39 @@ public class MainActivity extends AppCompatActivity {
 
         board_recycler.setAdapter(myAdapter);
 
-        ViewPager main_banner_vp = (ViewPager) findViewById(R.id.scroll_vp);
+        ViewPager main_banner_vp = (ViewPager) findViewById(R.id.main_scroll_vp);
         FragmentManager fm = getSupportFragmentManager();
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
         main_banner_vp.setAdapter(pageAdapter); //스와이프 부분 끝
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Main_bottomNavigationView.setSelectedItemId(R.id.nav_home);
+                fb_layout.setVisibility(View.INVISIBLE);
+                is_clicked = false;
+                view.setVisibility(View.INVISIBLE);
+                return false;
+            }
+        });
+
+        if(!is_clicked){
+            Main_bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        }
+
+        write_review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        write_plan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, WritePlanActivity.class));
+            }
+        });
 
         close = new Close(this);
     }
@@ -83,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()){
 
                         case R.id.nav_home:
+                            fb_layout.setVisibility(View.INVISIBLE);
+                            is_clicked = false;
+                            view.setVisibility(View.INVISIBLE);
                             break;
 
                         case R.id.nav_search:
@@ -91,8 +152,16 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case R.id.nav_add:
-                            BottomSheetDialog bottomSheetDialog = BottomSheetDialog.getInstance();
-                            bottomSheetDialog.show(getSupportFragmentManager(),"bottomSheet");
+                            if(is_clicked){
+                                fb_layout.setVisibility(View.INVISIBLE);
+                                is_clicked = false;
+                                view.setVisibility(View.INVISIBLE);
+                            }else {
+                                fb_layout.setVisibility(View.VISIBLE);
+                                is_clicked = true;
+                                view.setVisibility(View.VISIBLE);
+                                view.bringToFront();
+                            }
                             break;
 
                         case R.id.nav_profile:
@@ -100,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                             break;
                     }
-
                     return true;
                 }
             };

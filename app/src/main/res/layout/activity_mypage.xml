@@ -117,7 +117,7 @@
                 android:id="@+id/mypage_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/scroll_vp"
+                android:layout_below="@id/main_scroll_vp"
                 android:orientation="vertical"
                 android:background="#9ccfe1"
                 android:layout_weight="1">
