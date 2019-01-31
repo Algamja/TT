@@ -1,6 +1,6 @@
 package com.example.jmkim.nomad;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -63,6 +63,7 @@ public class MypageActivity extends AppCompatActivity {
 
     private Close close;
 
+    public static Activity Mypage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,6 +89,8 @@ public class MypageActivity extends AppCompatActivity {
         Mypage_bottomNavigationView.setOnNavigationItemSelectedListener(mypage_navigationItemSelectedListener);
 
         Mypage_bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+
+        Mypage = MypageActivity.this;
 
         mGlide = Glide.with(this);
 
@@ -121,7 +124,7 @@ public class MypageActivity extends AppCompatActivity {
                     }
                 });
 
-        userProfile.setOnClickListener(new View.OnClickListener() {
+        userProfile.setOnClickListener(new View.OnClickListener() { //프로필사진 눌렸을 때
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MypageActivity.this);
@@ -155,7 +158,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        userStateMsg.setOnClickListener(new View.OnClickListener() {
+        userStateMsg.setOnClickListener(new View.OnClickListener() { //상태메시지 눌렸을 때
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MypageActivity.this,UserInfoEditActivity.class);
@@ -164,14 +167,14 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        infoEdit.setOnClickListener(new View.OnClickListener() {
+        infoEdit.setOnClickListener(new View.OnClickListener() { //정보수정 버튼 눌렀을 때
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MypageActivity.this, UserInfoEditActivity.class));
             }
         });
 
-        close = new Close(this);
+        close = new Close(this); //뒤로가기 누르면 종료
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mypage_navigationItemSelectedListener =
@@ -203,19 +206,6 @@ public class MypageActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
-    @SuppressLint("WrongConstant")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
-        int id = item.getItemId();
-
-        switch (id) {
-            case android.R.id.home:
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override

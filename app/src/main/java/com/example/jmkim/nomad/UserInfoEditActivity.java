@@ -56,6 +56,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
     private LinearLayout linear_editBasic;
     private LinearLayout linear_editParty;
     private LinearLayout linear_editActivity;
+    private LinearLayout linear_logout;
     private LinearLayout linear_leave;
 
     private TextView tv_stateMsg;
@@ -84,6 +85,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
         linear_editBasic = (LinearLayout)findViewById(R.id.editInfo_linearLayout_basicEdit);
         linear_editParty = (LinearLayout)findViewById(R.id.editInfo_linearLayout_partyEdit);
         linear_editActivity = (LinearLayout)findViewById(R.id.editInfo_linearLayout_activityEdit);
+        linear_logout = (LinearLayout)findViewById(R.id.editInfo_linearLayout_logout);
         linear_leave = (LinearLayout)findViewById(R.id.editInfo_linearLayout_leave);
 
         tv_stateMsg = (TextView)findViewById(R.id.editInfo_tv_linear_stateMsg);
@@ -205,6 +207,19 @@ public class UserInfoEditActivity extends AppCompatActivity {
             }
         }); //액티비티 변경 끝
 
+        linear_logout.setOnClickListener(new View.OnClickListener() { //로그아웃 시작
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserInfoEditActivity.this, SplashActivity.class));
+                finish();
+
+                MypageActivity mypageActivity = (MypageActivity)MypageActivity.Mypage;
+                mypageActivity.finish(); //마이페이지 종료
+
+                FirebaseAuth.getInstance().signOut();
+            }
+        }); //로그아웃 끝
+
         linear_leave.setOnClickListener(new View.OnClickListener() { //탈퇴 시작
             @Override
             public void onClick(View v) {
@@ -234,7 +249,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
                 dlg.setNegativeButton("취소",null);
                 dlg.show();
             }
-        });
+        }); //탈퇴 끝
     }
 
     @Override

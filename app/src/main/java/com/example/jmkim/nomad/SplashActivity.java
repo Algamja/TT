@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -20,6 +22,19 @@ public class SplashActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
 
     private FirebaseRemoteConfig firebaseRemoteConfig;
+
+    @Override
+    protected void onStart() { //자동로그인 동작
+        super.onStart();
+
+        FirebaseUser firebaseUser;
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(firebaseUser != null){
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
