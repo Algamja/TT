@@ -18,22 +18,25 @@
         app:srcCompat="@drawable/ic_loading_logo" />
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/custom_font"
         android:text="Welcome to"
         android:textColor="@android:color/white"
-        android:textSize="60dp"/>
+        android:textSize="40dp"/>
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/custom_font"
         android:text="TripBox"
         android:textColor="@android:color/white"
-        android:textSize="60dp"/>
+        android:textSize="40dp"/>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -42,6 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/custom_font"
             android:text="SIGN IN"
             android:textColor="@android:color/white"
             android:textSize="30dp"
@@ -56,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/custom_font"
             android:text="SIGN UP"
             android:textColor="@android:color/white"
             android:textSize="30dp"

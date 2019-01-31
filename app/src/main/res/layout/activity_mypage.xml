@@ -44,22 +44,25 @@
                     android:id="@+id/mypage_tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/mypage_tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/mypage_tv_stateMsg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
             </LinearLayout>
@@ -83,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/custom_font"
                 android:text="내가 쓴 글" />
 
             <Button
@@ -90,13 +94,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="나의 여행 계획" />
+                android:fontFamily="@font/custom_font"
+                android:text="여행 계획" />
 
             <Button
                 android:id="@+id/mypage_btn_scrap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/custom_font"
                 android:text="스크랩" />
 
             <Button
@@ -104,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/custom_font"
                 android:text="나의 활동" />
 
         </LinearLayout>

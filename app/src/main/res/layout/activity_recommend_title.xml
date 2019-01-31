@@ -18,8 +18,9 @@
 
         <LinearLayout
             android:id="@+id/RT_ll_title"
-            android:layout_width="230dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="7"
             android:orientation="vertical">
 
             <TextView
@@ -89,14 +90,14 @@
                         android:layout_height="18dp"
                         android:text="1000" />
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/RT_ll_recruitppl"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="horizontal"
             android:layout_gravity="center"><!--사람 모집하는 -->
 

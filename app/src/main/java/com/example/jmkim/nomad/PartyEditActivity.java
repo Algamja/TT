@@ -36,6 +36,7 @@ public class PartyEditActivity extends AppCompatActivity {
     private LinearLayout linear_age;
     private RadioButton rb_sameSex;
     private RadioButton rb_donCareSex;
+    private RadioButton rb_sameAge;
     private RadioButton rb_donCareAge;
     private RadioButton rb_3Age;
     private RadioButton rb_5Age;
@@ -51,6 +52,7 @@ public class PartyEditActivity extends AppCompatActivity {
         linear_age = (LinearLayout) findViewById(R.id.partyEdit_partyAge);
         rb_sameSex = (RadioButton) findViewById(R.id.partyEdit_rb_sameSex);
         rb_donCareSex = (RadioButton) findViewById(R.id.partyEdit_rb_donCareSex);
+        rb_sameAge = (RadioButton) findViewById(R.id.partyEdit_rb_sameAge);
         rb_donCareAge = (RadioButton) findViewById(R.id.partyEdit_rb_donCareAge);
         rb_3Age = (RadioButton) findViewById(R.id.partyEdit_rb_3Age);
         rb_5Age = (RadioButton) findViewById(R.id.partyEdit_rb_5Age);
@@ -115,7 +117,9 @@ public class PartyEditActivity extends AppCompatActivity {
                     }
                 }
 
-                if(rb_donCareAge.isChecked()){
+                if(rb_sameAge.isChecked()){
+                    userParty.partyAge = "동갑";
+                }else if(rb_donCareAge.isChecked()){
                     userParty.partyAge = "무관";
                 }else if(rb_3Age.isChecked()){
                     userParty.partyAge = "3살차이";

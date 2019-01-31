@@ -2,7 +2,6 @@
 <androidx.drawerlayout.widget.DrawerLayout
     android:layout_marginTop="15dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,6 +39,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:text="이름"
                 android:textSize="13dp" />
@@ -49,6 +49,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:text="이메일"
                 android:textSize="13dp" />
@@ -58,6 +59,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:text="상태메시지"
                 android:textSize="13dp" />
@@ -81,6 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="상태메시지"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -90,6 +93,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:textSize="13dp"/>
         </LinearLayout>
@@ -111,6 +115,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="기본정보 수정"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -133,6 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="파티원 수정"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -155,6 +161,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="액티비티 수정"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -177,6 +184,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="로그아웃"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"/>
@@ -199,6 +207,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="탈퇴"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>

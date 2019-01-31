@@ -9,6 +9,7 @@
         android:layout_height="0dp"
         android:layout_weight="9"
         android:gravity="center"
+        android:fontFamily="@font/custom_font"
         android:text="스와이프1"
         android:textColor="@android:color/white" />
 

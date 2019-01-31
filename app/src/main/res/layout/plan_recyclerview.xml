@@ -26,6 +26,7 @@
             android:layout_alignRight="@+id/PA_ib_hot"
             android:layout_alignBottom="@+id/PA_ib_hot"
             android:gravity="center"
+            android:fontFamily="@font/custom_font"
             android:text="Korea"
             android:textColor="#FFFFFF"
             android:textSize="20sp"

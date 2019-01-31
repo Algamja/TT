@@ -3,25 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="177dp" />
+    android:orientation="vertical"
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/custom_font"
         android:text="환영합니다!"
-        android:textSize="50sp" />
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/mainpage"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="가입완료"/> //로그인에서 가입하면 로그인창으로 가길래 버튼 이름 수정함
+        android:fontFamily="@font/custom_font"
+        android:text="가입완료"/>
 
 </LinearLayout>

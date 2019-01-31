@@ -14,7 +14,7 @@
             android:id="@+id/stateMsg_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
             android:hint="상태메시지"/>
     </com.google.android.material.textfield.TextInputLayout>
-
 </LinearLayout>
