@@ -30,7 +30,7 @@
         <activity android:name=".BasicEditActivity" />
         <activity android:name=".PartyEditActivity" />
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".UserActivity" />
+        <activity android:name=".WriterActivity" />
         <activity android:name=".ActivityEditActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".WritePlanActivity" />

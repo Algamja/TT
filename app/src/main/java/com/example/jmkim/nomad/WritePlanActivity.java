@@ -140,7 +140,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
 
                     }
                 });
-                    dlg.show();
+                dlg.show();
             }
         });//취향저격 일정 물음표 dialog
 

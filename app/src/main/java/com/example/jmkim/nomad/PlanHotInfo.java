@@ -1,7 +1,5 @@
 package com.example.jmkim.nomad;
 
-import android.widget.ImageButton;
-
 public class PlanHotInfo {
 
     public int imageint;
