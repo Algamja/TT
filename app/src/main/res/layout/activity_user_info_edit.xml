@@ -2,7 +2,6 @@
 <androidx.drawerlayout.widget.DrawerLayout
     android:layout_marginTop="15dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,13 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"/> <!-- Toolbar -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"> <!-- 상단 프로필 사진 및 정보 -->
 
             <ImageView
                 android:id="@+id/editInfo_iv_profile"
@@ -36,28 +35,31 @@
                 android:src="@drawable/profile" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/editInfo_tv_name"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:text="이름"
                 android:textSize="13dp" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/editInfo_tv_email"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:text="이메일"
                 android:textSize="13dp" />
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:id="@+id/editInfo_tv_stateMsg"
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:text="상태메시지"
                 android:textSize="13dp" />
@@ -66,21 +68,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/darker_gray"> <!-- 구분선 -->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/editInfo_linearLayout_stateMsg"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:id="@+id/editInfo_linearLayout_stateMsg"
             android:orientation="vertical"
             android:padding="10dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"> <!-- 상태메시지 -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="상태메시지"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -90,7 +93,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="상태메시지"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/black"
                 android:textSize="13dp"/>
         </LinearLayout>
@@ -98,20 +101,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/darker_gray"> <!-- 구분선 -->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/editInfo_linearLayout_basicEdit"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/editInfo_linearLayout_basicEdit"
             android:padding="10dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"> <!-- 기본정보 수정 -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="기본정보 수정"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -120,20 +124,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/darker_gray"> <!-- 구분선 -->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/editInfo_linearLayout_partyEdit"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/editInfo_linearLayout_partyEdit"
             android:padding="10dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"> <!-- 파티원 수정 -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="파티원 수정"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -142,20 +147,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/darker_gray"> <!-- 구분선 -->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/editInfo_linearLayout_activityEdit"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/editInfo_linearLayout_activityEdit"
             android:padding="10dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"> <!-- 액티비티 수정 -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="액티비티 수정"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -164,20 +170,44 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/darker_gray"> <!-- 구분선 -->
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/editInfo_linearLayout_logout"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/editInfo_linearLayout_leave"
             android:padding="10dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"> <!-- 로그아웃 -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
+                android:text="로그아웃"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"> <!-- 구분선 -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editInfo_linearLayout_leave"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            android:gravity="center_vertical"> <!-- 탈퇴 -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="탈퇴"
                 android:textColor="@android:color/black"
                 android:textSize="15dp"/>
@@ -186,34 +216,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/darker_gray"> <!-- 구분선 -->
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"
-            android:layout_weight="1">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/editInfo_bottomNavigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/windowBackground"
-                app:itemIconTint="@color/selector"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_navigation"
-                android:foregroundGravity="bottom"
-                android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
     </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/editInfo_navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

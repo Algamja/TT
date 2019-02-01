@@ -20,7 +20,7 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="horizontal">
@@ -36,6 +36,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/mypage_iv_profile"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
@@ -43,26 +44,37 @@
                     android:id="@+id/mypage_tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/mypage_tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
 
                 <TextView
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/mypage_tv_stateMsg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:textSize="13dp"
                     android:textColor="@android:color/black"/>
             </LinearLayout>
-        </LinearLayout>
+
+            <ImageView
+                android:id="@+id/mypage_iv_infoedit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
+                android:src="@drawable/ic_infoedit"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/custom_font"
                 android:text="내가 쓴 글" />
 
             <Button
@@ -81,13 +94,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="나의 여행 계획" />
+                android:fontFamily="@font/custom_font"
+                android:text="여행 계획" />
 
             <Button
                 android:id="@+id/mypage_btn_scrap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/custom_font"
                 android:text="스크랩" />
 
             <Button
@@ -95,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/custom_font"
                 android:text="나의 활동" />
 
         </LinearLayout>
@@ -108,7 +124,7 @@
                 android:id="@+id/mypage_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/scroll_vp"
+                android:layout_below="@id/main_scroll_vp"
                 android:orientation="vertical"
                 android:background="#9ccfe1"
                 android:layout_weight="1">
@@ -167,12 +183,4 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/mypage_navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

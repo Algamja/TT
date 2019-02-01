@@ -21,6 +21,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
 
+            android:fontFamily="@font/custom_font"
             android:textSize="27dp"
             android:textColor="@android:color/black"
             android:text="이메일 찾기"
@@ -40,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/findEmail_et_name"
+                    android:fontFamily="@font/custom_font"
                     android:hint="이름"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/findEmail_et_phone"
+                    android:fontFamily="@font/custom_font"
                     android:hint="핸드폰 번호"
                     android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,9 +67,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:fontFamily="@font/custom_font"
             android:text="찾기"/>
 
-        //ID 찾기
+        <!--ID 찾기 끝-->
 
 
         <TextView
@@ -77,6 +81,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginLeft="10dp"
 
+            android:fontFamily="@font/custom_font"
             android:textSize="27dp"
             android:textColor="@android:color/black"
             android:text="비밀번호 찾기"
@@ -96,6 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/findPw_et_email"
+                    android:fontFamily="@font/custom_font"
                     android:hint="이메일"
                     android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/findPw_et_name"
+                    android:fontFamily="@font/custom_font"
                     android:hint="이름"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,6 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/findPw_et_phone"
+                    android:fontFamily="@font/custom_font"
                     android:hint="핸드폰 번호"
                     android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -132,14 +140,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:fontFamily="@font/custom_font"
             android:text="찾기"/>
-        //PW찾기
+        <!-- PW 찾기 끝-->
 
         <Button
             android:id="@+id/find_btn_back"
             android:layout_gravity="left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
             android:text="뒤로가기" />
     </LinearLayout>
 </ScrollView>

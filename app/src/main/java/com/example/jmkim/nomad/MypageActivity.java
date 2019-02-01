@@ -1,6 +1,6 @@
 package com.example.jmkim.nomad;
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,20 +9,16 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.jmkim.nomad.DB.Board;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +31,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,26 +39,17 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import static android.view.Gravity.START;
 
 public class MypageActivity extends AppCompatActivity {
 
-    private NavigationView navigationView;
-    private DrawerLayout mDrawerLayout;
     private FirebaseUser user;
 
-    private View header;
-    private ImageView Nav_UserProfile;
-    private TextView Nav_UserText;
-    private TextView Nav_UserEmail;
-    private TextView Nav_UserStateMsg;
+    private ImageView userProfile;
+    private TextView userName;
+    private TextView userEmail;
+    private TextView userStateMsg;
 
-    private ImageView Mypage_UserProfile;
-    private TextView Mypage_UserName;
-    private TextView Mypage_UserEmail;
-    private TextView Mypage_UserStateMsg;
+    private ImageView infoEdit;
 
     private BottomNavigationView Mypage_bottomNavigationView;
 
@@ -77,6 +63,7 @@ public class MypageActivity extends AppCompatActivity {
 
     private Close close;
 
+    public static Activity Mypage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,30 +75,22 @@ public class MypageActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.mypage_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        actionBar.setDisplayHomeAsUpEnabled(true); //toolbar 사용하기 위함
 
         getSupportActionBar().setTitle("마이 페이지"); //app이름
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.mypage_drawer_layout);
+        userProfile = (ImageView)findViewById(R.id.mypage_iv_profile);
+        userName = (TextView)findViewById(R.id.mypage_tv_name);
+        userEmail = (TextView)findViewById(R.id.mypage_tv_email);
+        userStateMsg = (TextView)findViewById(R.id.mypage_tv_stateMsg);
 
-        navigationView = (NavigationView)findViewById(R.id.mypage_navigation_view); //햄버거바 사용위함
-
-        header = navigationView.getHeaderView(0);
-        Nav_UserProfile = (ImageView) header.findViewById(R.id.drawerHeader_imageView);
-        Nav_UserText = (TextView) header.findViewById(R.id.drawerHeader_tv_name);
-        Nav_UserEmail = (TextView) header.findViewById(R.id.drawerHeader_tv_email);
-        Nav_UserStateMsg = (TextView) header.findViewById(R.id.drawerHeader_tv_stateMsg);
-
-        Mypage_UserProfile = (ImageView)findViewById(R.id.mypage_iv_profile);
-        Mypage_UserName = (TextView)findViewById(R.id.mypage_tv_name);
-        Mypage_UserEmail = (TextView)findViewById(R.id.mypage_tv_email);
-        Mypage_UserStateMsg = (TextView)findViewById(R.id.mypage_tv_stateMsg);
+        infoEdit = (ImageView)findViewById(R.id.mypage_iv_infoedit);
 
         Mypage_bottomNavigationView = (BottomNavigationView)findViewById(R.id.mypage_bottomNavigation);
         Mypage_bottomNavigationView.setOnNavigationItemSelectedListener(mypage_navigationItemSelectedListener);
 
         Mypage_bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+
+        Mypage = MypageActivity.this;
 
         mGlide = Glide.with(this);
 
@@ -133,17 +112,10 @@ public class MypageActivity extends AppCompatActivity {
 
                         mGlide.load(userModel.get(0).profileImageUrl)
                                 .apply(new RequestOptions().circleCrop())
-                                .into(Nav_UserProfile);
-                        Nav_UserText.setText(userModel.get(0).userName + " 님 환영합니다.");
-                        Nav_UserEmail.setText(userModel.get(0).userEmail);
-                        Nav_UserStateMsg.setText(userModel.get(0).stateMessage);//햄버거바 내용
-
-                        mGlide.load(userModel.get(0).profileImageUrl)
-                                .apply(new RequestOptions().circleCrop())
-                                .into(Mypage_UserProfile);
-                        Mypage_UserName.setText(userModel.get(0).userName);
-                        Mypage_UserEmail.setText(userModel.get(0).userEmail);
-                        Mypage_UserStateMsg.setText(userModel.get(0).stateMessage); //마이페이지 상단
+                                .into(userProfile);
+                        userName.setText(userModel.get(0).userName);
+                        userEmail.setText(userModel.get(0).userEmail);
+                        userStateMsg.setText(userModel.get(0).stateMessage); //마이페이지 상단
                     }
 
                     @Override
@@ -152,7 +124,7 @@ public class MypageActivity extends AppCompatActivity {
                     }
                 });
 
-        Nav_UserProfile.setOnClickListener(new View.OnClickListener() { //프로필 사진 눌렸을 때 이벤트 시작
+        userProfile.setOnClickListener(new View.OnClickListener() { //프로필사진 눌렸을 때
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MypageActivity.this);
@@ -186,87 +158,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        Mypage_UserProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dlg = new AlertDialog.Builder(MypageActivity.this);
-                dlg.setTitle("프로필 사진 수정");
-                dlg.setItems(UserImageArray,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch(which){
-                                    case 0: //기본 이미지로 설정
-                                        final List<UserModel> userModel = new ArrayList<>();
-                                        FirebaseDatabase
-                                                .getInstance()
-                                                .getReference()
-                                                .child("UserBasic")
-                                                .child(uid)
-                                                .child("profileImageUrl")
-                                                .setValue("android.resource://com.example.jmkim.nomad/drawable/profile");
-                                        break;
-
-                                    case 1: //앨범에서 선택하기
-                                        Intent intent = new Intent(Intent.ACTION_PICK);
-                                        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                                        startActivityForResult(intent, PICK_FROM_ALBUM_PROFILE);
-                                        break;
-                                }
-                            }
-                        });
-                dlg.setPositiveButton("닫기",null);
-                dlg.show();
-            }
-        });
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Intent intent;
-
-                menuItem.setChecked(true);
-                mDrawerLayout.closeDrawers();
-
-                int id = menuItem.getItemId();
-                switch (id) {
-                    case R.id.navigation_item_main:
-                        intent = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-
-                    case R.id.navigation_item_myPage:
-                        break;
-
-                    case R.id.navigation_item_infoEdit:
-                        intent = new Intent(getApplicationContext(),UserInfoEditActivity.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-
-                    case R.id.nav_sub_item_logout:
-                        intent = new Intent(getApplicationContext(),SplashActivity.class);
-                        startActivity(intent);
-                        finish();
-
-                        break;
-
-                }
-                return true;
-            }
-        }); //햄버거바 끝
-
-        Nav_UserStateMsg.setOnClickListener(new View.OnClickListener() { //햄버거바 내의 상태메시지 클릭 이벤트
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MypageActivity.this,UserInfoEditActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }); //햄버거바 상태메시지 클릭 종료
-
-        Mypage_UserStateMsg.setOnClickListener(new View.OnClickListener() {
+        userStateMsg.setOnClickListener(new View.OnClickListener() { //상태메시지 눌렸을 때
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MypageActivity.this,UserInfoEditActivity.class);
@@ -275,11 +167,19 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        close = new Close(this);
+        infoEdit.setOnClickListener(new View.OnClickListener() { //정보수정 버튼 눌렀을 때
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MypageActivity.this, UserInfoEditActivity.class));
+            }
+        });
+
+        close = new Close(this); //뒤로가기 누르면 종료
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mypage_navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
+
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()){
@@ -287,6 +187,12 @@ public class MypageActivity extends AppCompatActivity {
                         case R.id.nav_home:
                             startActivity(new Intent(MypageActivity.this, MainActivity.class));
                             finish();
+                            break;
+
+                        case R.id.nav_search:
+                            startActivity(new Intent(MypageActivity.this, SearchActivity.class));
+                            finish();
+                            break;
 
                         case R.id.nav_add:
                             BottomSheetDialog bottomSheetDialog = BottomSheetDialog.getInstance();
@@ -300,20 +206,6 @@ public class MypageActivity extends AppCompatActivity {
                     return true;
                 }
             };
-
-    @SuppressLint("WrongConstant")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) { //toolbar 버튼 눌렸을 때
-        int id = item.getItemId();
-
-        switch (id) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override

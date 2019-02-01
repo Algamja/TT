@@ -102,7 +102,7 @@ public class BasicEditActivity extends AppCompatActivity {
             }
         }); //비밀번호 확인 끝
 
-        change.setOnClickListener(new View.OnClickListener() {
+        change.setOnClickListener(new View.OnClickListener() { //변경 버튼 클릭했을 때
             @Override
             public void onClick(View v) {
                 FirebaseDatabase

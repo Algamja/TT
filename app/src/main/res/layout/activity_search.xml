@@ -11,31 +11,20 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp">
 
-                <ImageView
-                    android:id="@+id/searchActivity_iv_back"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/back" /> <!-- 상단 뒤로가기 아이콘-->
-                <TextView
-                    android:id="@+id/searchActivity_tv_logo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TripBox"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:gravity="center" /> <!-- TripBox 로고-->
-            </RelativeLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/searchActivity_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,10 +44,12 @@
                         android:layout_height="wrap_content"
                         android:button="@drawable/radiobutton"
                         android:background="#ffffff"
+                        android:fontFamily="@font/custom_font"
                         android:text="City"
                         android:textSize="25dp"
                         android:layout_marginRight="15dp"
-                        android:checked="true" /> <!-- City 버튼 -->
+                        android:checked="true"
+                        android:padding="5dp"/> <!-- City 버튼 -->
 
                     <RadioButton
                         android:id="@+id/searchActivity_rb_activity"
@@ -66,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:button="@drawable/radiobutton"
                         android:background="#ffffff"
+                        android:fontFamily="@font/custom_font"
                         android:text="Activity"
                         android:textSize="25dp"
                         android:textColor="#a6a6a6a6"/> <!-- Activity 버튼 -->
@@ -82,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp">
+                android:layout_marginVertical="10dp"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="26dp"
@@ -95,6 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:fontFamily="@font/custom_font"
                     android:hint="Search"/> <!-- Search -->
             </LinearLayout>
 
@@ -113,12 +107,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="추천 검색어"
                     android:textSize="15dp"
                     android:textColor="#000"
                     android:textStyle="bold"
                     android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"/> <!-- 추천 검색어 -->
+                    android:layout_marginTop="20dp"/> <!-- 추천 검색어 -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -134,6 +129,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
 
                     <View
@@ -149,6 +145,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
                 </LinearLayout>
 
@@ -165,6 +162,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
 
                     <View
@@ -180,6 +178,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
                 </LinearLayout>
 
@@ -196,6 +195,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
 
                     <View
@@ -211,6 +211,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
                 </LinearLayout>
 
@@ -227,6 +228,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
 
                     <View
@@ -242,6 +244,7 @@
                         android:gravity="left|center_vertical"
                         android:paddingLeft="15dp"
                         android:background="#fff"
+                        android:fontFamily="@font/custom_font"
                         android:text="도쿄" />
                 </LinearLayout> <!-- 추천 검색어 종료 -->
 
@@ -254,12 +257,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="추천 일정"
                     android:textSize="15dp"
                     android:textColor="#000"
                     android:textStyle="bold"
                     android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="10dp"/> <!-- 추천 일정 -->
+                    android:layout_marginTop="20dp"/> <!-- 추천 일정 -->
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -295,12 +299,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/custom_font"
                                 android:text="국가"
                                 android:textColor="#fff"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/custom_font"
                                 android:text="작성자"
                                 android:textColor="#fff"/>
                         </LinearLayout>
@@ -334,12 +341,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/custom_font"
                                 android:text="국가"
                                 android:textColor="#fff"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/custom_font"
                                 android:text="작성자"
                                 android:textColor="#fff"/>
                         </LinearLayout>
@@ -372,12 +382,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/custom_font"
                                 android:text="국가"
                                 android:textColor="#fff"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/custom_font"
                                 android:text="작성자"
                                 android:textColor="#fff"/>
                         </LinearLayout>
@@ -411,12 +424,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/custom_font"
                                 android:text="국가"
                                 android:textColor="#fff"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/custom_font"
                                 android:text="작성자"
                                 android:textColor="#fff"/>
                         </LinearLayout>
@@ -450,12 +466,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/custom_font"
                                 android:text="국가"
                                 android:textColor="#fff"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/custom_font"
                                 android:text="작성자"
                                 android:textColor="#fff"/>
                         </LinearLayout>
@@ -489,12 +508,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/custom_font"
                                 android:text="국가"
                                 android:textColor="#fff"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/custom_font"
                                 android:text="작성자"
                                 android:textColor="#fff"/>
                         </LinearLayout>
@@ -518,4 +540,23 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_weight="9">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/searchActivity_bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            android:foregroundGravity="bottom"
+            app:itemIconTint="@color/selector"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_navigation" />
+    </RelativeLayout>
 </LinearLayout>

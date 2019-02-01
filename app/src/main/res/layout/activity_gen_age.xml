@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:padding="30dp">
 
     <LinearLayout
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/genAgeActivity_iv_back"
@@ -21,10 +22,11 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
             android:text="Sign Up by Email"
             android:textColor="@android:color/black"
             android:textSize="20dp"/>
-    </LinearLayout> //상단 뒤로가기
+    </LinearLayout> <!-- 상단 뒤로가기 -->
 
     <LinearLayout
         android:gravity="center_vertical"
@@ -37,8 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <TextView
                 android:gravity="center"
@@ -46,6 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="50dp"
+                android:fontFamily="@font/custom_font"
                 android:textColor="@android:color/white"
                 android:text="SEX"
                 android:textSize="15dp"
@@ -63,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"
+                    android:fontFamily="@font/custom_font"
                     android:text="Male"
                     android:textStyle="bold"/>
 
@@ -71,18 +75,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"
+                    android:fontFamily="@font/custom_font"
                     android:text="Female"
                     android:textStyle="bold"/>
             </RadioGroup>
-        </LinearLayout> //사용자 성별
+        </LinearLayout> <!-- 사용자 성별 -->
 
         <LinearLayout
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <TextView
                 android:gravity="center"
@@ -90,6 +95,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="50dp"
+                android:fontFamily="@font/custom_font"
                 android:text="AGE"
                 android:textSize="15dp"
                 android:textColor="@android:color/white"
@@ -102,9 +108,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:entries="@array/age" />
+                android:entries="@array/age"
+                android:fontFamily="@font/custom_font"/>
 
-        </LinearLayout> //사용자 나이
+        </LinearLayout> <!-- 사용자 나이 -->
 
         <CheckBox
             android:id="@+id/genAgeActivity_cb_party"
@@ -112,8 +119,9 @@
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
             android:text="파티원 모집에 동의합니다."
-            android:textStyle="bold"/> //파티원 모집 동의 체크
+            android:textStyle="bold"/> <!-- 파티원 모집 동의 체크 -->
 
         <LinearLayout
             android:visibility="gone"
@@ -122,8 +130,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -136,13 +144,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MEMBER"
+                    android:fontFamily="@font/custom_font"
+                    android:text="MEMBER'S"
                     android:textSize="15dp"
                     android:textColor="@android:color/white"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="SEX"
                     android:textSize="15dp"
                     android:textColor="@android:color/white"/>
@@ -159,6 +169,7 @@
                     android:id="@+id/genAgeActivity_rb_sameSex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="동성"
                     android:textStyle="bold"/>
 
@@ -167,11 +178,12 @@
                     android:id="@+id/genAgeActivity_rb_donCareSex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="무관"
                     android:textStyle="bold"/>
 
             </RadioGroup>
-        </LinearLayout> //파티원 성별
+        </LinearLayout> <!-- 파티원 성별 -->
 
         <LinearLayout
             android:visibility="gone"
@@ -180,8 +192,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -194,13 +206,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MEMBER"
+                    android:fontFamily="@font/custom_font"
+                    android:text="MEMBER'S"
                     android:textSize="15dp"
                     android:textColor="@android:color/white"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="AGE"
                     android:textSize="15dp"
                     android:textColor="@android:color/white"/>
@@ -217,6 +231,7 @@
                     android:id="@+id/genAgeActivity_rb_sameAge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="동갑"
                     android:textStyle="bold"/>
 
@@ -225,6 +240,7 @@
                     android:id="@+id/genAgeActivity_rb_donCareAge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="무관"
                     android:textStyle="bold"/>
 
@@ -233,6 +249,7 @@
                     android:id="@+id/genAgeActivity_rb_3Age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="3살차이"
                     android:textStyle="bold"/>
 
@@ -241,11 +258,12 @@
                     android:id="@+id/genAgeActivity_rb_5Age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="5살차이"
                     android:textStyle="bold"/>
 
             </RadioGroup>
-        </LinearLayout> //파티원 나이
+        </LinearLayout> <!-- 파티원 나이 -->
     </LinearLayout>
 
     <Button
@@ -255,5 +273,6 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_signup_round"
+        android:fontFamily="@font/custom_font"
         android:text="다음"/>
 </LinearLayout>

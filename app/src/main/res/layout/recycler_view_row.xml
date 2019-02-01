@@ -23,18 +23,22 @@
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/scroll_tv_title_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="글 제목"/>
 
             <TextView
                 android:id="@+id/scroll_tv_country_1"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
                 android:text="여행할 국가"/>
         </LinearLayout>
     </LinearLayout>

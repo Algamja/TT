@@ -18,6 +18,7 @@
             android:id="@+id/basicEdit_et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
             android:hint="이메일"
             android:focusable="false"
             android:clickable="false"/>
@@ -32,6 +33,7 @@
             android:id="@+id/basicEdit_et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
             android:hint="이름"
             android:focusable="false"
             android:clickable="false"/>
@@ -68,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/basicEdit_tv_pwCheck"
+        android:fontFamily="@font/custom_font"
         android:textSize="13dp"
         android:textColor="@android:color/black"/>
 
@@ -80,6 +83,7 @@
             android:id="@+id/basicEdit_et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
             android:hint="핸드폰 번호"
             android:inputType="phone"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +95,7 @@
         android:layout_gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/custom_font"
         android:textSize="20dp"
         android:text="변경"/>
 
