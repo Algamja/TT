@@ -13,7 +13,7 @@
         android:background="?attr/selectableItemBackground">
 
         <ImageView
-            android:src="@drawable/ic_schedule"
+            android:src="@drawable/ic_plan"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="12dp"

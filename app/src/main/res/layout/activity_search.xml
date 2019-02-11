@@ -1,562 +1,776 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    android:layout_marginTop="15dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchActivity"
-    android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:fitsSystemWindows="true">
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:fitsSystemWindows="true">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/searchActivity_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="10dp"
                 android:background="?attr/colorPrimary"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+                android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp">
-
-                <RadioGroup
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/radiobutton">
-
-                    <RadioButton
-                        android:id="@+id/searchActivity_rb_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/radiobutton"
-                        android:background="#ffffff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="City"
-                        android:textSize="25dp"
-                        android:layout_marginRight="15dp"
-                        android:checked="true"
-                        android:padding="5dp"/> <!-- City 버튼 -->
-
-                    <RadioButton
-                        android:id="@+id/searchActivity_rb_activity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/radiobutton"
-                        android:background="#ffffff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="Activity"
-                        android:textSize="25dp"
-                        android:textColor="#a6a6a6a6"/> <!-- Activity 버튼 -->
-                </RadioGroup>
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="5dip"
-                android:background="@drawable/drop_shadow"/> <!-- 음영효과 -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="25dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/search" /> <!-- 검색 아이콘 -->
-
-                <EditText
-                    android:id="@+id/searchActivity_et_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:fontFamily="@font/custom_font"
-                    android:hint="Search"/> <!-- Search -->
-            </LinearLayout>
+                    android:text="검색"
+                    android:textColor="#fff"
+                    android:textSize="25dp"/>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
-                android:id="@+id/searchActivity_ll_nonfocus"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <View
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dip"
-                    android:background="@drawable/drop_shadow"/> <!-- 음영효과 -->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/custom_font"
-                    android:text="추천 검색어"
-                    android:textSize="15dp"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="20dp"/> <!-- 추천 검색어 -->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="20dp"> <!-- 추천 검색어 버튼 시작 -->
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="wrap_content"
-                        android:background="#1f515151" />
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginHorizontal="20dp">
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="wrap_content"
-                        android:background="#1f515151" />
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginHorizontal="20dp">
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="wrap_content"
-                        android:background="#1f515151" />
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginHorizontal="20dp">
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-
-                    <View
-                        android:layout_width="2dp"
-                        android:layout_height="wrap_content"
-                        android:background="#1f515151" />
-
-                    <Button
-                        android:id="@+id/searchActivity_btn_recommend_8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="left|center_vertical"
-                        android:paddingLeft="15dp"
-                        android:background="#fff"
-                        android:fontFamily="@font/custom_font"
-                        android:text="도쿄" />
-                </LinearLayout> <!-- 추천 검색어 종료 -->
-
-                <View
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dip"
-                    android:background="@drawable/drop_shadow"/> <!-- 음영효과 -->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/custom_font"
-                    android:text="추천 일정"
-                    android:textSize="15dp"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="20dp"/> <!-- 추천 일정 -->
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="3"
-                    android:rowCount="2"
-                    android:layout_marginTop="10dp"> <!-- 추천 일정 사진 시작 -->
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_row="0"
-                        android:layout_columnWeight="1">
-
-                        <ImageView
-                            android:id="@+id/searchActivity_iv_1"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:scaleType="fitXY"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/searchActivity_iv_1"
-                            android:layout_alignLeft="@+id/searchActivity_iv_1"
-                            android:layout_alignRight="@+id/searchActivity_iv_1"
-                            android:gravity="bottom|center_horizontal"
-                            android:background="#d9000000"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/custom_font"
-                                android:text="국가"
-                                android:textColor="#fff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/custom_font"
-                                android:text="작성자"
-                                android:textColor="#fff"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_row="0"
-                        android:layout_columnWeight="1">
-
-
-                        <ImageView
-                            android:id="@+id/searchActivity_iv_2"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:scaleType="fitXY"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/searchActivity_iv_2"
-                            android:layout_alignLeft="@+id/searchActivity_iv_2"
-                            android:layout_alignRight="@+id/searchActivity_iv_2"
-                            android:gravity="bottom|center_horizontal"
-                            android:background="#d9000000"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/custom_font"
-                                android:text="국가"
-                                android:textColor="#fff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/custom_font"
-                                android:text="작성자"
-                                android:textColor="#fff"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_row="0"
-                        android:layout_columnWeight="1">
-
-                        <ImageView
-                            android:id="@+id/searchActivity_iv_3"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:scaleType="fitXY"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/searchActivity_iv_3"
-                            android:layout_alignLeft="@+id/searchActivity_iv_3"
-                            android:layout_alignRight="@+id/searchActivity_iv_3"
-                            android:gravity="bottom|center_horizontal"
-                            android:background="#d9000000"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/custom_font"
-                                android:text="국가"
-                                android:textColor="#fff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/custom_font"
-                                android:text="작성자"
-                                android:textColor="#fff"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_marginTop="15dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="0"
-                        android:layout_row="1"
-                        android:layout_columnWeight="1">
-
-                        <ImageView
-                            android:id="@+id/searchActivity_iv_4"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:scaleType="fitXY"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/searchActivity_iv_4"
-                            android:layout_alignLeft="@+id/searchActivity_iv_4"
-                            android:layout_alignRight="@+id/searchActivity_iv_4"
-                            android:gravity="bottom|center_horizontal"
-                            android:background="#d9000000"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/custom_font"
-                                android:text="국가"
-                                android:textColor="#fff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/custom_font"
-                                android:text="작성자"
-                                android:textColor="#fff"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="1"
-                        android:layout_row="1"
-                        android:layout_columnWeight="1"
-                        android:layout_marginTop="15dp">
-
-                        <ImageView
-                            android:id="@+id/searchActivity_iv_5"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:scaleType="fitXY"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/searchActivity_iv_5"
-                            android:layout_alignLeft="@+id/searchActivity_iv_5"
-                            android:layout_alignRight="@+id/searchActivity_iv_5"
-                            android:gravity="bottom|center_horizontal"
-                            android:background="#d9000000"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/custom_font"
-                                android:text="국가"
-                                android:textColor="#fff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/custom_font"
-                                android:text="작성자"
-                                android:textColor="#fff"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_column="2"
-                        android:layout_row="1"
-                        android:layout_columnWeight="1"
-                        android:layout_marginTop="15dp">
-
-                        <ImageView
-                            android:id="@+id/searchActivity_iv_6"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:scaleType="fitXY"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/searchActivity_iv_6"
-                            android:layout_alignLeft="@+id/searchActivity_iv_6"
-                            android:layout_alignRight="@+id/searchActivity_iv_6"
-                            android:gravity="bottom|center_horizontal"
-                            android:background="#d9000000"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/custom_font"
-                                android:text="국가"
-                                android:textColor="#fff"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:fontFamily="@font/custom_font"
-                                android:text="작성자"
-                                android:textColor="#fff"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-                </GridLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/searchActivity_ll_focus"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <ListView
-                    android:id="@+id/searchActivity_lv_city"
+                    android:id="@+id/searchActivity_view_black"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:divider="#999999"
-                    android:dividerHeight="1dp"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:background="#80000000"
+                    android:visibility="invisible"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:layout_weight="9">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="40dp">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/searchActivity_bottomNavigation"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp">
+
+                        <RadioGroup
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/radiobutton">
+
+                            <RadioButton
+                                android:id="@+id/searchActivity_rb_city"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:button="@drawable/radiobutton"
+                                android:background="#ffffff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="City"
+                                android:textSize="25dp"
+                                android:layout_marginRight="15dp"
+                                android:checked="true"
+                                android:padding="5dp"/> <!-- City 버튼 -->
+
+                            <RadioButton
+                                android:id="@+id/searchActivity_rb_activity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:button="@drawable/radiobutton"
+                                android:background="#ffffff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="Activity"
+                                android:textSize="25dp"
+                                android:textColor="#a6a6a6a6"/> <!-- Activity 버튼 -->
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="5dip"
+                        android:background="@drawable/drop_shadow"/> <!-- 음영효과 -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="10dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/searchActivity_iv_search"
+                            android:layout_width="26dp"
+                            android:layout_height="25dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/search" /> <!-- 검색 아이콘 -->
+
+                        <EditText
+                            android:id="@+id/searchActivity_et_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/custom_font"
+                            android:hint="Search"/> <!-- Search -->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/searchActivity_ll_nonfocus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dip"
+                            android:background="@drawable/drop_shadow"/> <!-- 음영효과 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/custom_font"
+                            android:text="추천 검색어"
+                            android:textSize="15dp"
+                            android:textColor="#000"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="20dp"/> <!-- 추천 검색어 -->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="20dp"> <!-- 추천 검색어 버튼 시작 -->
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+
+                            <View
+                                android:layout_width="2dp"
+                                android:layout_height="wrap_content"
+                                android:background="#1f515151" />
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginHorizontal="20dp">
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+
+                            <View
+                                android:layout_width="2dp"
+                                android:layout_height="wrap_content"
+                                android:background="#1f515151" />
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginHorizontal="20dp">
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+
+                            <View
+                                android:layout_width="2dp"
+                                android:layout_height="wrap_content"
+                                android:background="#1f515151" />
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginHorizontal="20dp">
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+
+                            <View
+                                android:layout_width="2dp"
+                                android:layout_height="wrap_content"
+                                android:background="#1f515151" />
+
+                            <Button
+                                android:id="@+id/searchActivity_btn_recommend_8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="left|center_vertical"
+                                android:paddingLeft="15dp"
+                                android:background="#fff"
+                                android:fontFamily="@font/custom_font"
+                                android:text="도쿄" />
+                        </LinearLayout> <!-- 추천 검색어 종료 -->
+
+                        <View
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dip"
+                            android:background="@drawable/drop_shadow"/> <!-- 음영효과 -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/custom_font"
+                            android:text="추천 일정"
+                            android:textSize="15dp"
+                            android:textColor="#000"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="20dp"/> <!-- 추천 일정 -->
+
+                        <GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:columnCount="3"
+                            android:rowCount="2"
+                            android:layout_marginTop="10dp"> <!-- 추천 일정 사진 시작 -->
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="0"
+                                android:layout_row="0"
+                                android:layout_columnWeight="1">
+
+                                <ImageView
+                                    android:id="@+id/searchActivity_iv_1"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/searchActivity_iv_1"
+                                    android:layout_alignLeft="@+id/searchActivity_iv_1"
+                                    android:layout_alignRight="@+id/searchActivity_iv_1"
+                                    android:gravity="bottom|center_horizontal"
+                                    android:background="#d9000000"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="국가"
+                                        android:textColor="#fff"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="작성자"
+                                        android:textColor="#fff"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:layout_row="0"
+                                android:layout_columnWeight="1">
+
+
+                                <ImageView
+                                    android:id="@+id/searchActivity_iv_2"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/searchActivity_iv_2"
+                                    android:layout_alignLeft="@+id/searchActivity_iv_2"
+                                    android:layout_alignRight="@+id/searchActivity_iv_2"
+                                    android:gravity="bottom|center_horizontal"
+                                    android:background="#d9000000"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="국가"
+                                        android:textColor="#fff"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="작성자"
+                                        android:textColor="#fff"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="2"
+                                android:layout_row="0"
+                                android:layout_columnWeight="1">
+
+                                <ImageView
+                                    android:id="@+id/searchActivity_iv_3"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/searchActivity_iv_3"
+                                    android:layout_alignLeft="@+id/searchActivity_iv_3"
+                                    android:layout_alignRight="@+id/searchActivity_iv_3"
+                                    android:gravity="bottom|center_horizontal"
+                                    android:background="#d9000000"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="국가"
+                                        android:textColor="#fff"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="작성자"
+                                        android:textColor="#fff"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_marginTop="15dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="0"
+                                android:layout_row="1"
+                                android:layout_columnWeight="1">
+
+                                <ImageView
+                                    android:id="@+id/searchActivity_iv_4"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/searchActivity_iv_4"
+                                    android:layout_alignLeft="@+id/searchActivity_iv_4"
+                                    android:layout_alignRight="@+id/searchActivity_iv_4"
+                                    android:gravity="bottom|center_horizontal"
+                                    android:background="#d9000000"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="국가"
+                                        android:textColor="#fff"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="작성자"
+                                        android:textColor="#fff"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="1"
+                                android:layout_row="1"
+                                android:layout_columnWeight="1"
+                                android:layout_marginTop="15dp">
+
+                                <ImageView
+                                    android:id="@+id/searchActivity_iv_5"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/searchActivity_iv_5"
+                                    android:layout_alignLeft="@+id/searchActivity_iv_5"
+                                    android:layout_alignRight="@+id/searchActivity_iv_5"
+                                    android:gravity="bottom|center_horizontal"
+                                    android:background="#d9000000"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="국가"
+                                        android:textColor="#fff"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="작성자"
+                                        android:textColor="#fff"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_column="2"
+                                android:layout_row="1"
+                                android:layout_columnWeight="1"
+                                android:layout_marginTop="15dp">
+
+                                <ImageView
+                                    android:id="@+id/searchActivity_iv_6"
+                                    android:layout_width="100dp"
+                                    android:layout_height="100dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:scaleType="fitXY"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/searchActivity_iv_6"
+                                    android:layout_alignLeft="@+id/searchActivity_iv_6"
+                                    android:layout_alignRight="@+id/searchActivity_iv_6"
+                                    android:gravity="bottom|center_horizontal"
+                                    android:background="#d9000000"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="국가"
+                                        android:textColor="#fff"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:fontFamily="@font/custom_font"
+                                        android:text="작성자"
+                                        android:textColor="#fff"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </GridLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/searchActivity_ll_focus"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dip"
+                            android:background="@drawable/drop_shadow"/> <!-- 음영효과 -->
+
+                        <LinearLayout
+                            android:id="@+id/searchActivity_ll_recent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/custom_font"
+                                android:text="최근 검색어"
+                                android:textSize="15dp"
+                                android:textColor="#000"
+                                android:textStyle="bold"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginTop="20dp"/> <!-- 최근 검색어 -->
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:background="#fff"
+                                android:layout_marginHorizontal="20dp"
+                                android:layout_marginTop="10dp"> <!-- 최근 검색어 버튼 시작 -->
+
+                                <Button
+                                    android:id="@+id/searchActivity_btn_recent_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="8"
+                                    android:gravity="left|center_vertical"
+                                    android:background="#00ffffff"
+                                    android:paddingLeft="15dp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="@font/custom_font"
+                                    android:text="도쿄" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/ic_close" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:background="#fff"
+                                android:layout_marginHorizontal="20dp">
+
+                                <Button
+                                    android:id="@+id/searchActivity_btn_recent_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="8"
+                                    android:gravity="left|center_vertical"
+                                    android:background="#00ffffff"
+                                    android:paddingLeft="15dp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="@font/custom_font"
+                                    android:text="도쿄" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/ic_close" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:background="#fff"
+                                android:layout_marginHorizontal="20dp">
+
+                                <Button
+                                    android:id="@+id/searchActivity_btn_recent_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="8"
+                                    android:gravity="left|center_vertical"
+                                    android:background="#00ffffff"
+                                    android:paddingLeft="15dp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="@font/custom_font"
+                                    android:text="도쿄" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/ic_close" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:background="#fff"
+                                android:layout_marginHorizontal="20dp">
+
+                                <Button
+                                    android:id="@+id/searchActivity_btn_recent_4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="8"
+                                    android:gravity="left|center_vertical"
+                                    android:background="#00ffffff"
+                                    android:paddingLeft="15dp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="@font/custom_font"
+                                    android:text="도쿄" />
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/ic_close" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <ListView
+                            android:id="@+id/searchActivity_lv_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="#999999"
+                            android:dividerHeight="1dp"
+                            android:layout_margin="10dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="?android:attr/windowBackground"
-            android:foregroundGravity="bottom"
-            app:itemIconTint="@color/selector"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_navigation" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="bottom">
+
+            <FrameLayout
+                android:id="@+id/searchActivity_ll_write_float"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_above="@+id/searchActivity_bottomNavigation"
+                android:layout_marginBottom="80dp"
+                android:visibility="invisible">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/searchActivity_fb_write_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginBottom="30dp"
+                    android:backgroundTint="#fff"
+                    android:src="@drawable/ic_review"
+                    app:borderWidth="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
+                    android:text="리뷰쓰기"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginRight="60dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/searchActivity_fb_write_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginBottom="30dp"
+                    android:backgroundTint="#fff"
+                    android:src="@drawable/ic_plan"
+                    app:borderWidth="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
+                    android:text="일정짜기"
+                    android:textSize="20dp"
+                    android:textColor="#fff"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginLeft="60dp" />
+            </FrameLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/searchActivity_bottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="?android:attr/windowBackground"
+                android:foregroundGravity="bottom"
+                app:itemIconTint="@color/selector"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_navigation" />
+        </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

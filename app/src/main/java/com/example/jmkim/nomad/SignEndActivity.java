@@ -1,6 +1,7 @@
 package com.example.jmkim.nomad;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class SignEndActivity extends Activity{
 
     private Button mainpage;
 
+    private ProgressDialog pd;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,10 @@ public class SignEndActivity extends Activity{
         mainpage.setOnClickListener(new View.OnClickListener() { //가입완료 버튼 클릭 이벤트 시작
             @Override
             public void onClick(View v) {
+
+                pd = new ProgressDialog(SignEndActivity.this);
+                pd.setMessage("잠시만 기다려주세요");
+                pd.show();
 
                 FirebaseAuth.getInstance()
                         .createUserWithEmailAndPassword(email,password)
@@ -121,14 +128,19 @@ public class SignEndActivity extends Activity{
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
+                                                                pd.dismiss();
                                                                 Toast.makeText(getApplicationContext(), "가입완료", Toast.LENGTH_SHORT).show();
-
-                                                                Intent backintent = new Intent(getApplicationContext(), ActivitySelectActivity.class);
-
-                                                                int Main_Val=1;
-                                                                backintent.putExtra("END",Main_Val);
-                                                                setResult(RESULT_OK,backintent);
+                                                                startActivity(new Intent(SignEndActivity.this, MainActivity.class));
                                                                 finish(); //뒤로가기 안하려고
+
+                                                                ActivitySelectActivity activitySelectActivity = (ActivitySelectActivity)ActivitySelectActivity.ActivitySelect;
+                                                                activitySelectActivity.finish();
+
+                                                                GenAgeActivity genAgeActivity = (GenAgeActivity)GenAgeActivity.GenAge;
+                                                                genAgeActivity.finish();
+
+                                                                SignUpActivity signUpActivity = (SignUpActivity)SignUpActivity.Signup;
+                                                                signUpActivity.finish();
                                                             }
                                                         });
                                             }

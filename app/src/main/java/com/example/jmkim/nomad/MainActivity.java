@@ -1,8 +1,6 @@
 package com.example.jmkim.nomad;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -12,8 +10,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.example.jmkim.nomad.Fragment.FragmentPageAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -71,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         board_layoutManager = new LinearLayoutManager(this);
         board_recycler.setLayoutManager(board_layoutManager);
 
-        view = (View)findViewById(R.id.black_view);
+        view = (View)findViewById(R.id.main_black_view);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();

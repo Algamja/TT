@@ -32,6 +32,8 @@ public class GenAgeActivity extends Activity{
     private RadioButton party5Age;
     private Button btn_next;
 
+    public static Activity GenAge;
+
     String userSex;
     String SpartySex;
     String SpartyAge;
@@ -56,6 +58,8 @@ public class GenAgeActivity extends Activity{
         party3Age = (RadioButton)findViewById(R.id.genAgeActivity_rb_3Age);
         party5Age = (RadioButton)findViewById(R.id.genAgeActivity_rb_5Age);
         btn_next = (Button)findViewById(R.id.genAgeActivity_btn_next);
+
+        GenAge = GenAgeActivity.this;
 
         partyCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() { //파티원 동의하면 동작
             @Override
@@ -148,19 +152,5 @@ public class GenAgeActivity extends Activity{
                 startActivityForResult(intent,0);
             }
         }); //다음 버튼 동작 끝
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK){
-            int MAIN=data.getIntExtra("END",0);
-            if(MAIN==1){
-                Intent intent=new Intent(getApplicationContext(),SignUpActivity.class);
-                int Main_Val=1;
-                intent.putExtra("END",Main_Val);
-                setResult(RESULT_OK,intent);
-                finish();
-            } //뒤로가기 안하려고
-        }
     }
 }

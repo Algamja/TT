@@ -229,11 +229,17 @@ public class UserInfoEditActivity extends AppCompatActivity {
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth.getInstance().signOut();
                         user.delete()
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(Task<Void> task) {
                                         finish();
+
+                                        MypageActivity mypageActivity = (MypageActivity)MypageActivity.Mypage;
+                                        mypageActivity.finish();
+
+                                        FirebaseAuth.getInstance().signOut();
 
                                         FirebaseDatabase.getInstance().getReference().child("UserParty").child(uid).removeValue();
                                         FirebaseDatabase.getInstance().getReference().child("UserBasic").child(uid).removeValue();

@@ -19,6 +19,8 @@ public class ActivitySelectActivity extends Activity {
             R.id.ActivitySelect_btn11,R.id.ActivitySelect_btn12,R.id.ActivitySelect_btn13,R.id.ActivitySelect_btn14,R.id.ActivitySelect_btn15,R.id.ActivitySelect_btn16,R.id.ActivitySelect_btn17,R.id.ActivitySelect_btn18,R.id.ActivitySelect_btn19,R.id.ActivitySelect_btn20};
     Button btn_next;
 
+    public static Activity ActivitySelect;
+
    HashMap checks = new HashMap(); //선택된 버튼의 번호 저장
 
     @Override
@@ -31,6 +33,8 @@ public class ActivitySelectActivity extends Activity {
         }//각 버튼의 id와 이름 매핑
 
         btn_next = (Button)findViewById(R.id.ActivitySelect_btn_next);
+
+        ActivitySelect = ActivitySelectActivity.this;
 
         final int click[] = new int[20]; //선택된 버튼 표시하기 위한 배열
 
@@ -101,18 +105,4 @@ public class ActivitySelectActivity extends Activity {
             }
         });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK){
-            int MAIN=data.getIntExtra("END",0);
-            if(MAIN==1){
-                Intent intent=new Intent(getApplicationContext(),GenAgeActivity.class);
-                int Main_Val=1;
-                intent.putExtra("END",Main_Val);
-                setResult(RESULT_OK,intent);
-                finish();
-            }
-        }
-    } //뒤로가기 버튼 안되게 하기 위함
 }

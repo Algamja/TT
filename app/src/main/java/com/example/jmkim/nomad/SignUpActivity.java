@@ -49,6 +49,8 @@ public class SignUpActivity extends Activity{
 
     int checking;
 
+    public static Activity Signup;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,8 @@ public class SignUpActivity extends Activity{
         name = (EditText)findViewById(R.id.signUpActivity_et_name);
         phone = (EditText)findViewById(R.id.signUpActivity_et_phone);
         btn_next=(Button)findViewById(R.id.signUpActivity_btn_next);
+
+        Signup = SignUpActivity.this;
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -183,21 +187,4 @@ public class SignUpActivity extends Activity{
         }); //다음버튼 누르면 성별,나이 입력 페이지로 이동
 
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK){
-            profile.setImageURI(data.getData());
-            imageUri = data.getData();
-        }
-
-        if(resultCode==RESULT_OK){
-            int MAIN=data.getIntExtra("END",0);
-            if(MAIN==1){
-                Intent intent = new Intent(SignUpActivity.this,WelcomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
-    } //뒤로가기 버튼 안되게
 }
