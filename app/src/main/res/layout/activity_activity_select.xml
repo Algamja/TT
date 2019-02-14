@@ -1,207 +1,885 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-       <GridLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:columnCount="2"
-           android:rowCount="11">
+        <!-- 상단 뒤로가기 -->
+        <ImageView
+            android:id="@+id/activity_select_iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:layout_margin="10dp"/>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn1"
-               android:layout_row="0"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="1"
-               android:background="#00ff0000"/>
+        <!-- 관심사 선택 문구 -->
+        <EditText
+            android:id="@+id/activity_select_tv_choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
+            android:text="관심사를 선택하세요!"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:layout_below="@+id/activity_select_iv_back"
+            android:layout_centerHorizontal="true"
+            android:clickable="false"
+            android:focusable="false"/>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn2"
-               android:layout_row="0"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="2"
-               android:background="#00ff0000"/>
+        <!-- 키덜트 레이아웃 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_kidult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_tv_choice"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp">
 
-           <Button
-               android:id="@+id/ActivitySelect_btn3"
-               android:layout_row="1"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="3"
-               android:background="#00ff0000"/>
+            <ToggleButton
+                android:id="@+id/activity_select_tg_kidult"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/kidult"
+                android:checked="false"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn4"
-               android:layout_row="1"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="4"
-               android:background="#00ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="키덜트"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn5"
-               android:layout_row="2"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="5"
-               android:background="#00ff0000"/>
+        <!-- 스키/보드 레이아웃 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_ski_board"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_kidult"
+            android:layout_toLeftOf="@+id/activity_select_ll_kidult"
+            android:layout_toRightOf="@id/activity_select_ll_extreme"
+            android:layout_marginTop="-30dp">
 
-           <Button
-               android:id="@+id/ActivitySelect_btn6"
-               android:layout_row="2"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="6"
-               android:background="#00ff0000"/>
+            <ToggleButton
+                android:id="@+id/activity_select_tg_ski_board"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ski_board"
+                android:checked="false"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn7"
-               android:layout_row="3"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="7"
-               android:background="#00ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스키/보드"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn8"
-               android:layout_row="3"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="8"
-               android:background="#00ff0000"/>
+        <!-- 기념품 레이아웃 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_gift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_kidult"
+            android:layout_toRightOf="@+id/activity_select_ll_kidult"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="30dp">
 
-           <Button
-               android:id="@+id/ActivitySelect_btn9"
-               android:layout_row="4"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="9"
-               android:background="#00ff0000"/>
+            <ToggleButton
+                android:id="@+id/activity_select_tg_gift"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/gift"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
 
-           <Button
-               android:id="@+id/ActivitySelect_btn10"
-               android:layout_row="4"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="10"
-               android:background="#00ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기념품"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn11"
-               android:layout_row="5"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="11"
-               android:background="#00ff0000"/>
+        <!-- 익스트림 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_extreme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_ski_board"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="40dp">
 
-           <Button
-               android:id="@+id/ActivitySelect_btn12"
-               android:layout_row="5"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="12"
-               android:background="#00ff0000"/>
+            <ToggleButton
+                android:id="@+id/activity_select_tg_extreme"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/extreme"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn13"
-               android:layout_row="6"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="13"
-               android:background="#00ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="익스트림"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn14"
-               android:layout_row="6"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="14"
-               android:background="#00ff0000"/>
+        <!-- 캠핑 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_camping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_ski_board"
+            android:layout_toRightOf="@+id/activity_select_ll_ski_board"
+            android:layout_marginTop="-10dp"
+            android:layout_marginLeft="-10dp">
 
-           <Button
-               android:id="@+id/ActivitySelect_btn15"
-               android:layout_row="7"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="15"
-               android:background="#00ff0000"/>
+            <ToggleButton
+                android:id="@+id/activity_select_tg_camping"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/camping"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn16"
-               android:layout_row="7"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="16"
-               android:background="#00ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="캠핑"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn17"
-               android:layout_row="8"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="17"
-               android:background="#00ff0000"/>
+        <!-- 전자기기 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_electronic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_gift"
+            android:layout_toRightOf="@+id/activity_select_ll_camping"
+            android:layout_marginLeft="15dp">
 
-           <Button
-               android:id="@+id/ActivitySelect_btn18"
-               android:layout_row="8"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="18"
-               android:background="#00ff0000"/>
+            <ToggleButton
+                android:id="@+id/activity_select_tg_electronic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/electronic"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn19"
-               android:layout_row="9"
-               android:layout_column="0"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="19"
-               android:background="#00ff0000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전자기기"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
-           <Button
-               android:id="@+id/ActivitySelect_btn20"
-               android:layout_row="9"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="20"
-               android:background="#00ff0000"/>
+        <!-- 명품 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_luxury"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/activity_select_ll_gift"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="-30dp"
+            android:layout_marginRight="50dp">
 
-           <Button
-               android:id="@+id/ActivitySelect_btn_next"
-               android:layout_row="10"
-               android:layout_column="1"
-               android:layout_columnWeight="1"
-               android:fontFamily="@font/custom_font"
-               android:text="다음" />
-       </GridLayout>
-    </ScrollView>
-</LinearLayout>
+            <ToggleButton
+                android:id="@+id/activity_select_tg_luxury"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/luxury"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="명품"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 하이킹 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_hiking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_extreme"
+            android:layout_marginLeft="15dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_hiking"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/hiking"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="하이킹"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 카약 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_kayak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_extreme"
+            android:layout_toRightOf="@id/activity_select_ll_extreme">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_kayak"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/kayak"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카약"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 낚시 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_fishing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_camping"
+            android:layout_toRightOf="@id/activity_select_ll_kayak"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_fishing"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/fishing"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="낚시"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 화장품 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_cosmetics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_electronic"
+            android:layout_toRightOf="@id/activity_select_ll_electronic"
+            android:layout_marginLeft="-20dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_cosmetics"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/cosmetic"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="화장품"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 문구류 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_stationery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_luxury"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_stationery"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/stationery"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="문구류"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 수상 레저 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_water_leisure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_hiking"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_water_leisure"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/water_leisure"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수상레저"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 게임 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_kayak"
+            android:layout_toRightOf="@id/activity_select_ll_water_leisure"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_game"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/game"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스포츠"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 파티 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_fishing"
+            android:layout_toLeftOf="@id/activity_select_ll_massage"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/activity_select_ll_kayak"
+            android:layout_marginLeft="20dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_party"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/party"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="파티"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 마사지 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_massage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_fishing"
+            android:layout_toRightOf="@id/activity_select_ll_fishing"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-20dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_massage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/massage"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="마사지"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 호캉스-->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_hocance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_cosmetics"
+            android:layout_toLeftOf="@id/activity_select_ll_fashion"
+            android:layout_toRightOf="@id/activity_select_ll_massage"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_hocance"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/hocance"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="호캉스"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 패션 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_fashion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_stationery"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_fashion"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/fashion"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="패션"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 음식 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_water_leisure"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_food"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/food"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="음식"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 관광명소 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_photo_attraction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_game"
+            android:layout_toLeftOf="@id/activity_select_ll_amusement_park"
+            android:layout_toRightOf="@id/activity_select_ll_food"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_photo_attraction"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/photo_attraction"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="관광명소"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 놀이공원 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_amusement_park"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_party"
+            android:layout_centerHorizontal="true">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_amusement_park"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/amusement_park"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="놀이공원"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 템플스테이 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_temple_stay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_hocance"
+            android:layout_toRightOf="@id/activity_select_ll_amusement_park"
+            android:layout_toLeftOf="@id/activity_select_ll_food_h">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_temple_stay"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/temple_stay"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="템플스테이"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 맛집 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_food_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_hocance"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="-10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_food_h"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/food_h"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="맛집"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 문화재 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_tradition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_food"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_tradition"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/tradition"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="문화재"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 콘서트 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_concert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_amusement_park"
+            android:layout_toRightOf="@id/activity_select_ll_tradition"
+            android:layout_toLeftOf="@id/activity_select_ll_spa">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_concert"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/concert"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="콘서트"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 스파 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_spa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_amusement_park"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_spa"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/spa"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스파"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 해변 -->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_beach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_amusement_park"
+            android:layout_toRightOf="@id/activity_select_ll_spa"
+            android:layout_toLeftOf="@id/activity_select_ll_walk">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_beach"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/beach"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해변"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 산책-->
+        <LinearLayout
+            android:id="@+id/activity_select_ll_walk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/activity_select_ll_temple_stay"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp">
+
+            <ToggleButton
+                android:id="@+id/activity_select_tg_walk"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/walk"
+                android:text=""
+                android:textOn=""
+                android:textOff=""/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="산책"
+                android:fontFamily="@font/custom_font"
+                android:textSize="13dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <!-- 10개이상 선택 문구 -->
+        <TextView
+            android:id="@+id/activity_select_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/custom_font"
+            android:text="10가지 이상 선택하세요!"
+            android:textSize="25dp"
+            android:textColor="@android:color/black"
+            android:layout_below="@+id/activity_select_ll_spa"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
+
+        <!-- 다음 버튼 -->
+        <Button
+            android:id="@+id/activity_select_btn_next"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_signup_round"
+            android:fontFamily="@font/custom_font"
+            android:text="다음"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/activity_select_tv"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"/>
+    </RelativeLayout>
+</ScrollView>

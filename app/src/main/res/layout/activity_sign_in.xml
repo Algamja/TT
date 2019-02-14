@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/custom_font"
-        android:text="FORGOT EMAIL / PASSWORD"
+        android:text="EMAIL/PASSWORD 찾기"
         android:background="#00ffffff"/>
 
     <Button
@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/custom_font"
-        android:text="SIGN IN"
+        android:text="로그인"
         android:textSize="30dp"
         android:textColor="@android:color/white"
         android:background="@drawable/btn_singin_round"/>

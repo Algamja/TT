@@ -1,7 +1,5 @@
 package com.example.jmkim.nomad.DB;
 
-import java.util.Arrays;
-
 public class UserActivity {
     public String Activity_0;
     public String Activity_1;
@@ -23,4 +21,12 @@ public class UserActivity {
     public String Activity_17;
     public String Activity_18;
     public String Activity_19;
+    public String Activity_20;
+    public String Activity_21;
+    public String Activity_22;
+    public String Activity_23;
+    public String Activity_24;
+    public String Activity_25;
+    public String Activity_26;
+    public String Activity_27;
 }
