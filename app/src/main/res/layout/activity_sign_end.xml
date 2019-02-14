@@ -3,8 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_vertical">
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sign_end_pic"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/welcome"
@@ -12,16 +17,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/custom_font"
-        android:text="환영합니다!"
-        android:textSize="40sp" />
+        android:text="환영합니다"
+        android:textSize="40sp"
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/mainpage"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_signup_round"
         android:layout_gravity="center"
         android:fontFamily="@font/custom_font"
-        android:text="가입완료"/>
+        android:text="가입완료!"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>

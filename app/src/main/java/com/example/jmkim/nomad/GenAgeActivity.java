@@ -77,7 +77,6 @@ public class GenAgeActivity extends Activity{
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GenAgeActivity.this,WelcomeActivity.class));
                 finish();
             }
         });

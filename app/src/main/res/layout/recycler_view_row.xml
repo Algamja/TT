@@ -2,22 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="400dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="#9ccfe1">
+    android:background="@drawable/round_layout">
 
     <LinearLayout
-        android:id="@+id/scroll_linear_profile_1"
+        android:id="@+id/scroll_linear_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ccebec">
+        android:layout_height="wrap_content">
 
-        <com.github.siyamed.shapeimageview.CircularImageView
+        <ImageView
             android:layout_margin="10dp"
-            android:id="@+id/scroll_iv_profile_1"
+            android:id="@+id/scroll_iv_profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/profile"
+            android:scaleType="fitXY"/>
 
         <LinearLayout
             android:layout_margin="10dp"
@@ -27,14 +28,14 @@
             android:layout_gravity="center_vertical">
 
             <TextView
-                android:id="@+id/scroll_tv_title_1"
+                android:id="@+id/scroll_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/custom_font"
                 android:text="글 제목"/>
 
             <TextView
-                android:id="@+id/scroll_tv_country_1"
+                android:id="@+id/scroll_tv_country"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,23 +45,62 @@
     </LinearLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/scroll_vp_board_1"
+        android:id="@+id/scroll_vp_board"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+        android:layout_height="280dp"/>
 
-    <LinearLayout
-        android:layout_below="@id/scroll_vp_board_1"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ToggleButton
-            android:id="@+id/scroll_btn_like_1"
+        <TextView
+            android:id="@+id/scroll_tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/scroll_iv_comment"
+            android:layout_marginRight="5dp"
+            android:text="256"
+            android:textSize="17sp"
+            android:layout_toStartOf="@+id/scroll_iv_comment"
+            android:layout_marginEnd="5dp" />
+
+        <ImageView
+            android:id="@+id/scroll_iv_comment"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/button_favorite"
+            app:srcCompat="@drawable/ic_comment"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/scroll_tv_like"
+            android:layout_marginRight="20dp"
+            android:layout_toStartOf="@+id/scroll_tv_like"
+            android:layout_marginEnd="20dp" />
+
+        <TextView
+            android:id="@+id/scroll_tv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/scroll_btn_like"
+            android:layout_marginRight="5dp"
+            android:text="4K"
+            android:textSize="17sp"
+            android:layout_toStartOf="@+id/scroll_btn_like"
+            android:layout_marginEnd="5dp" />
+
+        <ToggleButton
+            android:id="@+id/scroll_btn_like"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_like"
             android:checked="false"
             android:text=""
             android:textOff=""
-            android:textOn=""/>
-    </LinearLayout>
+            android:textOn=""
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp" />
+    </RelativeLayout>
 </LinearLayout>

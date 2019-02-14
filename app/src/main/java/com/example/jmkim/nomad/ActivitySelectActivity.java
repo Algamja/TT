@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -15,7 +16,9 @@ import java.util.HashMap;
 import androidx.annotation.Nullable;
 
 public class ActivitySelectActivity extends Activity {
+    ImageView back;
     ToggleButton[] btns = new ToggleButton[28];
+
     Integer[] numBtnID = {R.id.activity_select_tg_kidult, R.id.activity_select_tg_gift, R.id.activity_select_tg_luxury, R.id.activity_select_tg_stationery, R.id.activity_select_tg_electronic, R.id.activity_select_tg_cosmetics, R.id.activity_select_tg_fashion,
     R.id.activity_select_tg_ski_board, R.id.activity_select_tg_extreme, R.id.activity_select_tg_camping, R.id.activity_select_tg_kayak, R.id.activity_select_tg_hiking, R.id.activity_select_tg_water_leisure, R.id.activity_select_tg_fishing,
     R.id.activity_select_tg_food, R.id.activity_select_tg_game, R.id.activity_select_tg_party, R.id.activity_select_tg_photo_attraction, R.id.activity_select_tg_tradition, R.id.activity_select_tg_concert, R.id.activity_select_tg_amusement_park,
@@ -31,13 +34,22 @@ public class ActivitySelectActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_select);
 
+        back = (ImageView)findViewById(R.id.activity_select_iv_back);
+
         for(int i=0;i<28;i++){
-            btns[i]=(ToggleButton) findViewById(numBtnID[i]);
+            btns[i] = (ToggleButton)findViewById(numBtnID[i]);
         }//각 버튼의 id와 이름 매핑
 
         btn_next = (Button)findViewById(R.id.activity_select_btn_next);
 
         ActivitySelect = ActivitySelectActivity.this;
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         for(int i=0;i<numBtnID.length;i++){
             final int index;

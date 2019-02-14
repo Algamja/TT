@@ -22,9 +22,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            iv_profile = itemView.findViewById(R.id.scroll_iv_profile_1);
-            tv_title = itemView.findViewById(R.id.scroll_tv_title_1);
-            tv_country = itemView.findViewById(R.id.scroll_tv_country_1);
+            iv_profile = itemView.findViewById(R.id.scroll_iv_profile);
+            tv_title = itemView.findViewById(R.id.scroll_tv_title);
+            tv_country = itemView.findViewById(R.id.scroll_tv_country);
         }
     }
 

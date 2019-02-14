@@ -695,9 +695,10 @@
                             android:id="@+id/searchActivity_lv_city"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:divider="#999999"
-                            android:dividerHeight="1dp"
-                            android:layout_margin="10dp"/>
+                            android:divider="#00000000"
+                            android:layout_marginHorizontal="20dp"
+                            android:backgroundTint="#00ffffff"
+                            android:background="#00ffffff"/>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

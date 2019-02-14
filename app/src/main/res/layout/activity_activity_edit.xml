@@ -49,7 +49,8 @@
                 android:text="키덜트"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 스키/보드 레이아웃 -->
@@ -80,7 +81,8 @@
                 android:text="스키/보드"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 기념품 레이아웃 -->
@@ -112,7 +114,8 @@
                 android:text="기념품"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 익스트림 -->
@@ -141,7 +144,8 @@
                 android:text="익스트림"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 캠핑 -->
@@ -171,7 +175,8 @@
                 android:text="캠핑"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 전자기기 -->
@@ -200,7 +205,8 @@
                 android:text="전자기기"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 명품 -->
@@ -230,7 +236,8 @@
                 android:text="명품"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 하이킹 -->
@@ -258,7 +265,8 @@
                 android:text="하이킹"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 카약 -->
@@ -286,7 +294,8 @@
                 android:text="카약"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 낚시 -->
@@ -316,7 +325,8 @@
                 android:text="낚시"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 화장품 -->
@@ -345,7 +355,8 @@
                 android:text="화장품"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 문구류 -->
@@ -375,7 +386,8 @@
                 android:text="문구류"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 수상 레저 -->
@@ -404,7 +416,8 @@
                 android:text="수상레저"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 게임 -->
@@ -434,7 +447,8 @@
                 android:text="스포츠"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 파티 -->
@@ -465,7 +479,8 @@
                 android:text="파티"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 마사지 -->
@@ -495,7 +510,8 @@
                 android:text="마사지"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 호캉스-->
@@ -525,7 +541,8 @@
                 android:text="호캉스"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 패션 -->
@@ -554,7 +571,8 @@
                 android:text="패션"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 음식 -->
@@ -583,7 +601,8 @@
                 android:text="음식"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 관광명소 -->
@@ -613,7 +632,8 @@
                 android:text="관광명소"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 놀이공원 -->
@@ -641,7 +661,8 @@
                 android:text="놀이공원"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 템플스테이 -->
@@ -670,7 +691,8 @@
                 android:text="템플스테이"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 맛집 -->
@@ -700,7 +722,8 @@
                 android:text="맛집"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 문화재 -->
@@ -729,7 +752,8 @@
                 android:text="문화재"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 콘서트 -->
@@ -758,7 +782,8 @@
                 android:text="콘서트"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 스파 -->
@@ -787,7 +812,8 @@
                 android:text="스파"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 해변 -->
@@ -816,7 +842,8 @@
                 android:text="해변"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 산책-->
@@ -845,7 +872,8 @@
                 android:text="산책"
                 android:fontFamily="@font/custom_font"
                 android:textSize="13dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
 
         <!-- 10개이상 선택 문구 -->
