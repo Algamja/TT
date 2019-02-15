@@ -81,7 +81,7 @@ public class WelcomeActivity extends Activity {
     class getData extends AsyncTask<String, Void, String> {
         protected String doInBackground(String... Params) {
             try{
-                URL server = new URL("http://192.168.2.15/getdb.php");
+                URL server = new URL("http://192.168.0.18/getdb.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) server.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setDoInput(true);

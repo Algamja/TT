@@ -106,7 +106,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
             public void onClick(View v) {
                 dlg_ppl = (View) View.inflate(WritePlanActivity.this, R.layout.with_dialog, null);
                 AlertDialog.Builder dlg = new AlertDialog.Builder(WritePlanActivity.this);
-                dlg.setTitle("몇 명이서 가시나요?");
+                dlg.setTitle("인원을 설정해주세요!");
                 dlg.setView(dlg_ppl);
                 dlg_ppl_total = (EditText)dlg_ppl.findViewById(R.id.ppl_dlg_total);
                 dlg_ppl_cur = (EditText)dlg_ppl.findViewById(R.id.ppl_dlg_cur);

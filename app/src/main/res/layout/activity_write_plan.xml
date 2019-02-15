@@ -14,23 +14,57 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#88BCBF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="어디로\n떠나시나요?"
+            android:textColor="#FFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="검색을 통해서 여행지를 선택해주세요!"
+            android:textColor="#FFF"
+            android:textSize="20sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/WP_ll_where"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginHorizontal="20dp"
         android:orientation="horizontal"
         android:padding="10dp"> <!-- 상단 국가, 도시 -->
 
         <ImageView
-            android:layout_width="25dp"
+            android:id="@+id/searchActivity_iv_search"
+            android:layout_width="26dp"
             android:layout_height="25dp"
-            android:src="@drawable/search"
-            android:layout_marginRight="10dp"/> <!-- 검색 아이콘 -->
-
+            android:layout_marginRight="10dp"
+            android:src="@drawable/search" /> <!-- 검색 아이콘 -->
         <EditText
+            android:id="@+id/searchActivity_et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="여행지 검색"/> <!-- Search -->
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/custom_font"
+            android:hint="Search"/> <!-- Search -->
 
         <ImageView
             android:id="@+id/WP_iv_flag"
@@ -138,7 +172,8 @@
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:rowCount="2"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="100dp"
@@ -150,7 +185,7 @@
             android:src="@drawable/one"
             android:padding="5dp"
             android:scaleType="fitXY"/>
-        
+
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -223,7 +258,7 @@
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="취향저격 일정!"
+                android:text="취향저격 일정"
                 android:textSize="30sp" />
 
             <ImageButton

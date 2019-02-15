@@ -18,9 +18,9 @@
 
         <LinearLayout
             android:id="@+id/RT_ll_title"
-            android:layout_width="0dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7"
+            android:layout_weight="6"
             android:orientation="vertical">
 
             <TextView
@@ -44,7 +44,7 @@
 
                 <LinearLayout
                     android:id="@+id/RT_ll_star"
-                    android:layout_width="150dp"
+                    android:layout_width="131dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -93,29 +93,61 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/RT_ll_recruitppl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal"
-            android:layout_gravity="center"><!--사람 모집하는 -->
+            android:layout_weight="3"
+            android:orientation="vertical"><!--사람 모집하는 -->
 
-            <TextView
-                android:id="@+id/RT_tv_alreadyppl"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:text="3"/>
-            <TextView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:text="/"/>
-            <TextView
-                android:id="@+id/RT_tv_totalppl"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:text="5"/>
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_partyppl"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:background="@drawable/party_ppl" />
+
+            <LinearLayout
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/iv_partyppl"
+                android:layout_alignLeft="@+id/iv_partyppl"
+                android:layout_alignEnd="@+id/iv_partyppl"
+                android:layout_alignRight="@+id/iv_partyppl"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/RT_tv_alreadyppl"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:textColor="#FFF"
+                    android:text="3" />
+
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:textColor="#FFF"
+                    android:text="/" />
+
+                <TextView
+                    android:id="@+id/RT_tv_totalppl"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:textColor="#FFF"
+                    android:text="5" />
+            </LinearLayout>
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
