@@ -3,12 +3,16 @@ package com.example.jmkim.nomad;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Display;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +23,7 @@ import com.example.jmkim.nomad.DB.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +58,14 @@ public class MypageActivity extends AppCompatActivity {
 
     private BottomNavigationView Mypage_bottomNavigationView;
 
+    private View black;
+
+    private FrameLayout fb_layout;
+    private FloatingActionButton write_plan;
+    private FloatingActionButton write_review;
+
+    private Boolean bottom_click = false;
+
     String uid;
     private int PICK_FROM_ALBUM_PROFILE = 10;
 
@@ -76,14 +89,20 @@ public class MypageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        getSupportActionBar().setTitle("마이 페이지"); //app이름
+        getSupportActionBar().setTitle(""); //app이름
 
-        userProfile = (ImageView)findViewById(R.id.mypage_iv_profile);
+        userProfile = (ImageView)findViewById(R.id.mypage_iv_back_profile);
         userName = (TextView)findViewById(R.id.mypage_tv_name);
         userEmail = (TextView)findViewById(R.id.mypage_tv_email);
         userStateMsg = (TextView)findViewById(R.id.mypage_tv_stateMsg);
 
         infoEdit = (ImageView)findViewById(R.id.mypage_iv_infoedit);
+
+        black = (View)findViewById(R.id.mypage_view_black);
+
+        fb_layout = (FrameLayout)findViewById(R.id.mypage_ll_write_float);
+        write_plan = (FloatingActionButton)findViewById(R.id.mypage_fb_write_plan);
+        write_review = (FloatingActionButton)findViewById(R.id.mypage_fb_write_review);
 
         Mypage_bottomNavigationView = (BottomNavigationView)findViewById(R.id.mypage_bottomNavigation);
         Mypage_bottomNavigationView.setOnNavigationItemSelectedListener(mypage_navigationItemSelectedListener);
@@ -96,6 +115,11 @@ public class MypageActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        black.setMinimumHeight(size.y);
 
         final List<UserModel> userModel = new ArrayList<>(); //DB에서 읽어올 준비
         FirebaseDatabase
@@ -111,7 +135,6 @@ public class MypageActivity extends AppCompatActivity {
                         userModel.add(dataSnapshot.getValue(UserModel.class));
 
                         mGlide.load(userModel.get(0).profileImageUrl)
-                                .apply(new RequestOptions().circleCrop())
                                 .into(userProfile);
                         userName.setText(userModel.get(0).userName);
                         userEmail.setText(userModel.get(0).userEmail);
@@ -174,6 +197,35 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
+        black.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Mypage_bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+                fb_layout.setVisibility(View.INVISIBLE);
+                bottom_click = false;
+                black.setVisibility(View.GONE);
+                return false;
+            }
+        });
+
+        if(!bottom_click){
+            Mypage_bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+        }
+
+        write_review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        write_plan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MypageActivity.this, WritePlanActivity.class));
+            }
+        });
+
         close = new Close(this); //뒤로가기 누르면 종료
     }
 
@@ -195,8 +247,16 @@ public class MypageActivity extends AppCompatActivity {
                             break;
 
                         case R.id.nav_add:
-                            BottomSheetDialog bottomSheetDialog = BottomSheetDialog.getInstance();
-                            bottomSheetDialog.show(getSupportFragmentManager(),"bottomSheet");
+                            if(bottom_click){
+                                fb_layout.setVisibility(View.GONE);
+                                bottom_click = false;
+                                black.setVisibility(View.GONE);
+                            }else {
+                                fb_layout.setVisibility(View.VISIBLE);
+                                bottom_click = true;
+                                black.setVisibility(View.VISIBLE);
+                                black.bringToFront();
+                            }
                             break;
 
                         case R.id.nav_profile:

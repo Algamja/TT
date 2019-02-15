@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -138,7 +137,6 @@ public class SearchActivity extends AppCompatActivity {
         Search_bottomNavigationView.setOnNavigationItemSelectedListener(search_navigationItemSelectedListner);
 
         Search_bottomNavigationView.setSelectedItemId(R.id.nav_search);
-
 
         city.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

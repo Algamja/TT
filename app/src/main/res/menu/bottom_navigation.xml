@@ -7,8 +7,8 @@
         android:title=""/>
 
     <item
-        android:id="@+id/nav_search"
-        android:icon="@drawable/ic_search_svg"
+        android:id="@+id/nav_heart"
+        android:icon="@drawable/ic_board"
         android:title=""/>
 
     <item
@@ -17,8 +17,8 @@
         android:title=""/>
 
     <item
-        android:id="@+id/nav_heart"
-        android:icon="@drawable/ic_board"
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search_svg"
         android:title=""/>
 
     <item
