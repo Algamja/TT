@@ -1,7 +1,10 @@
 package com.example.jmkim.nomad;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MenuItem;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Close close;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

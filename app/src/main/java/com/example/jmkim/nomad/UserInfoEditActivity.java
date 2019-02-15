@@ -74,7 +74,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();//toolbar 사용하기 위함
 
-        getSupportActionBar().setTitle("정보 수정"); //app이름
+        getSupportActionBar().setTitle(""); //app이름
 
         InfoEdit_UserProfile = (ImageView)findViewById(R.id.editInfo_iv_profile);
         InfoEdit_UserName = (TextView)findViewById(R.id.editInfo_tv_name);
