@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +21,11 @@ import java.util.Calendar;
 
 public class WritePlanActivity extends AppCompatActivity implements com.borax12.materialdaterangepicker.date.DatePickerDialog.OnDateSetListener {
 
-    private LinearLayout layout_where;
     private LinearLayout layout_when;
     private TextView ques_date;
     private TextView range;
     private TextView day_night;
+
     private LinearLayout layout_ppl;
     private TextView ques_ppl;
     private LinearLayout layout_go_ppl;
@@ -38,9 +39,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
 
     private LinearLayout layout_recommend;
     private ImageButton btn_help;
-    private ImageButton btn_add;
     private View dlg_help;
-    //private LinearLayout layout_title;
 
     private RecyclerView planhot_recycler;
 
@@ -49,11 +48,11 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_plan);
 
-        layout_where = (LinearLayout)findViewById(R.id.WP_ll_where);
         layout_when = (LinearLayout)findViewById(R.id.WP_ll_when);
         ques_date = (TextView)findViewById(R.id.WP_tv_choose_date);
         range = (TextView)findViewById(R.id.WP_tv_range);
         day_night = (TextView)findViewById(R.id.WP_tv_DN);
+
         layout_ppl = (LinearLayout)findViewById(R.id.WP_ll_people);
         ques_ppl = (TextView)findViewById(R.id.WP_tv_howmanyppl);
         layout_go_ppl = (LinearLayout)findViewById(R.id.WP_ll_go_people);
@@ -61,7 +60,6 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         cur_ppl = (TextView)findViewById(R.id.WP_tv_currentppl);
         layout_recommend = (LinearLayout)findViewById(R.id.WP_ll_recommend);
         btn_help = (ImageButton)findViewById(R.id.WP_ib_help);
-        btn_add = (ImageButton)findViewById(R.id.WP_ib_add);
         //layout_title = (LinearLayout)findViewById(R.id.WP_ll_title);
 
         planhot_recycler = findViewById(R.id.WP_recyclerview);
@@ -78,13 +76,6 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
 
         PlanAdapter planAdapter = new PlanAdapter(planHotInfos);
         planhot_recycler.setAdapter(planAdapter);
-
-        layout_where.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WritePlanActivity.this, SearchActivity.class));
-            }
-        });
 
         layout_when.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +107,8 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
                         String total = dlg_ppl_total.getText().toString();
                         String cur = dlg_ppl_cur.getText().toString();
 
-                        total_ppl.setText(total + " 명과 함께 여행을 떠나요!");
-                        cur_ppl.setText("현재 " + cur + " 명을 구해요!");
+                        total_ppl.setText(total + "명과 함께 여행을 떠나요!");
+                        cur_ppl.setText("현재 " + cur + "명이 함께해요!");
 
                         layout_go_ppl.setVisibility(View.VISIBLE);
                         ques_ppl.setVisibility(View.GONE);
@@ -144,13 +135,13 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
             }
         });//취향저격 일정 물음표 dialog
 
-        btn_add.setOnClickListener(new View.OnClickListener() {
+        /*btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Sub layout_title = new Sub(getApplicationContext());
                 layout_recommend.addView(layout_title);
             }
-        });//취향저격 일정 더보기
+        });//취향저격 일정 더보기*/
     }
 
     @Override
@@ -170,14 +161,14 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         if(night<0){
             Toast.makeText(this, "날짜를 다시 선택해주세요.", Toast.LENGTH_SHORT).show();
         }else {
-            String date = year + " / " + (monthOfYear + 1) + " / " + dayOfMonth + " ~ " + yearEnd + " / " + (monthOfYearEnd + 1) + " / " + dayOfMonthEnd;
+            String date = (monthOfYear + 1) + "월 " + dayOfMonth + "일 ~ " + (monthOfYearEnd + 1) + "월 " + dayOfMonthEnd + "일";
             range.setText(date);
 
-            day_night.setText(String.valueOf(Math.abs(night)) + "박" + String.valueOf(day) + "일");
+            day_night.setText("("+String.valueOf(Math.abs(night)) + "박" + String.valueOf(day) + "일)");
 
+            ques_date.setVisibility(View.GONE);
             range.setVisibility(View.VISIBLE);
             day_night.setVisibility(View.VISIBLE);
-            ques_date.setVisibility(View.GONE);
         }
     }
 }
