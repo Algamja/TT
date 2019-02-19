@@ -127,7 +127,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
             }
         });
 
-        //검색 아이콘 클릮되었을 때
+        //검색 아이콘 클릭되었을 때
         ic_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +138,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
                     layout_top.setVisibility(View.GONE);
 
                     RelativeLayout.LayoutParams control = (RelativeLayout.LayoutParams) layout_search.getLayoutParams();
-                    control.topMargin = 0;
+                    control.topMargin = 10;
                     layout_search.setLayoutParams(control);
 
                     layout_search.setBackground(ContextCompat.getDrawable(WritePlanActivity.this, R.drawable.round_top_layout));
@@ -146,11 +146,11 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
 
                     close_search.setVisibility(View.VISIBLE);
                     list_city.setVisibility(View.VISIBLE);
-                    list_city.bringToFront();
 
                     String text = search.getText().toString();
                     if(text.length() == 0){
                         list.clear();
+                        list_city.setMinimumHeight(500);
                     }
                 }
             }
@@ -333,5 +333,6 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+        listView.setBackground(ContextCompat.getDrawable(WritePlanActivity.this, R.drawable.round_bottom_layout));
     }
 }
