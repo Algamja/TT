@@ -10,9 +10,11 @@ import android.view.Display;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.example.jmkim.nomad.Fragment.FragmentPageAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,6 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ScrollView main;
 
     private RecyclerView board_recycler;
     private RecyclerView.LayoutManager board_layoutManager;
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(""); //app이름 없애기 위함
 
+        main = (ScrollView)findViewById(R.id.main_scroll);
+
         board_recycler = findViewById(R.id.recycler_view);
         board_recycler.setHasFixedSize(true);
 
@@ -72,11 +78,6 @@ public class MainActivity extends AppCompatActivity {
         board_recycler.setLayoutManager(board_layoutManager);
 
         view = (View)findViewById(R.id.main_black_view);
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        view.setMinimumHeight((size.y)*3);
 
         fb_layout = (FrameLayout)findViewById(R.id.main_ll_write_float);
         write_plan = (FloatingActionButton)findViewById(R.id.main_fb_write_plan);
@@ -87,21 +88,35 @@ public class MainActivity extends AppCompatActivity {
 
         Main_bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
+
+        //main에서 어둡게 표시될 부분
+        main.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                view.setMinimumHeight(main.getHeight() + main.getScrollY());
+            }
+        });
+
+        //게시글을 List형태로 입력
         ArrayList<BoardInfo> boardInfos = new ArrayList<>();
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
         boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
+        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
+        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
 
-        MyAdapter myAdapter = new MyAdapter(boardInfos);
-
+        //Adapter와 연결
+        MyAdapter myAdapter = new MyAdapter(getApplication(), boardInfos);
         board_recycler.setAdapter(myAdapter);
 
+        //상단 스와이프
         ViewPager main_banner_vp = (ViewPager) findViewById(R.id.main_scroll_vp);
         FragmentManager fm = getSupportFragmentManager();
         FragmentPageAdapter pageAdapter = new FragmentPageAdapter(fm);
-        main_banner_vp.setAdapter(pageAdapter); //스와이프 부분 끝
+        main_banner_vp.setAdapter(pageAdapter);
 
+        //게시글 작성시 어두워지는 view 클릭했을 때
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -113,10 +128,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //BottomNavigation에서 Home을 선택하기 위함
         if(!is_clicked){
             Main_bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
 
+        //리뷰 작성하기 클릭되었을 때
         write_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,35 +141,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //일정 작성하기 클릭되었을 때
         write_plan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //WritePlanActivity로 이동
                 startActivity(new Intent(MainActivity.this, WritePlanActivity.class));
             }
         });
 
+        //뒤로가기 2번 눌러서 종료
         close = new Close(this);
     }
 
+    //BottomNavigationView
     private BottomNavigationView.OnNavigationItemSelectedListener main_navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()){
 
+                        //home 클릭되었을 때
                         case R.id.nav_home:
+                            //FAB과 black_view를 숨김
                             fb_layout.setVisibility(View.INVISIBLE);
                             is_clicked = false;
                             view.setVisibility(View.INVISIBLE);
                             break;
 
+                        //search 클릭되었을 때
                         case R.id.nav_search:
+                            //SearchActivity 시작 및 MainActivity 종료
                             startActivity(new Intent(MainActivity.this, SearchActivity.class));
                             finish();
                             break;
 
+                        //게시글 추가 버튼
                         case R.id.nav_add:
+                            //이미 버튼이 눌린 상태이면
                             if(is_clicked){
+                                //FAB과 view 숨김
                                 fb_layout.setVisibility(View.INVISIBLE);
                                 is_clicked = false;
                                 view.setVisibility(View.INVISIBLE);
@@ -164,7 +192,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                             break;
 
+                        //프로필 눌렸을 때
                         case R.id.nav_profile:
+                            //마이페이지 시작 및 메인페이지 종료
                             startActivity(new Intent(MainActivity.this, MypageActivity.class));
                             finish();
                             break;

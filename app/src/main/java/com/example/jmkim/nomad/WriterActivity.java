@@ -39,17 +39,18 @@ public class WriterActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
+        //FireBase에서 DB정보 받아오기
         final List<UserModel> userModel = new ArrayList<>();
-        FirebaseDatabase
-                .getInstance()
-                .getReference()
+        FirebaseDatabase.getInstance().getReference()
                 .child("UserBasic")
                 .child(uid)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //DB정보를 userModel에 삽입
                         userModel.clear();
                         userModel.add(dataSnapshot.getValue(UserModel.class));
+                        //userName에 사용자 이름 입력
                         userName.setText(userModel.get(0).userName);
                     }
 
@@ -57,12 +58,12 @@ public class WriterActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                }); //DB정보 끝
+                });
 
+        //상단 뒤로가기 화살표
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WriterActivity.this, MainActivity.class));
                 finish();
             }
         });
