@@ -51,7 +51,7 @@ public class DB_FragmentActivity extends Fragment {
         final List<Board> boards = new ArrayList<>();
 
 
-        FirebaseDatabase
+        /*FirebaseDatabase
                 .getInstance()
                 .getReference()
                 .child("Board")
@@ -71,7 +71,7 @@ public class DB_FragmentActivity extends Fragment {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-                });
+                });*/
 
         return layout;
     }

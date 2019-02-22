@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- 사용자 프로필 사진 -->
         <ImageView
             android:layout_margin="10dp"
             android:id="@+id/scroll_iv_profile"
@@ -27,6 +28,7 @@
             android:orientation="vertical"
             android:layout_gravity="center_vertical">
 
+            <!-- 글 제목 -->
             <TextView
                 android:id="@+id/scroll_tv_title"
                 android:layout_width="wrap_content"
@@ -34,6 +36,7 @@
                 android:fontFamily="@font/custom_font"
                 android:text="글 제목"/>
 
+            <!-- 여행 국가 -->
             <TextView
                 android:id="@+id/scroll_tv_country"
                 android:layout_marginTop="10dp"
@@ -44,6 +47,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- 여행 관련 사진 -->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/scroll_vp_board"
         android:layout_width="match_parent"

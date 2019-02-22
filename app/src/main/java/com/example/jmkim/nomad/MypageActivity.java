@@ -159,9 +159,7 @@ public class MypageActivity extends AppCompatActivity {
                                 switch(which){
                                     case 0: //기본 이미지로 설정
                                         final List<UserModel> userModel = new ArrayList<>();
-                                        FirebaseDatabase
-                                                .getInstance()
-                                                .getReference()
+                                        FirebaseDatabase.getInstance().getReference()
                                                 .child("UserBasic")
                                                 .child(uid)
                                                 .child("profileImageUrl")

@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
+
+    private ScrollView sv;
 
     private RadioButton city;
     private RadioButton activity;
@@ -93,6 +96,8 @@ public class SearchActivity extends AppCompatActivity {
         ActionBar actionBar  = getSupportActionBar();
 
         getSupportActionBar().setTitle("");
+
+        sv = (ScrollView)findViewById(R.id.searchActivity_sv);
 
         city = (RadioButton) findViewById(R.id.searchActivity_rb_city);
         activity = (RadioButton) findViewById(R.id.searchActivity_rb_activity);
@@ -246,11 +251,11 @@ public class SearchActivity extends AppCompatActivity {
                 if(click %2 == 0){
                     nonfocus.setVisibility(View.VISIBLE);
                     focus.setVisibility(View.GONE);
+                    city_list.setVisibility(View.GONE);
                 }else{
                     nonfocus.setVisibility(View.GONE);
                     focus.setVisibility(View.VISIBLE);
                     recent.setVisibility(View.VISIBLE);
-                    city_list.setVisibility(View.GONE);
                 }
             }
         });
@@ -272,12 +277,14 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(search_city.getText().toString().equals("")){
-                    recent.setVisibility(View.VISIBLE);
-                    city_list.setVisibility(View.GONE);
-                }else{
-                    recent.setVisibility(View.GONE);
-                    city_list.setVisibility(View.VISIBLE);
+                if(click %2 != 0){
+                    if(search_city.getText().toString().equals("")){
+                        recent.setVisibility(View.VISIBLE);
+                        city_list.setVisibility(View.GONE);
+                    }else{
+                        recent.setVisibility(View.GONE);
+                        city_list.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 

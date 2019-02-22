@@ -2,11 +2,8 @@ package com.example.jmkim.nomad;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,11 +13,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.example.jmkim.nomad.DB.Board;
+import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.Fragment.FragmentPageAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -55,11 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
     private Boolean is_clicked = false;
 
+    private List<Board> boards;
+
     private Close close;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -88,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         Main_bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
+        boards = new ArrayList<>();
 
         //main에서 어둡게 표시될 부분
         main.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -97,18 +105,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //게시글을 List형태로 입력
-        ArrayList<BoardInfo> boardInfos = new ArrayList<>();
-        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
-        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
-        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
-        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
-        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
-        boardInfos.add(new BoardInfo(R.drawable.profile, "글 제목", "국가"));
 
-        //Adapter와 연결
-        MyAdapter myAdapter = new MyAdapter(getApplication(), boardInfos);
-        board_recycler.setAdapter(myAdapter);
+        //main에서 보일 글 부분
+        //Board의 정보를 받아옴
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Board");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boards.clear();
+                //boards에 Board DB 삽입
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Board board = snapshot.getValue(Board.class);
+
+                    boards.add(board);
+
+                    //BoardInfos List생성
+                    final ArrayList<BoardInfo> boardInfos = new ArrayList<>();
+
+                    //boards 정보를 바탕으로 BoardInfos 입력
+                    for(int i = 0; i < boards.size(); i++){
+                        String publisher;
+                        final List<UserModel> userModel = new ArrayList<>();
+
+                        //글 작성자의 UID를 받아옴
+                        publisher = boards.get(i).publisher;
+
+                        //get()에서 사용하기 위한 final_i
+                        final int final_i = i;
+
+                        //작성자 UID를 사용하여 user의 프로필 사진을 가져옴
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("UserBasic")
+                                .child(publisher)
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        userModel.clear();
+                                        //userModel에 작성자 정보 입력
+                                        userModel.add(dataSnapshot.getValue(UserModel.class));
+                                        //boardInfos에 사용자 프로필, 글 제목, 국가 입력
+                                        boardInfos.add(new BoardInfo(userModel.get(0).profileImageUrl, boards.get(final_i).title, boards.get(final_i).country));
+
+                                        //boardInfos의 내용을 Adapter에 연결
+                                        MyAdapter myAdapter = new MyAdapter(getApplication(), boardInfos);
+                                        board_recycler.setAdapter(myAdapter);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //상단 스와이프
         ViewPager main_banner_vp = (ViewPager) findViewById(R.id.main_scroll_vp);

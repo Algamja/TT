@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +24,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //Adapter가 작용할 위치 및 사용할 정보
     Context mContext;
     private ArrayList<BoardInfo> boardInfos;
+
+    private RequestManager mGlide;
+
+
 
     public MyAdapter(Context mContext, ArrayList<BoardInfo> boardInfos) {
         this.mContext = mContext;
@@ -53,7 +61,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
 
-        myViewHolder.iv_profile.setImageResource(boardInfos.get(position).profileId);
+        mGlide = Glide.with(mContext);
+
+        //받아온 정보를 xml에 적용
+        mGlide.load(boardInfos.get(position).profileId)
+                .apply(new RequestOptions().circleCrop())
+                .into(myViewHolder.iv_profile);
         myViewHolder.tv_title.setText(boardInfos.get(position).title);
         myViewHolder.tv_country.setText(boardInfos.get(position).country);
 
