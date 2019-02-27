@@ -13,7 +13,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#fff">
 
         <!-- 상단 국가 -->
 
@@ -65,8 +66,6 @@
             android:layout_below="@+id/WP_ll_search"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="-10dp"/>
-
-
 
         <!-- 도시 선택시 보이는 화면 -->
         <LinearLayout
