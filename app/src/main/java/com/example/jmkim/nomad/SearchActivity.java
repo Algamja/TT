@@ -260,6 +260,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        black.bringToFront();
         list = new ArrayList<String>();
         settingList();
 
@@ -374,8 +375,8 @@ public class SearchActivity extends AppCompatActivity {
                             }else{
                                 fb_layout.setVisibility(View.VISIBLE);
                                 bottom_click = true;
-                                black.setVisibility(View.VISIBLE);
                                 black.bringToFront();
+                                black.setVisibility(View.VISIBLE);
                             }
                             break;
 

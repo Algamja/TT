@@ -7,18 +7,23 @@
     tools:context=".WriterActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@drawable/user_back">
+        android:layout_height="300dp">
+
+        <ImageView
+            android:id="@+id/writer_iv_bground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
 
         <ImageView
             android:layout_margin="15dp"
-            android:id="@+id/userActivity_iv_back"
+            android:id="@+id/writer_iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/back"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,11 +37,12 @@
             android:padding="15dp">
 
             <TextView
-                android:id="@+id/userActivity_tv_name"
+                android:id="@+id/writer_tv_name"
                 android:layout_width="0dp"
                 android:layout_weight="7"
                 android:layout_height="wrap_content"
                 android:textSize="35dp"
+                android:fontFamily="@font/custom_font"
                 android:text="가나다"/>
 
             <Button
@@ -44,6 +50,7 @@
                 android:layout_weight="3"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:fontFamily="@font/custom_font"
                 android:text="FOLLOW" />
         </LinearLayout>
 
@@ -68,6 +75,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="Chat"/>
             </LinearLayout>
 
@@ -86,6 +94,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="Docks"/>
             </LinearLayout>
 
@@ -104,6 +113,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="Location"/>
             </LinearLayout>
 
@@ -122,6 +132,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="Friends"/>
             </LinearLayout>
 
@@ -140,6 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="Settings"/>
             </LinearLayout>
 
@@ -158,6 +170,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
                     android:text="Notifications"/>
             </LinearLayout>
         </GridLayout>

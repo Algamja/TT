@@ -6,16 +6,22 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +64,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
 
     private EditText dlg_ppl_total;
     private EditText dlg_ppl_cur;
+    private Button with_btn;
 
     private LinearLayout layout_recommend;
     private ImageButton btn_help;
@@ -73,6 +80,14 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
     private Cursor iCursor;
 
     private Boolean isClicked = false;
+
+    private RelativeLayout relativeLayout;
+    private GridLayout gridLayout;
+    private ImageView gridimage_1;
+    private ImageView gridimage_2;
+    private static final String IMAGEVIEW_TAG = "드래그 이미지";
+
+    private AlertDialog dlg = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +120,20 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         //layout_title = (LinearLayout)findViewById(R.id.WP_ll_title);
 
         planhot_recycler = findViewById(R.id.WP_recyclerview);
+
+        //드래그
+        gridimage_1 = findViewById(R.id.gridimage1);
+        gridimage_1.setTag(IMAGEVIEW_TAG);
+        gridimage_1.setOnLongClickListener(new LongClickListener());
+
+        gridimage_2 = findViewById(R.id.gridimage2);
+        gridimage_2.setTag(IMAGEVIEW_TAG);
+        gridimage_2.setOnLongClickListener(new LongClickListener());
+
+        gridLayout = findViewById(R.id.gridlayout);
+        gridLayout.setOnDragListener(new DragListener());
+        relativeLayout = findViewById(R.id.dayplan);
+        relativeLayout.setOnDragListener(new DragListener());
 
         //요즘뜨는 여행지 보여지는 부분
         planhot_recycler.setHasFixedSize(true);
@@ -183,7 +212,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
                 String text = search.getText().toString();
                 search(text);
 
-                setListViewHeightBasedOnChildren(list_city);
+                //setListViewHeightBasedOnChildren(list_city);
             }
         });
 
@@ -200,6 +229,8 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
                 );
                 datepicker.setAutoHighlight(true);
                 datepicker.show(getFragmentManager(),"Datepickerdialog");
+
+                relativeLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -208,26 +239,32 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
             @Override
             public void onClick(View v) {
                 dlg_ppl = (View) View.inflate(WritePlanActivity.this, R.layout.with_dialog, null);
-                AlertDialog.Builder dlg = new AlertDialog.Builder(WritePlanActivity.this);
-                dlg.setTitle("인원을 설정해주세요!");
+
+                dlg = new AlertDialog.Builder(WritePlanActivity.this).create();
                 dlg.setView(dlg_ppl);
                 dlg_ppl_total = (EditText)dlg_ppl.findViewById(R.id.ppl_dlg_total);
                 dlg_ppl_cur = (EditText)dlg_ppl.findViewById(R.id.ppl_dlg_cur);
-                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+
+                with_btn = (Button)dlg_ppl.findViewById(R.id.with_btn);
+
+                dlg.show();
+
+                with_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View view) {
+
                         String total = dlg_ppl_total.getText().toString();
                         String cur = dlg_ppl_cur.getText().toString();
 
                         total_ppl.setText(total + "명과 함께 여행을 떠나요!");
-                        cur_ppl.setText("현재 " + cur + "명이 함께해요!");
+                        cur_ppl.setText("현재 " + cur + "명을 구해요!");
 
                         layout_go_ppl.setVisibility(View.VISIBLE);
                         ques_ppl.setVisibility(View.GONE);
+                        gridLayout.setVisibility(View.VISIBLE);
+                        dlg.dismiss();
                     }
                 });
-
-                dlg.show();
             }
         });
 
@@ -255,6 +292,78 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
                 layout_recommend.addView(layout_title);
             }
         });//취향저격 일정 더보기*/
+    }
+
+    //드래그
+    private class LongClickListener implements View.OnLongClickListener{
+
+        @Override
+        public boolean onLongClick(View view) {
+            ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
+
+            String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
+            ClipData data = new ClipData(view.getTag().toString(), mimeTypes, item);
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+
+            view.startDrag(data, shadowBuilder, view, 0);
+            view.setVisibility(View.INVISIBLE);
+            return true;
+        }
+    }
+
+    //드래그
+    class DragListener implements View.OnDragListener{
+        Drawable grey = getResources().getDrawable(R.drawable.grey);
+        Drawable original = getResources().getDrawable(R.drawable.transparent);
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            switch (event.getAction()){
+                case DragEvent.ACTION_DRAG_STARTED:
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    v.setBackground(grey);
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    v.setBackground(original);
+                    break;
+                case DragEvent.ACTION_DROP:
+                    if(v == findViewById(R.id.dayplan)){
+                        View view = (View) event.getLocalState();
+                        ViewGroup viewGroup = (ViewGroup) view.getParent();
+                        viewGroup.removeView(view);
+
+                        TextView textView = v.findViewById(R.id.tv_dayplan);
+                        textView.setVisibility(View.GONE);
+
+                        RelativeLayout containView = (RelativeLayout) v;
+                        containView.addView(view);
+                        view.setVisibility(View.VISIBLE);
+
+                    } else if(v == findViewById(R.id.gridlayout)){
+                        View view = (View) event.getLocalState();
+                        ViewGroup viewGroup = (ViewGroup) view.getParent();
+                        viewGroup.removeView(view);
+
+                        GridLayout containView = (GridLayout) v;
+                        containView.addView(view);
+                        view.setVisibility(View.VISIBLE);
+
+                    } else{
+                        View view = (View) event.getLocalState();
+                        view.setVisibility(View.VISIBLE);
+                        Context context = getApplicationContext();
+                        Toast.makeText(context, "이미지를 다른 지역에 드랍할 수 없습니다.", Toast.LENGTH_LONG).show();
+                        break;
+                    }
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    v.setBackground(original);
+                default:
+                    break;
+            }
+            return true;
+        }
     }
 
     //여행기간 계산하는 부분
@@ -312,7 +421,7 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         }
     }
 
-    public void setListViewHeightBasedOnChildren(ListView listView) {
+    /*public void setListViewHeightBasedOnChildren(ListView listView) {
 
         ListAdapter listAdapter = listView.getAdapter();
 
@@ -334,5 +443,5 @@ public class WritePlanActivity extends AppCompatActivity implements com.borax12.
         listView.setLayoutParams(params);
         listView.requestLayout();
         listView.setBackground(ContextCompat.getDrawable(WritePlanActivity.this, R.drawable.round_bottom_layout));
-    }
+    }*/
 }

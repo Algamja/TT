@@ -55,15 +55,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <!-- 글 작성 버튼 클릭 되었을 때 어두워지는 View -->
-                    <View
-                        android:id="@+id/searchActivity_view_black"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#80000000"
-                        android:visibility="gone"
-                        android:layout_marginTop="30dp"/>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -733,8 +724,16 @@
                 android:background="@drawable/round_bottom_layout"
                 android:layout_marginTop="150dp"
                 android:visibility="gone"/>
-        </RelativeLayout>
 
+            <!-- 글 작성 버튼 클릭 되었을 때 어두워지는 View -->
+            <View
+                android:id="@+id/searchActivity_view_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#80000000"
+                android:visibility="gone"
+                android:layout_marginTop="30dp"/>
+        </RelativeLayout>
 
         <!-- 하단 FAB & BottomNavigation -->
         <RelativeLayout

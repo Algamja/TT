@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         //main에서 보일 글 부분
         //Board의 정보를 받아옴
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Board");
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 boards.clear();
                 //boards에 Board DB 삽입
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Board board = snapshot.getValue(Board.class);
+                    final Board board = snapshot.getValue(Board.class);
 
                     boards.add(board);
 
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                                         //userModel에 작성자 정보 입력
                                         userModel.add(dataSnapshot.getValue(UserModel.class));
                                         //boardInfos에 사용자 프로필, 글 제목, 국가 입력
-                                        boardInfos.add(new BoardInfo(userModel.get(0).profileImageUrl, boards.get(final_i).title, boards.get(final_i).country));
+                                        boardInfos.add(new BoardInfo(boards.get(final_i).publisher, userModel.get(0).profileImageUrl, boards.get(final_i).title, boards.get(final_i).country));
 
                                         //boardInfos의 내용을 Adapter에 연결
                                         MyAdapter myAdapter = new MyAdapter(getApplication(), boardInfos);

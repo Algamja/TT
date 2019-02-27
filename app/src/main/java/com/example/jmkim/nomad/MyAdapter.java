@@ -27,8 +27,6 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private RequestManager mGlide;
 
-
-
     public MyAdapter(Context mContext, ArrayList<BoardInfo> boardInfos) {
         this.mContext = mContext;
         this.boardInfos = boardInfos;
@@ -74,10 +72,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         myViewHolder.iv_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(position == 0){
-                    Intent intent = new Intent(v.getContext(), WriterActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    v.getContext().startActivity(intent);
+                for(int i = 0; i <= boardInfos.size(); i++){
+                    if(position == i){
+                        Intent intent = new Intent(v.getContext(), WriterActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("publisher",boardInfos.get(position).publisher);
+                        v.getContext().startActivity(intent);
+                    }
                 }
             }
         });

@@ -1,15 +1,21 @@
 package com.example.jmkim.nomad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.example.jmkim.nomad.DB.Board;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -24,33 +30,43 @@ public class WriterActivity extends AppCompatActivity {
     private FirebaseUser user;
     String uid;
 
+    private ImageView bGround;
     private ImageView back;
     private TextView userName;
+
+    private RequestManager mGlide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writer);
 
-        back = (ImageView)findViewById(R.id.userActivity_iv_back);
-        userName = (TextView)findViewById(R.id.userActivity_tv_name);
+        bGround = (ImageView)findViewById(R.id.writer_iv_bground);
+        back = (ImageView)findViewById(R.id.writer_iv_back);
+        userName = (TextView)findViewById(R.id.writer_tv_name);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
-        //FireBase에서 DB정보 받아오기
-        final List<UserModel> userModel = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference()
-                .child("UserBasic")
-                .child(uid)
+        mGlide = Glide.with(this);
+
+        Intent intent = getIntent();
+
+        String publisher = intent.getExtras().getString("publisher");
+
+        final List<UserModel> userModels = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference("UserBasic")
+                .child(publisher)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        //DB정보를 userModel에 삽입
-                        userModel.clear();
-                        userModel.add(dataSnapshot.getValue(UserModel.class));
-                        //userName에 사용자 이름 입력
-                        userName.setText(userModel.get(0).userName);
+                        userModels.clear();
+
+                        userModels.add(dataSnapshot.getValue(UserModel.class));
+
+                        mGlide.load(userModels.get(0).profileImageUrl)
+                                .into(bGround);
+                        userName.setText(userModels.get(0).userName);
                     }
 
                     @Override

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/WP_scroll"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,531 +9,550 @@
     android:orientation="vertical"
     android:layout_marginTop="25dp">
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/WP_scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#fff">
+        android:layout_height="match_parent">
 
-        <!-- 상단 국가 -->
-
-        <!-- 색 지정 -->
-        <LinearLayout
-            android:id="@+id/WP_ll_top"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#88BCBF">
+            android:backgroundTint="#fff">
 
-            <!-- 글씨 부분 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/custom_font"
-                android:text="어디로\n떠나시나요?"
-                android:textColor="#FFF"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="35dp"
-                android:layout_marginVertical="10dp"/>
+            <!-- 상단 국가 -->
 
-            <!-- 작은 선 -->
-            <View
-                android:layout_width="40dp"
-                android:layout_height="1dp"
-                android:background="#fff"
-                android:layout_marginLeft="35dp"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
+            <!-- 색 지정 -->
+            <LinearLayout
+                android:id="@+id/WP_ll_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/custom_font"
-                android:text="검색을 통해서 여행지를 선택해주세요!"
-                android:textColor="#FFF"
-                android:textSize="20sp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginBottom="40dp"/>
-        </LinearLayout>
+                android:orientation="vertical"
+                android:background="#88BCBF">
 
-        <!-- 음영효과 -->
-        <View
-            android:id="@+id/WP_view_shadow"
-            android:layout_width="fill_parent"
-            android:layout_height="30dip"
-            android:background="@drawable/drop_shadow"
-            android:layout_below="@+id/WP_ll_search"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="-10dp"/>
-
-        <!-- 도시 선택시 보이는 화면 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#fff"
-            android:layout_marginHorizontal="15dp"
-            android:visibility="gone">
-
-            <!-- 첫 화면으로 가기 -->
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/back"
-                android:layout_marginBottom="10dp"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <!-- 국기 사진 -->
-                <ImageView
-                    android:id="@+id/WP_iv_country"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/flag"
-                    android:layout_centerVertical="true"/>
-
-                <!-- 여행 도시 - 국가 -->
+                <!-- 글씨 부분 -->
                 <TextView
-                    android:id="@+id/WP_tv_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/custom_font"
-                    android:text="서울 - 한국"
-                    android:textSize="35sp"
-                    android:textColor="#000"
+                    android:text="어디로\n떠나시나요?"
+                    android:textColor="#FFF"
+                    android:textSize="40sp"
                     android:textStyle="bold"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="35dp"
                     android:layout_marginVertical="10dp"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/WP_tv_city"
-                    android:gravity="center_vertical">
+                <!-- 작은 선 -->
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1dp"
+                    android:background="#fff"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="10dp"/>
 
-                    <!-- 여행경보 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
+                    android:text="검색을 통해서 여행지를 선택해주세요!"
+                    android:textColor="#FFF"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="40dp"/>
+            </LinearLayout>
+
+            <!-- 음영효과 -->
+            <View
+                android:id="@+id/WP_view_shadow"
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:background="@drawable/drop_shadow"
+                android:layout_below="@+id/WP_ll_search"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="-10dp"/>
+
+
+
+            <!-- 도시 선택시 보이는 화면 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#fff"
+                android:layout_marginHorizontal="15dp"
+                android:visibility="gone">
+
+                <!-- 첫 화면으로 가기 -->
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/back"
+                    android:layout_marginBottom="10dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- 국기 사진 -->
+                    <ImageView
+                        android:id="@+id/WP_iv_country"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/flag"
+                        android:layout_centerVertical="true"/>
+
+                    <!-- 여행 도시 - 국가 -->
                     <TextView
+                        android:id="@+id/WP_tv_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/custom_font"
-                        android:text="여행유의"
+                        android:text="서울 - 한국"
+                        android:textSize="35sp"
                         android:textColor="#000"
-                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginVertical="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/WP_tv_city"
+                        android:gravity="center_vertical">
+
+                        <!-- 여행경보 -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/custom_font"
+                            android:text="여행유의"
+                            android:textColor="#000"
+                            android:textSize="20dp"
+                            android:textStyle="bold"/>
+
+                        <ImageView
+                            android:id="@+id/WP_iv_country_danger"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@drawable/ic_country_caution"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- 여행 날짜 -->
+            <LinearLayout
+                android:id="@+id/WP_ll_when"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:layout_below="@+id/WP_ll_search">
+
+                <!-- 초기 멘트 -->
+                <TextView
+                    android:id="@+id/WP_tv_choose_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
+                    android:text="언제 여행을 가시나요?"
+                    android:textSize="25sp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="visible"/>
+
+                <!-- 날짜 나오는 부분 -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/WP_tv_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/custom_font"
+                        android:text="1월 1일 ~ 12월 31일"
+                        android:textSize="24sp"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/WP_tv_DN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/custom_font"
+                        android:text="(1박 2일)"
+                        android:textSize="24sp"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- 구분선 -->
+            <View
+                android:id="@+id/WP_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#808080"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:layout_below="@+id/WP_ll_when"/>
+
+            <!-- 여행 인원 -->
+            <LinearLayout
+                android:id="@+id/WP_ll_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:layout_below="@+id/WP_2">
+
+                <!-- 초기 멘트 -->
+                <LinearLayout
+                    android:id="@+id/WP_ll_howmanyppl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/custom_font"
+                        android:text="몇 명이서 가시나요?"
+                        android:textSize="25sp"
+                        android:textColor="#000"
                         android:textStyle="bold"/>
 
-                    <ImageView
-                        android:id="@+id/WP_iv_country_danger"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:srcCompat="@drawable/ic_country_caution"/>
+                    <!-- 구분선 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#808080"
+                        android:layout_marginVertical="20dp"/>
                 </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
 
-        <!-- 여행 날짜 -->
-        <LinearLayout
-            android:id="@+id/WP_ll_when"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:layout_below="@+id/WP_ll_search">
+                <!-- 인원 나오는 부분 -->
+                <LinearLayout
+                    android:id="@+id/WP_ll_go_people"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-            <!-- 초기 멘트 -->
-            <TextView
-                android:id="@+id/WP_tv_choose_date"
+                    <TextView
+                        android:id="@+id/WP_tv_totalppl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/custom_font"
+                        android:text="5명과 함께 떠나요!"
+                        android:textSize="25sp"
+                        android:textColor="#000"
+                        android:textStyle="bold"/>
+
+                    <!-- 구분선 -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#808080"
+                        android:layout_marginVertical="20dp"/>
+
+                    <TextView
+                        android:id="@+id/WP_tv_currentppl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/custom_font"
+                        android:text="현재 3명이 함께해요!"
+                        android:textSize="25sp"
+                        android:textColor="#000"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 스크랩한 여행지 -->
+            <GridLayout
+                android:id="@+id/gridlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/custom_font"
-                android:text="언제 여행을 가시나요?"
-                android:textSize="25sp"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:visibility="visible"/>
+                android:columnCount="3"
+                android:rowCount="2"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
+                android:layout_below="@+id/WP_ll_people">
 
-            <!-- 날짜 나오는 부분 -->
-            <RelativeLayout
+                <ImageView
+                    android:id="@+id/gridimage1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_columnWeight="1"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:src="@drawable/one"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/gridimage2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_columnWeight="1"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:src="@drawable/one"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/gridimage3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_columnWeight="1"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:src="@drawable/one"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/gridimage4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_columnWeight="1"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:src="@drawable/one"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/gridimage5"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_columnWeight="1"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:src="@drawable/one"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:id="@+id/gridimage6"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_columnWeight="1"
+                    android:layout_column="2"
+                    android:layout_row="1"
+                    android:src="@drawable/one"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"/>
+            </GridLayout>
+
+            <include
+                layout="@layout/activity_day_plan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gridlayout" />
 
-                <TextView
-                    android:id="@+id/WP_tv_range"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/custom_font"
-                    android:text="1월 1일 ~ 12월 31일"
-                    android:textSize="24sp"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/WP_tv_DN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/custom_font"
-                    android:text="(1박 2일)"
-                    android:textSize="24sp"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:layout_alignParentRight="true"
-                    android:visibility="gone"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <!-- 구분선 -->
-        <View
-            android:id="@+id/WP_2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#808080"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:layout_below="@+id/WP_ll_when"/>
-
-        <!-- 여행 인원 -->
-        <LinearLayout
-            android:id="@+id/WP_ll_people"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:layout_below="@+id/WP_2">
-
-            <!-- 초기 멘트 -->
+            <!-- 취향저격 일정 -->
             <LinearLayout
-                android:id="@+id/WP_ll_howmanyppl"
+                android:id="@+id/WP_ll_recommend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:layout_below="@+id/dayplan">
 
-                <TextView
+                <RelativeLayout
+                    android:id="@+id/WP_ll_recom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/custom_font"
-                    android:text="몇 명이서 가시나요?"
-                    android:textSize="25sp"
-                    android:textColor="#000"
-                    android:textStyle="bold"/>
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="10dp">
 
-                <!-- 구분선 -->
-                <View
+                    <!-- 기본 멘트 -->
+                    <TextView
+                        android:id="@+id/WP_tv_recomplan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/custom_font"
+                        android:text="취향저격 일정!  "
+                        android:textSize="20sp"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:layout_centerVertical="true"/>
+
+                    <!-- 도움말 -->
+                    <ImageButton
+                        android:id="@+id/WP_ib_help"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:contentDescription="도움말"
+                        android:src="@drawable/ic_help"
+                        android:layout_toRightOf="@id/WP_tv_recomplan"
+                        android:layout_centerVertical="true"/>
+
+                    <!-- 모두보기 -->
+                    <TextView
+                        android:id="@+id/WP_tv_seeall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="모두 보기"
+                        android:layout_toLeftOf="@id/WP_iv_seeall"
+                        android:layout_centerVertical="true"/>
+
+                    <!-- 화살표 -->
+                    <ImageView
+                        android:id="@+id/WP_iv_seeall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_right"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <!-- 사용자에게 맞는 일정 -->
+                <include
+                    layout="@layout/activity_recommend_title"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#808080"
-                    android:layout_marginVertical="20dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"/>
+
+                <include
+                    layout="@layout/activity_recommend_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"/>
+
+                <include
+                    layout="@layout/activity_recommend_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"/>
+
+                <include
+                    layout="@layout/activity_recommend_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"/>
+
+                <include
+                    layout="@layout/activity_recommend_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"/>
             </LinearLayout>
 
-            <!-- 인원 나오는 부분 -->
+            <!-- 요즘 뜨는 여행지 -->
             <LinearLayout
-                android:id="@+id/WP_ll_go_people"
+                android:id="@+id/WP_ll_recomhot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="10dp"
+                android:layout_below="@+id/WP_ll_recommend">
 
+                <!-- 멘트 -->
                 <TextView
-                    android:id="@+id/WP_tv_totalppl"
+                    android:id="@+id/WP_tv_currenthot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/custom_font"
-                    android:text="5명과 함께 떠나요!"
+                    android:text="요즘 뜨는 여행지"
                     android:textSize="25sp"
                     android:textColor="#000"
                     android:textStyle="bold"/>
 
-                <!-- 구분선 -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#808080"
-                    android:layout_marginVertical="20dp"/>
-
-                <TextView
-                    android:id="@+id/WP_tv_currentppl"
+                <!-- 여행지 보여주는 부분 -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/WP_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/custom_font"
-                    android:text="현재 3명이 함께해요!"
-                    android:textSize="25sp"
-                    android:textColor="#000"
-                    android:textStyle="bold"/>
+                    android:orientation="horizontal">
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- 스크랩한 여행지 -->
-        <GridLayout
-            android:id="@+id/gridlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:rowCount="2"
-            android:layout_marginTop="10dp"
-            android:visibility="gone"
-            android:layout_below="@+id/WP_ll_people">
+            <View
+                android:id="@+id/WP_view_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#80000000"
+                android:visibility="gone"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_columnWeight="1"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:src="@drawable/one"
-                android:padding="5dp"
-                android:scaleType="fitXY"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_columnWeight="1"
-                android:layout_column="1"
-                android:layout_row="0"
-                android:src="@drawable/one"
-                android:padding="5dp"
-                android:scaleType="fitXY"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_columnWeight="1"
-                android:layout_column="2"
-                android:layout_row="0"
-                android:src="@drawable/one"
-                android:padding="5dp"
-                android:scaleType="fitXY"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_columnWeight="1"
-                android:layout_column="0"
-                android:layout_row="1"
-                android:src="@drawable/one"
-                android:padding="5dp"
-                android:scaleType="fitXY"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_columnWeight="1"
-                android:layout_column="1"
-                android:layout_row="1"
-                android:src="@drawable/one"
-                android:padding="5dp"
-                android:scaleType="fitXY"/>
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_columnWeight="1"
-                android:layout_column="2"
-                android:layout_row="1"
-                android:src="@drawable/one"
-                android:padding="5dp"
-                android:scaleType="fitXY"/>
-        </GridLayout>
-
-        <!-- 취향저격 일정 -->
-        <LinearLayout
-            android:id="@+id/WP_ll_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_below="@+id/gridlayout">
-
-            <RelativeLayout
-                android:id="@+id/WP_ll_recom"
+            <!-- 검색창 -->
+            <LinearLayout
+                android:id="@+id/WP_ll_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="10dp">
+                android:layout_below="@+id/WP_ll_top"
+                android:layout_marginTop="-30dp"
+                android:background="@drawable/round_layout"
+                android:backgroundTint="#D97D54"
+                android:layout_marginHorizontal="15dp">
 
-                <!-- 기본 멘트 -->
-                <TextView
-                    android:id="@+id/WP_tv_recomplan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/custom_font"
-                    android:text="취향저격 일정!  "
-                    android:textSize="20sp"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="7">
 
-                <!-- 도움말 -->
-                <ImageButton
-                    android:id="@+id/WP_ib_help"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:contentDescription="도움말"
-                    android:src="@drawable/ic_help"
-                    android:layout_toRightOf="@id/WP_tv_recomplan"
-                    android:layout_centerVertical="true"/>
+                    <!-- Search -->
+                    <EditText
+                        android:id="@+id/WP_et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/round_left_layout"
+                        android:fontFamily="@font/custom_font"
+                        android:hint="Search City"
+                        android:paddingHorizontal="30dp"/>
 
-                <!-- 모두보기 -->
-                <TextView
-                    android:id="@+id/WP_tv_seeall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="모두 보기"
-                    android:layout_toLeftOf="@id/WP_iv_seeall"
-                    android:layout_centerVertical="true"/>
+                    <ImageView
+                        android:id="@+id/WP_iv_close_search"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/ic_search_close"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:visibility="gone"/>
+                </RelativeLayout>
 
-                <!-- 화살표 -->
+                <!-- 검색 아이콘 -->
                 <ImageView
-                    android:id="@+id/WP_iv_seeall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_right"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-            <!-- 사용자에게 맞는 일정 -->
-            <include
-                layout="@layout/activity_recommend_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"/>
-
-            <include
-                layout="@layout/activity_recommend_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"/>
-
-            <include
-                layout="@layout/activity_recommend_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"/>
-
-            <include
-                layout="@layout/activity_recommend_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"/>
-
-            <include
-                layout="@layout/activity_recommend_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"/>
-        </LinearLayout>
-
-        <!-- 요즘 뜨는 여행지 -->
-        <LinearLayout
-            android:id="@+id/WP_ll_recomhot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:layout_below="@+id/WP_ll_recommend">
-
-            <!-- 멘트 -->
-            <TextView
-                android:id="@+id/WP_tv_currenthot"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/custom_font"
-                android:text="요즘 뜨는 여행지"
-                android:textSize="25sp"
-                android:textColor="#000"
-                android:textStyle="bold"/>
-
-            <!-- 여행지 보여주는 부분 -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/WP_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
-
-        <View
-            android:id="@+id/WP_view_black"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#80000000"
-            android:visibility="gone"/>
-
-        <!-- 검색창 -->
-        <LinearLayout
-            android:id="@+id/WP_ll_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/WP_ll_top"
-            android:layout_marginTop="-30dp"
-            android:background="@drawable/round_layout"
-            android:backgroundTint="#D97D54"
-            android:layout_marginHorizontal="15dp">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="7">
-
-                <!-- Search -->
-                <EditText
-                    android:id="@+id/WP_et_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/round_left_layout"
-                    android:fontFamily="@font/custom_font"
-                    android:hint="Search City"
-                    android:paddingHorizontal="30dp"/>
-
-                <ImageView
-                    android:id="@+id/WP_iv_close_search"
-                    android:layout_width="30dp"
+                    android:id="@+id/WP_iv_search"
+                    android:layout_width="0dp"
                     android:layout_height="30dp"
-                    app:srcCompat="@drawable/ic_search_close"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:visibility="gone"/>
-            </RelativeLayout>
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="10dp"
+                    app:srcCompat="@drawable/ic_search_white"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
-            <!-- 검색 아이콘 -->
-            <ImageView
-                android:id="@+id/WP_iv_search"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="10dp"
-                app:srcCompat="@drawable/ic_search_white"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-
-        <!-- 도시 리스트 -->
-        <ListView
-            android:id="@+id/WP_lv_city"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:divider="#00000000"
-            android:layout_marginHorizontal="15dp"
-            android:background="@drawable/round_bottom_layout"
-            android:layout_below="@+id/WP_ll_search"
-            android:layout_marginTop="1dp"
-            android:visibility="gone"/>
-    </RelativeLayout>
-</ScrollView>
+    <!-- 도시 리스트 -->
+    <ListView
+        android:id="@+id/WP_lv_city"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:divider="#00000000"
+        android:layout_marginHorizontal="15dp"
+        android:background="@drawable/round_bottom_layout"
+        android:layout_marginTop="60dp"
+        android:visibility="gone"/>
+</RelativeLayout>
