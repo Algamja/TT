@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     boards.add(board);
 
                     //BoardInfos List생성
-                    final ArrayList<BoardInfo> boardInfos = new ArrayList<>();
+                    final ArrayList<MainBoardInfo> mainBoardInfos = new ArrayList<>();
 
                     //boards 정보를 바탕으로 BoardInfos 입력
                     for(int i = 0; i < boards.size(); i++){
@@ -143,11 +143,11 @@ public class MainActivity extends AppCompatActivity {
                                         //userModel에 작성자 정보 입력
                                         userModel.add(dataSnapshot.getValue(UserModel.class));
                                         //boardInfos에 사용자 프로필, 글 제목, 국가 입력
-                                        boardInfos.add(new BoardInfo(boards.get(final_i).publisher, userModel.get(0).profileImageUrl, boards.get(final_i).title, boards.get(final_i).country));
+                                        mainBoardInfos.add(new MainBoardInfo(boards.get(final_i).publisher, userModel.get(0).profileImageUrl, boards.get(final_i).title, boards.get(final_i).country));
 
                                         //boardInfos의 내용을 Adapter에 연결
-                                        MyAdapter myAdapter = new MyAdapter(getApplication(), boardInfos);
-                                        board_recycler.setAdapter(myAdapter);
+                                        MainAdapter mainAdapter = new MainAdapter(getApplication(), mainBoardInfos);
+                                        board_recycler.setAdapter(mainAdapter);
                                     }
 
                                     @Override
@@ -192,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
         write_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //WriteReviewActivity로 이동
+                startActivity(new Intent(MainActivity.this, WriteReviewActivity.class));
             }
         });
 

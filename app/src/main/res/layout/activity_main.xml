@@ -73,7 +73,7 @@
                 <!-- 게시글 -->
                 <include
                     android:id="@+id/main_scroll_view"
-                    layout="@layout/scroll_main"
+                    layout="@layout/main_board_scroll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/main_scroll_vp" />
