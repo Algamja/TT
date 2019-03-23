@@ -34,7 +34,9 @@
         <activity android:name=".ActivityEditActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".WritePlanActivity" />
-        <activity android:name=".WriteReviewActivity"></activity>
+        <activity android:name=".WriteReviewActivity" />
+        <activity android:name=".ReviewAdapter" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

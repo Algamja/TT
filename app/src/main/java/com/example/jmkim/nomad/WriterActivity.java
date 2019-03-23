@@ -34,6 +34,13 @@ public class WriterActivity extends AppCompatActivity {
     private ImageView back;
     private TextView userName;
 
+    private LinearLayout chat;
+    private LinearLayout docks;
+    private LinearLayout location;
+    private LinearLayout friends;
+    private LinearLayout settings;
+    private LinearLayout notification;
+
     private RequestManager mGlide;
 
     @Override
@@ -44,6 +51,13 @@ public class WriterActivity extends AppCompatActivity {
         bGround = (ImageView)findViewById(R.id.writer_iv_bground);
         back = (ImageView)findViewById(R.id.writer_iv_back);
         userName = (TextView)findViewById(R.id.writer_tv_name);
+
+        chat = (LinearLayout)findViewById(R.id.writer_icon_chat);
+        docks = (LinearLayout)findViewById(R.id.writer_icon_docks);
+        location = (LinearLayout)findViewById(R.id.writer_icon_location);
+        friends = (LinearLayout)findViewById(R.id.writer_icon_friends);
+        settings = (LinearLayout)findViewById(R.id.writer_icon_settings);
+        notification = (LinearLayout)findViewById(R.id.writer_icon_notification);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
