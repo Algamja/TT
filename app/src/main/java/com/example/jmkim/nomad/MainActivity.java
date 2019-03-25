@@ -225,6 +225,10 @@ public class MainActivity extends AppCompatActivity {
                             view.setVisibility(View.INVISIBLE);
                             break;
 
+                        case R.id.nav_heart:
+                            startActivity(new Intent(MainActivity.this, ChatActivity.class));
+                            break;
+
                         //search 클릭되었을 때
                         case R.id.nav_search:
                             //SearchActivity 시작 및 MainActivity 종료

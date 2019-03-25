@@ -4,11 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     tools:context=".ChatActivity"
+    android:layout_marginTop="15dp"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_rv"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/chat_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabMode="scrollable"
+        app:tabTextColor="#000000"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimary"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/chat_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -36,7 +36,7 @@
         <activity android:name=".WritePlanActivity" />
         <activity android:name=".WriteReviewActivity" />
         <activity android:name=".ReviewAdapter" />
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ChatActivity" />
     </application>
 
 </manifest>
