@@ -35,8 +35,9 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".WritePlanActivity" />
         <activity android:name=".WriteReviewActivity" />
-        <activity android:name=".ReviewAdapter" />
         <activity android:name=".ChatActivity" />
+        <activity android:name=".MessageActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>

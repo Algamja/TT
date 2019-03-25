@@ -1,5 +1,6 @@
 package com.example.jmkim.nomad;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -66,7 +67,7 @@ public class WriterActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String publisher = intent.getExtras().getString("publisher");
+        final String publisher = intent.getExtras().getString("publisher");
 
         final List<UserModel> userModels = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference("UserBasic")
@@ -88,6 +89,20 @@ public class WriterActivity extends AppCompatActivity {
 
                     }
                 });
+
+        if(publisher.equals(uid)){
+            chat.setEnabled(false);
+        }
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WriterActivity.this, MessageActivity.class);
+                intent.putExtra("destUid",publisher);
+                intent.putExtra("chatType","One");
+                startActivity(intent);
+            }
+        });
 
         //상단 뒤로가기 화살표
         back.setOnClickListener(new View.OnClickListener() {
