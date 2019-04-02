@@ -1,5 +1,6 @@
 package com.example.jmkim.nomad.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.OneChatModel;
 import com.example.jmkim.nomad.DB.UserModel;
+import com.example.jmkim.nomad.MessageActivity;
 import com.example.jmkim.nomad.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +47,8 @@ public class OneChatFragment extends Fragment {
     class OneChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private List<OneChatModel> oneChatModels = new ArrayList<>();
         private String uid;
+        private ArrayList<String> destUser = new ArrayList<>();
+
         public OneChatRecyclerViewAdapter(){
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -52,7 +56,8 @@ public class OneChatFragment extends Fragment {
                     .getInstance()
                     .getReference()
                     .child("OneChatRooms")
-                    .orderByChild("UserBasic/"+uid)
+                    .orderByChild("users/"+uid)
+                    .equalTo(true)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -78,13 +83,14 @@ public class OneChatFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
             final CustomViewHolder customViewHolder = (CustomViewHolder)holder;
             String destUid = null;
 
             for(String user : oneChatModels.get(position).users.keySet()){
                 if(!user.equals(uid)){
                     destUid = user;
+                    destUser.add(destUid);
                 }
             }
             FirebaseDatabase
@@ -114,6 +120,16 @@ public class OneChatFragment extends Fragment {
             commentMap.putAll(oneChatModels.get(position).comments);
             String lastMessageKey = (String)commentMap.keySet().toArray()[0];
             customViewHolder.textView_last_message.setText(oneChatModels.get(position).comments.get(lastMessageKey).message);
+
+            customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getView().getContext(), MessageActivity.class);
+                    intent.putExtra("destUid", destUser.get(position));
+                    intent.putExtra("chatType","One");
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override

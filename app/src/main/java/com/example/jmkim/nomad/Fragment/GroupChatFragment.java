@@ -52,7 +52,7 @@ public class GroupChatFragment extends Fragment {
                     .getInstance()
                     .getReference()
                     .child("GroupChatRooms")
-                    .orderByChild("UserBasic/"+uid)
+                    .orderByChild("users/"+uid)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

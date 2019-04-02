@@ -21,10 +21,6 @@
             "package_name": "com.example.jmkim.nomad",
             "certificate_hash": "9c63a5ab5f25346b756f164892269b7ac08ced4e"
           }
-        },
-        {
-          "client_id": "6155525882-vv3optle7ne6ga9i0qfcujc4mcons9kl.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -33,20 +29,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "6155525882-vv3optle7ne6ga9i0qfcujc4mcons9kl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
