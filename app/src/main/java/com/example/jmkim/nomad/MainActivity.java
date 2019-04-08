@@ -18,13 +18,16 @@ import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.Fragment.FragmentPageAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -104,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
                 view.setMinimumHeight(main.getHeight() + main.getScrollY());
             }
         });
+
+        passPushTokenToServer();
 
         //main에서 보일 글 부분
         //Board의 정보를 받아옴
@@ -208,6 +213,17 @@ public class MainActivity extends AppCompatActivity {
 
         //뒤로가기 2번 눌러서 종료
         close = new Close(this);
+    }
+
+    void passPushTokenToServer(){
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("pushToken",token);
+
+        FirebaseDatabase.getInstance().getReference()
+                .child("UserBasic")
+                .child(uid).updateChildren(map);
     }
 
     //BottomNavigationView

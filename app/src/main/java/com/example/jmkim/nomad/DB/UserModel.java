@@ -9,4 +9,5 @@ public class UserModel {
     public String profileImageUrl;
     public String stateMessage;
     public String party;
+    public String pushToken;
 }
