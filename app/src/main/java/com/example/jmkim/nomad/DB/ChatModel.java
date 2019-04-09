@@ -3,9 +3,10 @@ package com.example.jmkim.nomad.DB;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GroupChatModel {
+public class ChatModel {
     public Map<String, Boolean> users = new HashMap<>();
     public Map<String, Comment> comments = new HashMap<>();
+    public String type;
 
     public static class  Comment{
         public String uid;

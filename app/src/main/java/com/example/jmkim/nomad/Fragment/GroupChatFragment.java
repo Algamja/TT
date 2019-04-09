@@ -1,5 +1,6 @@
 package com.example.jmkim.nomad.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,8 +16,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.jmkim.nomad.DB.GroupChatModel;
+import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.UserModel;
+import com.example.jmkim.nomad.GroupMessageActivity;
 import com.example.jmkim.nomad.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -43,22 +45,30 @@ public class GroupChatFragment extends Fragment {
     }
 
     class GroupChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-        private List<GroupChatModel> groupChatModels = new ArrayList<>();
+        private List<ChatModel> chatModels = new ArrayList<>();
+        private List<String> keys = new ArrayList<>();
         private String uid;
+        private ArrayList<String> destUser = new ArrayList<>();
+
         public GroupChatRecyclerViewAdapter(){
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
             FirebaseDatabase
                     .getInstance()
                     .getReference()
-                    .child("GroupChatRooms")
-                    .orderByChild("users/"+uid)
+                    .child("ChatRooms")
+                    .orderByChild("users/" + uid)
+                    .equalTo(true)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            groupChatModels.clear();
+                            chatModels.clear();
+
                             for(DataSnapshot item : dataSnapshot.getChildren()){
-                                groupChatModels.add(item.getValue(GroupChatModel.class));
+                                if(item.getValue(ChatModel.class).type.equals("group")){
+                                    chatModels.add(item.getValue(ChatModel.class));
+                                    keys.add(item.getKey());
+                                }
                             }
                             notifyDataSetChanged();
                         }
@@ -69,10 +79,11 @@ public class GroupChatFragment extends Fragment {
                         }
                     });
         }
+
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_chat_item_row, parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_chat_item_row, parent, false);
 
             return new CustomViewHolder(view);
         }
@@ -82,26 +93,28 @@ public class GroupChatFragment extends Fragment {
             final CustomViewHolder customViewHolder = (CustomViewHolder)holder;
             String destUid = null;
 
-            for(String user : groupChatModels.get(position).users.keySet()){
+            for(String user : chatModels.get(position).users.keySet()){
                 if(!user.equals(uid)){
                     destUid = user;
+                    destUser.add(destUid);
                 }
             }
+
             FirebaseDatabase
                     .getInstance()
                     .getReference()
                     .child("UserBasic")
                     .child(destUid)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                    .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                            Glide.with(customViewHolder.itemView.getContext())
+                            Glide.with(customViewHolder.imageView.getContext())
                                     .load(userModel.profileImageUrl)
                                     .apply(new RequestOptions().circleCrop())
                                     .into(customViewHolder.imageView);
 
-                            customViewHolder.textView_title.setText(userModel.userName);
+                            customViewHolder.textView_last_message.setText(userModel.userName);
                         }
 
                         @Override
@@ -110,24 +123,36 @@ public class GroupChatFragment extends Fragment {
                         }
                     });
 
-            Map<String, GroupChatModel.Comment> commentMap = new TreeMap<>(Collections.<String>reverseOrder());
-            commentMap.putAll(groupChatModels.get(position).comments);
-            String lastMessageKey = (String)commentMap.keySet().toArray()[0];
-            customViewHolder.textView_last_message.setText(groupChatModels.get(position).comments.get(lastMessageKey).message);
+            Map<String, ChatModel.Comment> commentMap = new TreeMap<>(Collections.<String>reverseOrder());
+            commentMap.putAll(chatModels.get(position).comments);
+
+            if(commentMap.keySet().toArray().length > 0 ){
+                String lastMessageKey = (String)commentMap.keySet().toArray()[0];
+                customViewHolder.textView_last_message.setText(chatModels.get(position).comments.get(lastMessageKey).message);
+            }
+
+            customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getView().getContext(), GroupMessageActivity.class);
+                    intent.putExtra("destRoom", keys.get(position));
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return groupChatModels.size();
+            return chatModels.size();
         }
 
-        private class CustomViewHolder extends RecyclerView.ViewHolder{
+        private class CustomViewHolder extends RecyclerView.ViewHolder {
             public ImageView imageView;
             public TextView textView_title;
             public TextView textView_last_message;
 
-            public CustomViewHolder(@NonNull View itemView) {
-                super(itemView);
+            public CustomViewHolder(View view) {
+                super(view);
 
                 imageView = itemView.findViewById(R.id.group_chatItem_imageView);
                 textView_title = itemView.findViewById(R.id.group_chatItem_textView_title);

@@ -51,6 +51,8 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".GroupMessageActivity" />
+        <activity android:name=".TestActivity"></activity>
     </application>
 
 </manifest>

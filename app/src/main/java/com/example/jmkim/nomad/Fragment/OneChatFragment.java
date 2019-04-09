@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.jmkim.nomad.DB.OneChatModel;
+import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.MessageActivity;
 import com.example.jmkim.nomad.R;
@@ -45,7 +45,7 @@ public class OneChatFragment extends Fragment {
     }
 
     class OneChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-        private List<OneChatModel> oneChatModels = new ArrayList<>();
+        private List<ChatModel> chatModels = new ArrayList<>();
         private String uid;
         private ArrayList<String> destUser = new ArrayList<>();
 
@@ -55,15 +55,17 @@ public class OneChatFragment extends Fragment {
             FirebaseDatabase
                     .getInstance()
                     .getReference()
-                    .child("OneChatRooms")
+                    .child("ChatRooms")
                     .orderByChild("users/"+uid)
                     .equalTo(true)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            oneChatModels.clear();
+                            chatModels.clear();
                             for(DataSnapshot item : dataSnapshot.getChildren()){
-                                oneChatModels.add(item.getValue(OneChatModel.class));
+                                if(item.getValue(ChatModel.class).type.equals("one")){
+                                    chatModels.add(item.getValue(ChatModel.class));
+                                }
                             }
                             notifyDataSetChanged();
                         }
@@ -87,7 +89,7 @@ public class OneChatFragment extends Fragment {
             final CustomViewHolder customViewHolder = (CustomViewHolder)holder;
             String destUid = null;
 
-            for(String user : oneChatModels.get(position).users.keySet()){
+            for(String user : chatModels.get(position).users.keySet()){
                 if(!user.equals(uid)){
                     destUid = user;
                     destUser.add(destUid);
@@ -116,17 +118,17 @@ public class OneChatFragment extends Fragment {
                         }
                     });
 
-            Map<String, OneChatModel.Comment> commentMap = new TreeMap<>(Collections.<String>reverseOrder());
-            commentMap.putAll(oneChatModels.get(position).comments);
+            Map<String, ChatModel.Comment> commentMap = new TreeMap<>(Collections.<String>reverseOrder());
+            commentMap.putAll(chatModels.get(position).comments);
             String lastMessageKey = (String)commentMap.keySet().toArray()[0];
-            customViewHolder.textView_last_message.setText(oneChatModels.get(position).comments.get(lastMessageKey).message);
+            customViewHolder.textView_last_message.setText(chatModels.get(position).comments.get(lastMessageKey).message);
 
             customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getView().getContext(), MessageActivity.class);
                     intent.putExtra("destUid", destUser.get(position));
-                    intent.putExtra("chatType","One");
+                    //intent.putExtra("chatType","One");
                     startActivity(intent);
                 }
             });
@@ -134,7 +136,7 @@ public class OneChatFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return oneChatModels.size();
+            return chatModels.size();
         }
 
         private class CustomViewHolder extends RecyclerView.ViewHolder{
