@@ -23,18 +23,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private FirebaseRemoteConfig firebaseRemoteConfig;
 
-    @Override
-    protected void onStart() { //자동로그인 동작
-        super.onStart();
-
-        FirebaseUser firebaseUser;
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if(firebaseUser != null){
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-            finish();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,6 @@
 package com.example.jmkim.nomad;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +13,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,21 +33,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +56,6 @@ public class MessageActivity extends AppCompatActivity {
 
     private UserModel destModel;
     private UserModel userModel;
-    private String destToken;
 
     private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
     private static final String SERVER_KEY = "AAAAAW7l3vo:APA91bHJNsj3OIVn4hAq5fDKFM0GdAiK_HOU8z_rRt5zmueQGqXWeENItP6UWzBcSsskA50AeifQyMYHnatZOLAqjkvEFSvnlQsQdQ4Pg3NVEQrHiC1LrLqvxcXa6VQfNHZ8Y1cRrR-6";
@@ -93,7 +82,6 @@ public class MessageActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         destModel = dataSnapshot.getValue(UserModel.class);
-                        destToken = destModel.pushToken;
                     }
 
                     @Override
@@ -140,45 +128,6 @@ public class MessageActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         sendPostToFCM();
-                                        chat.setText("");
-                                    }
-                                });
-                    }
-                }
-                else if(chatType.equals("Group")){
-                    GroupChatModel groupChatModel = new GroupChatModel();
-                    groupChatModel.users.put(uid, true);
-                    groupChatModel.users.put(destUid,true);
-
-                    if(chatRoomUid == null){
-                        send.setEnabled(false);
-                        FirebaseDatabase
-                                .getInstance()
-                                .getReference()
-                                .child("GroupChatRooms")
-                                .push()
-                                .setValue(groupChatModel)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        checkChatRoom();
-                                    }
-                                });
-                    }else{
-                        GroupChatModel.Comment comment = new GroupChatModel.Comment();
-                        comment.uid = uid;
-                        comment.message = chat.getText().toString();
-                        FirebaseDatabase
-                                .getInstance()
-                                .getReference()
-                                .child("GroupChatRooms")
-                                .child(chatRoomUid)
-                                .child("comments")
-                                .push()
-                                .setValue(comment)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
                                         chat.setText("");
                                     }
                                 });
@@ -241,33 +190,6 @@ public class MessageActivity extends AppCompatActivity {
                                     send.setEnabled(true);
                                     recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
                                     recyclerView.setAdapter(new OneRecyclerViewAdapter());
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-        }
-        else if(chatType.equals("Group")){
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("GroupChatRooms")
-                    .orderByChild("users/"+uid)
-                    .equalTo(true)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for(DataSnapshot item : dataSnapshot.getChildren()){
-                                GroupChatModel groupChatModel = item.getValue(GroupChatModel.class);
-                                if(groupChatModel.users.containsKey(destUid)){
-                                    chatRoomUid = item.getKey();
-                                    send.setEnabled(true);
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
-                                    recyclerView.setAdapter(new GroupRecyclerViewAdapter());
                                 }
                             }
                         }

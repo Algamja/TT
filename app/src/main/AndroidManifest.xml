@@ -36,22 +36,21 @@
         <activity android:name=".WritePlanActivity" />
         <activity android:name=".WriteReviewActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".MessageActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".MessageActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <service
-            android:name=".FireBaseMessagingService">
+        <service android:name=".FireBaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".FirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

@@ -33,11 +33,6 @@ public class FireBaseMessagingService extends FirebaseMessagingService {
                 handleNow();
             }
         }
-
-        /*if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            sendNotification(remoteMessage.getNotification().getBody());
-        }*/
     }
 
     private void handleNow() {

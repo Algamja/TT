@@ -242,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case R.id.nav_heart:
-                            startActivity(new Intent(MainActivity.this, ChatActivity.class));
                             break;
 
                         //search 클릭되었을 때

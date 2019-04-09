@@ -54,6 +54,7 @@ public class MypageActivity extends AppCompatActivity {
     private TextView userEmail;
     private TextView userStateMsg;
 
+    private ImageView myTalk;
     private ImageView infoEdit;
 
     private BottomNavigationView Mypage_bottomNavigationView;
@@ -96,6 +97,7 @@ public class MypageActivity extends AppCompatActivity {
         userEmail = (TextView)findViewById(R.id.mypage_tv_email);
         userStateMsg = (TextView)findViewById(R.id.mypage_tv_stateMsg);
 
+        myTalk = (ImageView)findViewById(R.id.mypage_iv_mytalk);
         infoEdit = (ImageView)findViewById(R.id.mypage_iv_infoedit);
 
         black = (View)findViewById(R.id.mypage_view_black);
@@ -185,6 +187,13 @@ public class MypageActivity extends AppCompatActivity {
                 Intent intent = new Intent(MypageActivity.this,UserInfoEditActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        myTalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MypageActivity.this, ChatActivity.class));
             }
         });
 

@@ -47,7 +47,6 @@ public class SignInActivity extends Activity{
 
         firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signOut();
 
         String splash_background = firebaseRemoteConfig.getString("splash_background");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

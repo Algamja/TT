@@ -121,14 +121,23 @@
                                     android:textSize="13dp" />
                             </LinearLayout>
 
-                            <!-- 정보수정 페이지로 가는 ImageView -->
+
                             <ImageView
-                                android:id="@+id/mypage_iv_infoedit"
+                                android:id="@+id/mypage_iv_mytalk"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_margin="15dp"
-                                android:src="@drawable/ic_infoedit" />
+                                android:layout_marginVertical="15dp"
+                                app:srcCompat="@drawable/ic_chat"
+                                android:layout_toLeftOf="@+id/mypage_iv_infoedit"/>
+
+                            <!-- 정보수정 페이지로 가는 ImageView -->
+                            <ImageView
+                            android:id="@+id/mypage_iv_infoedit"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="15dp"
+                            android:src="@drawable/ic_infoedit" />
                         </RelativeLayout>
                     </LinearLayout>
 
