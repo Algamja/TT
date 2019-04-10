@@ -446,7 +446,6 @@ public class GroupMessageActivity extends AppCompatActivity {
 
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            Toast.makeText(GroupMessageActivity.this, "처리중", Toast.LENGTH_SHORT).show();
                             Task<Uri> uriTask = ref.getDownloadUrl();
                             while (!uriTask.isSuccessful());
 

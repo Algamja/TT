@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Call;
@@ -25,6 +26,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -41,12 +43,14 @@ import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.ReportModel;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.WriterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -55,14 +59,10 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -81,7 +81,6 @@ public class MessageActivity extends AppCompatActivity {
     private static final String SERVER_KEY = "AAAAAW7l3vo:APA91bHJNsj3OIVn4hAq5fDKFM0GdAiK_HOU8z_rRt5zmueQGqXWeENItP6UWzBcSsskA50AeifQyMYHnatZOLAqjkvEFSvnlQsQdQ4Pg3NVEQrHiC1LrLqvxcXa6VQfNHZ8Y1cRrR-6";
 
     private View dlg_report;
-    private AlertDialog dlg = null;
     private RadioButton dlg_swear;
     private RadioButton dlg_sexually;
     private RadioButton dlg_spam;
@@ -95,6 +94,16 @@ public class MessageActivity extends AppCompatActivity {
 
     private ProgressDialog pd;
 
+    private DrawerLayout drawerLayout;
+    private LinearLayout drawer_menu;
+    private LinearLayout my_info;
+    private ImageView my_profile;
+    private TextView my_name;
+    private LinearLayout dest_info;
+    private ImageView dest_profile;
+    private TextView dest_name;
+    private LinearLayout message_exit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,14 +113,82 @@ public class MessageActivity extends AppCompatActivity {
         chat = (EditText) findViewById(R.id.message_et_text);
         send = (Button) findViewById(R.id.message_btn_send);
 
+        drawerLayout = (DrawerLayout)findViewById(R.id.message_drawer);
+        drawer_menu = (LinearLayout)findViewById(R.id.message_drawer_menu);
+        my_info = (LinearLayout)findViewById(R.id.message_menu_my);
+        my_profile = (ImageView)findViewById(R.id.message_menu_my_profile);
+        my_name = (TextView)findViewById(R.id.message_menu_my_name);
+        dest_info = (LinearLayout)findViewById(R.id.message_menu_dest);
+        dest_profile = (ImageView)findViewById(R.id.message_menu_dest_profile);
+        dest_name = (TextView)findViewById(R.id.message_menu_dest_name);
+        message_exit = (LinearLayout)findViewById(R.id.message_exit);
+
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         destUid = getIntent().getStringExtra("destUid");
-        //chatType = getIntent().getStringExtra("chatType");
+
+        final List<UserModel> userModel = new ArrayList<>(); //DB에서 읽어올 준비
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("UserBasic")
+                .child(uid)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) { //읽어오기 시작
+                        userModel.clear();
+
+                        userModel.add(dataSnapshot.getValue(UserModel.class));
+
+                        Glide.with(MessageActivity.this)
+                                .load(userModel.get(0).profileImageUrl)
+                                .apply(new RequestOptions().circleCrop())
+                                .into(my_profile);
+                        my_name.setText(userModel.get(0).userName);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("UserBasic")
+                .child(destUid)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) { //읽어오기 시작
+                        userModel.clear();
+
+                        userModel.add(dataSnapshot.getValue(UserModel.class));
+
+                        Glide.with(MessageActivity.this)
+                                .load(userModel.get(0).profileImageUrl)
+                                .apply(new RequestOptions().circleCrop())
+                                .into(dest_profile);
+                        dest_name.setText(userModel.get(0).userName);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        dest_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MessageActivity.this, WriterActivity.class);
+                intent.putExtra("publisher",destUid);
+                startActivity(intent);
+            }
+        });
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if(chatType.equals("One")){
                 ChatModel chatModel = new ChatModel();
                 chatModel.users.put(uid, true);
                 chatModel.users.put(destUid, true);
@@ -151,7 +228,6 @@ public class MessageActivity extends AppCompatActivity {
                                 }
                             });
                 }
-                //}
             }
         });
         checkChatRoom();
@@ -192,7 +268,6 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     void checkChatRoom() {
-        //if(chatType.equals("One")){
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -218,7 +293,6 @@ public class MessageActivity extends AppCompatActivity {
 
                     }
                 });
-        //}
     }
 
     class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -237,7 +311,6 @@ public class MessageActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             destModel = dataSnapshot.getValue(UserModel.class);
-                            //getMessageList();
                         }
 
                         @Override
@@ -487,14 +560,11 @@ public class MessageActivity extends AppCompatActivity {
 
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            Toast.makeText(MessageActivity.this, "처리중", Toast.LENGTH_SHORT).show();
                             Task<Uri> uriTask = ref.getDownloadUrl();
                             while (!uriTask.isSuccessful());
 
                             Uri download = uriTask.getResult();
                             img = String.valueOf(download);
-
-                            Log.e("IMG_ROOT",img);
 
                             dlg_add.setVisibility(View.GONE);
                             dlg_img_root.setVisibility(View.VISIBLE);
