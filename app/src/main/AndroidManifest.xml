@@ -35,9 +35,9 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".WritePlanActivity" />
         <activity android:name=".WriteReviewActivity" />
-        <activity android:name=".ChatActivity" />
+        <activity android:name=".Message.ChatActivity" />
         <activity
-            android:name=".MessageActivity"
+            android:name=".Message.MessageActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <service android:name=".FireBaseMessagingService">
@@ -51,7 +51,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".GroupMessageActivity" />
+        <activity android:name=".Message.GroupMessageActivity" />
         <activity android:name=".TestActivity"></activity>
     </application>
 

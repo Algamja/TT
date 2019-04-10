@@ -1,6 +1,8 @@
-package com.example.jmkim.nomad;
+package com.example.jmkim.nomad.Message;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,22 +14,33 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.NotificationModel;
 import com.example.jmkim.nomad.DB.ChatModel;
+import com.example.jmkim.nomad.DB.ReportModel;
 import com.example.jmkim.nomad.DB.UserModel;
+import com.example.jmkim.nomad.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -36,18 +49,26 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 public class MessageActivity extends AppCompatActivity {
 
     private String destUid;
     private String uid;
     private String chatRoomUid;
-    //private String chatType;
 
     private RecyclerView recyclerView;
     private EditText chat;
@@ -58,6 +79,21 @@ public class MessageActivity extends AppCompatActivity {
 
     private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
     private static final String SERVER_KEY = "AAAAAW7l3vo:APA91bHJNsj3OIVn4hAq5fDKFM0GdAiK_HOU8z_rRt5zmueQGqXWeENItP6UWzBcSsskA50AeifQyMYHnatZOLAqjkvEFSvnlQsQdQ4Pg3NVEQrHiC1LrLqvxcXa6VQfNHZ8Y1cRrR-6";
+
+    private View dlg_report;
+    private AlertDialog dlg = null;
+    private RadioButton dlg_swear;
+    private RadioButton dlg_sexually;
+    private RadioButton dlg_spam;
+    private RadioButton dlg_etc;
+    private EditText dlg_text;
+    private ImageView dlg_add;
+    private TextView dlg_img_root;
+    private String report;
+    private String img;
+    private int PICK_FROM_ALBUM = 10;
+
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -290,6 +326,100 @@ public class MessageActivity extends AppCompatActivity {
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
             }
+
+            messageViewHolder.imageView_dest_profile.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    dlg_report = (View)View.inflate(MessageActivity.this, R.layout.report_dialog, null);
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(MessageActivity.this);
+                    dlg.setView(dlg_report);
+
+                    dlg_swear = (RadioButton)dlg_report.findViewById(R.id.report_swear_word);
+                    dlg_sexually = (RadioButton)dlg_report.findViewById(R.id.report_sexually);
+                    dlg_spam = (RadioButton)dlg_report.findViewById(R.id.report_spam);
+                    dlg_etc = (RadioButton)dlg_report.findViewById(R.id.report_etc);
+                    dlg_text = (EditText)dlg_report.findViewById(R.id.report_text);
+                    dlg_add = (ImageView)dlg_report.findViewById(R.id.report_iv);
+                    dlg_img_root = (TextView)dlg_report.findViewById(R.id.report_image_root);
+
+                    dlg_etc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if(dlg_etc.isChecked()){
+                                dlg_text.setVisibility(View.VISIBLE);
+                            }else{
+                                dlg_text.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    });
+
+                    dlg_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Intent.ACTION_PICK);
+                            intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                            startActivityForResult(intent, PICK_FROM_ALBUM);
+                        }
+                    });
+
+                    dlg.setPositiveButton("신고", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(dlg_swear.isChecked()){
+                                report = "욕설/비방";
+                            }else if(dlg_sexually.isChecked()){
+                                report = "성희롱";
+                            }else if(dlg_spam.isChecked()){
+                                report = "스팸메시지";
+                            }else if(dlg_etc.isChecked()){
+                                report = dlg_text.getText().toString();
+                            }else{
+                                Toast.makeText(MessageActivity.this, "신고 사유를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            ReportModel reportModel = new ReportModel();
+                            reportModel.reporter = uid;
+                            reportModel.reportee = destUid;
+                            reportModel.reportUrl = img;
+                            reportModel.reason = report;
+
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("Report")
+                                    .push()
+                                    .setValue(reportModel)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Intent email = new Intent(Intent.ACTION_SEND);
+                                            email.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                                            email.setType("plaine/text");
+                                            String[] addr = {"todaynomad97@gmail.com"};
+                                            email.putExtra(Intent.EXTRA_EMAIL, addr);
+                                            email.putExtra(Intent.EXTRA_SUBJECT, destUid + " 신고");
+                                            email.putExtra(Intent.EXTRA_TEXT, report + "\n" + "신고자 : " + uid + "\n" + "============================================================" + "\n 위 내용은 수정하지 마세요.");
+                                            startActivity(email);
+                                        }
+                                    });
+                        }
+                    });
+                    dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            FirebaseStorage
+                                    .getInstance()
+                                    .getReference()
+                                    .child(destUid)
+                                    .child(uid)
+                                    .delete();
+                        }
+                    });
+                    dlg.show();
+                    return true;
+                }
+            });
         }
 
         @Override
@@ -318,6 +448,61 @@ public class MessageActivity extends AppCompatActivity {
                 imageView_user_profile = (ImageView) view.findViewById(R.id.message_item_iv_user_profile);
                 linearLayout_user = (LinearLayout) view.findViewById(R.id.message_item_ll_user);
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK){
+            pd = new ProgressDialog(MessageActivity.this);
+            pd.setMessage("잠시만 기다려주세요");
+            pd.show();
+
+            Uri uri;
+            uri = data.getData();
+
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            String formatDate = simpleDateFormat.format(date);
+
+            FirebaseStorage
+                    .getInstance()
+                    .getReference()
+                    .child("report")
+                    .child(destUid)
+                    .child(uid)
+                    .child(formatDate)
+                    .putFile(uri)
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+
+                        final StorageReference ref =
+                                FirebaseStorage
+                                        .getInstance()
+                                        .getReference()
+                                        .child("report")
+                                        .child(destUid)
+                                        .child(uid)
+                                        .child(formatDate);
+
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            Toast.makeText(MessageActivity.this, "처리중", Toast.LENGTH_SHORT).show();
+                            Task<Uri> uriTask = ref.getDownloadUrl();
+                            while (!uriTask.isSuccessful());
+
+                            Uri download = uriTask.getResult();
+                            img = String.valueOf(download);
+
+                            Log.e("IMG_ROOT",img);
+
+                            dlg_add.setVisibility(View.GONE);
+                            dlg_img_root.setVisibility(View.VISIBLE);
+                            dlg_img_root.setText(img);
+                            pd.dismiss();
+                        }
+                    });
+
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.jmkim.nomad.Fragment;
+package com.example.jmkim.nomad.Message;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.UserModel;
-import com.example.jmkim.nomad.GroupMessageActivity;
+import com.example.jmkim.nomad.Message.GroupMessageActivity;
 import com.example.jmkim.nomad.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

@@ -1,4 +1,4 @@
-package com.example.jmkim.nomad.Fragment;
+package com.example.jmkim.nomad.Message;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.UserModel;
-import com.example.jmkim.nomad.MessageActivity;
+import com.example.jmkim.nomad.Message.MessageActivity;
 import com.example.jmkim.nomad.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class OneChatFragment extends Fragment {
+public class ChatFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

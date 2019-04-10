@@ -1,7 +1,7 @@
 package com.example.jmkim.nomad;
 
-import com.example.jmkim.nomad.Fragment.GroupChatFragment;
-import com.example.jmkim.nomad.Fragment.OneChatFragment;
+import com.example.jmkim.nomad.Message.GroupChatFragment;
+import com.example.jmkim.nomad.Message.ChatFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -19,8 +19,8 @@ public class ChatPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                OneChatFragment oneChatFragment = new OneChatFragment();
-                return oneChatFragment;
+                ChatFragment chatFragment = new ChatFragment();
+                return chatFragment;
 
             case 1:
                 GroupChatFragment groupChatFragment = new GroupChatFragment();
