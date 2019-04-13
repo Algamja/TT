@@ -89,7 +89,9 @@ public class WriterActivity extends AppCompatActivity {
                 });
 
         if(publisher.equals(uid)){
-            chat.setEnabled(false);
+            chat.setVisibility(View.INVISIBLE);
+        }else{
+            chat.setVisibility(View.VISIBLE);
         }
 
         chat.setOnClickListener(new View.OnClickListener() {

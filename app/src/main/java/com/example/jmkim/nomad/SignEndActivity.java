@@ -107,7 +107,8 @@ public class SignEndActivity extends Activity{
                                                 userModel.userAge=age;
                                                 userModel.profileImageUrl = imageUrl;
                                                 userModel.stateMessage = "상태메시지를 입력해주세요";
-                                                userModel.party = party; //UserModel에 DB에 저장할 값 입력
+                                                userModel.party = party;
+                                                userModel.uid = uid;//UserModel에 DB에 저장할 값 입력
 
                                                 if(!(partyAge.equals("")) && !(partySex.equals(""))){ //파티원에 동의한 사람만 DB저장
                                                     UserParty userParty = new UserParty();

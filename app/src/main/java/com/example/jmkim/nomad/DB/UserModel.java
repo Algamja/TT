@@ -10,4 +10,5 @@ public class UserModel {
     public String stateMessage;
     public String party;
     public String pushToken;
+    public String uid;
 }

@@ -21,12 +21,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -50,7 +48,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -94,6 +91,8 @@ public class MessageActivity extends AppCompatActivity {
 
     private ProgressDialog pd;
 
+    private String formatDate;
+
     private DrawerLayout drawerLayout;
     private LinearLayout drawer_menu;
     private LinearLayout my_info;
@@ -126,7 +125,9 @@ public class MessageActivity extends AppCompatActivity {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         destUid = getIntent().getStringExtra("destUid");
 
-        final List<UserModel> userModel = new ArrayList<>(); //DB에서 읽어올 준비
+        final List<UserModel> userModel = new ArrayList<>();
+
+        //userModel에 본인 DB저장
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -139,6 +140,7 @@ public class MessageActivity extends AppCompatActivity {
 
                         userModel.add(dataSnapshot.getValue(UserModel.class));
 
+                        //drawerlayout 내 프로필 사진과 내 이름
                         Glide.with(MessageActivity.this)
                                 .load(userModel.get(0).profileImageUrl)
                                 .apply(new RequestOptions().circleCrop())
@@ -152,6 +154,7 @@ public class MessageActivity extends AppCompatActivity {
                     }
                 });
 
+        //destModel에 상대방 DB저장
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -164,6 +167,7 @@ public class MessageActivity extends AppCompatActivity {
 
                         userModel.add(dataSnapshot.getValue(UserModel.class));
 
+                        //drawerlayout 상대방 프로필사진과 이름
                         Glide.with(MessageActivity.this)
                                 .load(userModel.get(0).profileImageUrl)
                                 .apply(new RequestOptions().circleCrop())
@@ -177,6 +181,7 @@ public class MessageActivity extends AppCompatActivity {
                     }
                 });
 
+        //drawerlayout의 상대방 정보를 클릭하면 상대방 프로필을 보여줌
         dest_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,15 +191,41 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        message_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dlg = new AlertDialog.Builder(MessageActivity.this);
+                dlg.setMessage("방을 나가면 모든 대화내용이 삭제되며 \n상대방도 이 대화방을 사용할 수 없습니다.");
+                dlg.setPositiveButton("나가기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("ChatRooms")
+                                .child(chatRoomUid)
+                                .removeValue();
+                    }
+                });
+                dlg.setNegativeButton("취소", null);
+                dlg.show();
+            }
+        });
+
+        //전송버튼 클릭
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //DB에 chatModel 저장하기 위함
                 ChatModel chatModel = new ChatModel();
                 chatModel.users.put(uid, true);
                 chatModel.users.put(destUid, true);
                 chatModel.type = "one";
 
+                //채팅방 처음 만들어졌을 때, chatRoomUid가 없는 경우
                 if (chatRoomUid == null) {
+                    //전송버튼을 막아둠
                     send.setEnabled(false);
                     FirebaseDatabase
                             .getInstance()
@@ -223,7 +254,9 @@ public class MessageActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    //푸시메세지보냄
                                     sendPostToFCM();
+                                    //editText 공란처리
                                     chat.setText("");
                                 }
                             });
@@ -233,6 +266,7 @@ public class MessageActivity extends AppCompatActivity {
         checkChatRoom();
     }
 
+    //푸시메세지 보내기
     void sendPostToFCM() {
         Gson gson = new Gson();
 
@@ -267,7 +301,9 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
+    //채팅방 확인
     void checkChatRoom() {
+        //자신이 속해있는 채팅방의 정보를 불러옴
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -279,6 +315,7 @@ public class MessageActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot item : dataSnapshot.getChildren()) {
                             ChatModel chatModel = item.getValue(ChatModel.class);
+                            //속한 채팅방 중 일반 채팅인 경우만 보여줌
                             if (chatModel.users.containsKey(destUid) && chatModel.type.equals("one")) {
                                 chatRoomUid = item.getKey();
                                 send.setEnabled(true);
@@ -302,6 +339,7 @@ public class MessageActivity extends AppCompatActivity {
         public RecyclerViewAdapter() {
             comments = new ArrayList<>();
 
+            //상대방 정보 불러옴
             FirebaseDatabase
                     .getInstance()
                     .getReference()
@@ -319,6 +357,7 @@ public class MessageActivity extends AppCompatActivity {
                         }
                     });
 
+            //내 정보 불러옴
             FirebaseDatabase
                     .getInstance()
                     .getReference()
@@ -339,6 +378,7 @@ public class MessageActivity extends AppCompatActivity {
         }
 
         void getMessageList() {
+            //채팅이 추가되었을 경우
             FirebaseDatabase
                     .getInstance()
                     .getReference()
@@ -376,6 +416,7 @@ public class MessageActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             MessageViewHolder messageViewHolder = ((MessageViewHolder) holder);
 
+            //내가 채팅을 보냈을 경우
             if (comments.get(position).uid.equals(uid)) {
                 Glide.with(holder.itemView.getContext())
                         .load(userModel.profileImageUrl)
@@ -386,8 +427,12 @@ public class MessageActivity extends AppCompatActivity {
                 messageViewHolder.textView_user_name.setText(userModel.userName);
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
                 messageViewHolder.linearLayout_user.setVisibility(View.VISIBLE);
+                //우측 정렬
                 messageViewHolder.linearLayout_main.setGravity(Gravity.RIGHT);
-            } else {
+            }
+
+            //상대방이 채팅을 보냈을 경우
+            else {
                 Glide.with(holder.itemView.getContext())
                         .load(destModel.profileImageUrl)
                         .apply(new RequestOptions().circleCrop())
@@ -397,12 +442,16 @@ public class MessageActivity extends AppCompatActivity {
                 messageViewHolder.linearLayout_user.setVisibility(View.INVISIBLE);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble);
                 messageViewHolder.textView_message.setText(comments.get(position).message);
+                //좌측 정렬
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
             }
 
+            //상대방 프로필 롱클릭
             messageViewHolder.imageView_dest_profile.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+
+                    //신고 대화상자 띄우기
                     dlg_report = (View)View.inflate(MessageActivity.this, R.layout.report_dialog, null);
                     AlertDialog.Builder dlg = new AlertDialog.Builder(MessageActivity.this);
                     dlg.setView(dlg_report);
@@ -415,10 +464,13 @@ public class MessageActivity extends AppCompatActivity {
                     dlg_add = (ImageView)dlg_report.findViewById(R.id.report_iv);
                     dlg_img_root = (TextView)dlg_report.findViewById(R.id.report_image_root);
 
+                    //기타버튼
                     dlg_etc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            //눌리면
                             if(dlg_etc.isChecked()){
+                                //의견 쓰는 textBox보이기
                                 dlg_text.setVisibility(View.VISIBLE);
                             }else{
                                 dlg_text.setVisibility(View.INVISIBLE);
@@ -426,18 +478,22 @@ public class MessageActivity extends AppCompatActivity {
                         }
                     });
 
+                    //증거사진 첨부하는 버튼 눌리면
                     dlg_add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            //갤러리 이동
                             Intent intent = new Intent(Intent.ACTION_PICK);
                             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                             startActivityForResult(intent, PICK_FROM_ALBUM);
                         }
                     });
 
+                    //신고버튼 눌리면
                     dlg.setPositiveButton("신고", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //신고 사유 받아오기
                             if(dlg_swear.isChecked()){
                                 report = "욕설/비방";
                             }else if(dlg_sexually.isChecked()){
@@ -450,12 +506,15 @@ public class MessageActivity extends AppCompatActivity {
                                 Toast.makeText(MessageActivity.this, "신고 사유를 선택해주세요.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
+
+                            //신고DB에 저장하기 위한 Model
                             ReportModel reportModel = new ReportModel();
                             reportModel.reporter = uid;
                             reportModel.reportee = destUid;
                             reportModel.reportUrl = img;
                             reportModel.reason = report;
 
+                            //Report DB저장
                             FirebaseDatabase
                                     .getInstance()
                                     .getReference()
@@ -468,9 +527,12 @@ public class MessageActivity extends AppCompatActivity {
                                             Intent email = new Intent(Intent.ACTION_SEND);
                                             email.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+                                            //Email보내기
                                             email.setType("plaine/text");
+                                            //우리 이메일 주소(받는사람)
                                             String[] addr = {"todaynomad97@gmail.com"};
                                             email.putExtra(Intent.EXTRA_EMAIL, addr);
+                                            //제목
                                             email.putExtra(Intent.EXTRA_SUBJECT, destUid + " 신고");
                                             email.putExtra(Intent.EXTRA_TEXT, report + "\n" + "신고자 : " + uid + "\n" + "============================================================" + "\n 위 내용은 수정하지 마세요.");
                                             startActivity(email);
@@ -478,17 +540,10 @@ public class MessageActivity extends AppCompatActivity {
                                     });
                         }
                     });
-                    dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            FirebaseStorage
-                                    .getInstance()
-                                    .getReference()
-                                    .child(destUid)
-                                    .child(uid)
-                                    .delete();
-                        }
-                    });
+
+                    //취소버튼 눌렸을 때
+                    dlg.setNegativeButton("취소", null);
+
                     dlg.show();
                     return true;
                 }
@@ -527,6 +582,8 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK){
+            //갤러리에서 사진 선택되었을 때
+            //progressDialog
             pd = new ProgressDialog(MessageActivity.this);
             pd.setMessage("잠시만 기다려주세요");
             pd.show();
@@ -534,11 +591,13 @@ public class MessageActivity extends AppCompatActivity {
             Uri uri;
             uri = data.getData();
 
+            //Timestamp
             long now = System.currentTimeMillis();
             Date date = new Date(now);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-            String formatDate = simpleDateFormat.format(date);
+            formatDate = simpleDateFormat.format(date);
 
+            //사진 저장소에 저장
             FirebaseStorage
                     .getInstance()
                     .getReference()

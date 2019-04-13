@@ -7,6 +7,7 @@ public class ChatModel {
     public Map<String, Boolean> users = new HashMap<>();
     public Map<String, Comment> comments = new HashMap<>();
     public String type;
+    public String king;
 
     public static class  Comment{
         public String uid;

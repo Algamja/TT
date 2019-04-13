@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -14,7 +16,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,11 +29,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +49,7 @@ import com.example.jmkim.nomad.DB.NotificationModel;
 import com.example.jmkim.nomad.DB.ReportModel;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.WriterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -62,7 +71,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GroupMessageActivity extends AppCompatActivity {
+public class GroupMessageActivity extends Activity {
 
     private Map<String, UserModel> users = new HashMap<>();
     private String destRoom;
@@ -90,6 +99,16 @@ public class GroupMessageActivity extends AppCompatActivity {
     private String dest;
     private int PICK_FROM_ALBUM = 10;
 
+    private DrawerLayout drawerLayout;
+    private LinearLayout drawer_menu;
+    private ListView userview;
+    private LinearLayout exit;
+    private LinearLayout forced;
+    private List<String> uids = new ArrayList<>();
+    private List<UserModel> att = new ArrayList<>();
+
+    private String king;
+
     private ProgressDialog pd;
 
     @Override
@@ -97,9 +116,68 @@ public class GroupMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_message);
 
+        //단체방UID
         destRoom = getIntent().getStringExtra("destRoom");
+        //내uid
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        chat = (EditText)findViewById(R.id.groupMessage_et);
+        chat = (EditText) findViewById(R.id.groupMessage_et);
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.groupMessage_drawer);
+        drawer_menu = (LinearLayout)findViewById(R.id.groupMessage_drawer_menu);
+        userview = (ListView)findViewById(R.id.groupMessage_drawer_lv);
+        exit = (LinearLayout)findViewById(R.id.groupMessage_exit);
+        forced = (LinearLayout)findViewById(R.id.groupMessage_forced);
+
+        att.clear();
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("ChatRooms")
+                .child(destRoom)
+                .child("users")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                        for(DataSnapshot item : dataSnapshot1.getChildren()){
+                            uids.add(item.getKey());
+
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("UserBasic")
+                                    .child(uids.get(uids.size()-1))
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                            att.add(dataSnapshot2.getValue(UserModel.class));
+
+                                            String[] names =  new String[att.size()];
+                                            for(int i=0;i<att.size();i++){
+                                                names[i] = att.get(i).userName;
+                                            }
+
+                                            ListviewAdapter adapter = new ListviewAdapter(GroupMessageActivity.this, R.layout.drawer_friend_row, att);
+                                            userview.setAdapter(adapter);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                        }
+                        init();
+
+                        recyclerView  = (RecyclerView)findViewById(R.id.groupMessage_rv);
+                        recyclerView.setAdapter(new GroupMessageRecyclerViewAdapter());
+                        recyclerView.setLayoutManager(new LinearLayoutManager(GroupMessageActivity.this));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
         FirebaseDatabase
                 .getInstance()
@@ -111,10 +189,6 @@ public class GroupMessageActivity extends AppCompatActivity {
                         for(DataSnapshot item : dataSnapshot.getChildren()){
                             users.put(item.getKey(), item.getValue(UserModel.class));
                         }
-                        init();
-                        recyclerView  = (RecyclerView)findViewById(R.id.groupMessage_rv);
-                        recyclerView.setAdapter(new GroupMessageRecyclerViewAdapter());
-                        recyclerView.setLayoutManager(new LinearLayoutManager(GroupMessageActivity.this));
                     }
 
                     @Override
@@ -124,8 +198,10 @@ public class GroupMessageActivity extends AppCompatActivity {
                 });
     }
 
-    void init(){
-        Button send = (Button)findViewById(R.id.groupMessage_btn);
+
+    void init() {
+        Button send = (Button) findViewById(R.id.groupMessage_btn);
+        //전송버튼 클릭
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,10 +229,11 @@ public class GroupMessageActivity extends AppCompatActivity {
                                         .addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                Map<String,Boolean> map = (Map<String, Boolean>) dataSnapshot.getValue();
+                                                Map<String, Boolean> map = (Map<String, Boolean>) dataSnapshot.getValue();
 
-                                                for(String item : map.keySet()){
-                                                    if(item.equals(uid)){
+                                                //나를 제외한 사용자에게 푸시메세지
+                                                for (String item : map.keySet()) {
+                                                    if (item.equals(uid)) {
                                                         continue;
                                                     }
                                                     sendPostToFCM(users.get(item).pushToken, comment.message);
@@ -168,14 +245,56 @@ public class GroupMessageActivity extends AppCompatActivity {
 
                                             }
                                         });
+                                //editText 공란처리
                                 chat.setText("");
                             }
                         });
             }
         });
+
+        userview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(GroupMessageActivity.this, WriterActivity.class);
+                intent.putExtra("publisher",att.get(position).uid);
+                startActivity(intent);
+            }
+        });
+
+        List<ChatModel> chatModel = new ArrayList<>();
+
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("ChatRooms")
+                .child(destRoom)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        chatModel.clear();
+
+                        chatModel.add(dataSnapshot.getValue(ChatModel.class));
+
+                        king = chatModel.get(0).king;
+
+                        if(!king.equals(uid)){
+                            forced.setVisibility(View.GONE);
+                        }else{
+                            forced.setVisibility(View.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+        
     }
 
-    void sendPostToFCM(String pushToken, String message){
+    //푸시메세지 전송
+    void sendPostToFCM(String pushToken, String message) {
         Gson gson = new Gson();
 
         String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
@@ -209,13 +328,12 @@ public class GroupMessageActivity extends AppCompatActivity {
         });
     }
 
-    class GroupMessageRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
-        public GroupMessageRecyclerViewAdapter(){
+    class GroupMessageRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        public GroupMessageRecyclerViewAdapter() {
             getMessageList();
         }
 
-        void getMessageList(){
+        void getMessageList() {
             FirebaseDatabase
                     .getInstance()
                     .getReference()
@@ -227,7 +345,7 @@ public class GroupMessageActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             comments.clear();
 
-                            for(DataSnapshot item : dataSnapshot.getChildren()){
+                            for (DataSnapshot item : dataSnapshot.getChildren()) {
                                 comments.add(item.getValue(ChatModel.Comment.class));
                             }
 
@@ -252,9 +370,9 @@ public class GroupMessageActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            GroupMessageViewHolder messageViewHolder = ((GroupMessageViewHolder)holder);
+            GroupMessageViewHolder messageViewHolder = ((GroupMessageViewHolder) holder);
 
-            if(comments.get(position).uid.equals(uid)){
+            if (comments.get(position).uid.equals(uid)) {
                 Glide.with(holder.itemView.getContext())
                         .load(users.get(comments.get(position).uid).profileImageUrl)
                         .apply(new RequestOptions().circleCrop())
@@ -281,28 +399,28 @@ public class GroupMessageActivity extends AppCompatActivity {
             messageViewHolder.imageView_dest_profile.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    for(int i=0; i<users.size();i++){
-                        if(position == i){
+                    for (int i = 0; i < users.size(); i++) {
+                        if (position == i) {
                             dest = comments.get(position).uid;
 
-                            dlg_report = (View)View.inflate(GroupMessageActivity.this, R.layout.report_dialog, null);
+                            dlg_report = (View) View.inflate(GroupMessageActivity.this, R.layout.report_dialog, null);
                             AlertDialog.Builder dlg = new AlertDialog.Builder(GroupMessageActivity.this);
                             dlg.setView(dlg_report);
 
-                            dlg_swear = (RadioButton)dlg_report.findViewById(R.id.report_swear_word);
-                            dlg_sexually = (RadioButton)dlg_report.findViewById(R.id.report_sexually);
-                            dlg_spam = (RadioButton)dlg_report.findViewById(R.id.report_spam);
-                            dlg_etc = (RadioButton)dlg_report.findViewById(R.id.report_etc);
-                            dlg_text = (EditText)dlg_report.findViewById(R.id.report_text);
-                            dlg_add = (ImageView)dlg_report.findViewById(R.id.report_iv);
-                            dlg_img_root = (TextView)dlg_report.findViewById(R.id.report_image_root);
+                            dlg_swear = (RadioButton) dlg_report.findViewById(R.id.report_swear_word);
+                            dlg_sexually = (RadioButton) dlg_report.findViewById(R.id.report_sexually);
+                            dlg_spam = (RadioButton) dlg_report.findViewById(R.id.report_spam);
+                            dlg_etc = (RadioButton) dlg_report.findViewById(R.id.report_etc);
+                            dlg_text = (EditText) dlg_report.findViewById(R.id.report_text);
+                            dlg_add = (ImageView) dlg_report.findViewById(R.id.report_iv);
+                            dlg_img_root = (TextView) dlg_report.findViewById(R.id.report_image_root);
 
                             dlg_etc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                 @Override
                                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                    if(dlg_etc.isChecked()){
+                                    if (dlg_etc.isChecked()) {
                                         dlg_text.setVisibility(View.VISIBLE);
-                                    }else{
+                                    } else {
                                         dlg_text.setVisibility(View.INVISIBLE);
                                     }
                                 }
@@ -320,15 +438,15 @@ public class GroupMessageActivity extends AppCompatActivity {
                             dlg.setPositiveButton("신고", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if(dlg_swear.isChecked()){
+                                    if (dlg_swear.isChecked()) {
                                         report = "욕설/비방";
-                                    }else if(dlg_sexually.isChecked()){
+                                    } else if (dlg_sexually.isChecked()) {
                                         report = "성희롱";
-                                    }else if(dlg_spam.isChecked()){
+                                    } else if (dlg_spam.isChecked()) {
                                         report = "스팸메시지";
-                                    }else if(dlg_etc.isChecked()){
+                                    } else if (dlg_etc.isChecked()) {
                                         report = dlg_text.getText().toString();
-                                    }else{
+                                    } else {
                                         Toast.makeText(GroupMessageActivity.this, "신고 사유를 선택해주세요.", Toast.LENGTH_SHORT).show();
                                         return;
                                     }
@@ -412,7 +530,7 @@ public class GroupMessageActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK){
+        if (requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK) {
             pd = new ProgressDialog(GroupMessageActivity.this);
             pd.setMessage("잠시만 기다려주세요");
             pd.show();
@@ -447,7 +565,7 @@ public class GroupMessageActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             Task<Uri> uriTask = ref.getDownloadUrl();
-                            while (!uriTask.isSuccessful());
+                            while (!uriTask.isSuccessful()) ;
 
                             Uri download = uriTask.getResult();
                             img = String.valueOf(download);
@@ -459,6 +577,53 @@ public class GroupMessageActivity extends AppCompatActivity {
                         }
                     });
 
+        }
+    }
+
+    private class ListviewAdapter extends BaseAdapter{
+        private LayoutInflater inflater;
+        private List<UserModel> att;
+        private int layout;
+
+        public ListviewAdapter(Context context, int layout, List<UserModel> att) {
+            this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.att = att;
+            this.layout = layout;
+        }
+
+        @Override
+        public int getCount() {
+            return att.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return att.get(position).userName;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView == null){
+                convertView = inflater.inflate(layout, parent, false);
+            }
+
+            UserModel userModel = att.get(position);
+
+            ImageView imageView = (ImageView)convertView.findViewById(R.id.friendrow_imageView);
+            Glide.with(convertView)
+                    .load(userModel.profileImageUrl)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imageView);
+
+            TextView textView = (TextView)convertView.findViewById(R.id.friendrow_textView);
+            textView.setText(userModel.userName);
+
+            return convertView;
         }
     }
 }

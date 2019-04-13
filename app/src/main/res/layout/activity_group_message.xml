@@ -7,28 +7,109 @@
     tools:context=".Message.GroupMessageActivity"
     android:layout_marginTop="30dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/groupMessage_rv"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/groupMessage_drawer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/groupMessage_btn"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/groupMessage_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/groupMessage_btn"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/groupMessage_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:fontFamily="@font/custom_font"
-        android:text="전송"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/groupMessage_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/groupMessage_btn"/>
 
+            <EditText
+                android:id="@+id/groupMessage_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/groupMessage_btn"/>
+
+            <Button
+                android:id="@+id/groupMessage_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/custom_font"
+                android:text="전송"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/groupMessage_drawer_menu"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:background="#fff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/custom_font"
+                android:text="대화상대"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <ListView
+                android:id="@+id/groupMessage_drawer_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:divider="#00000000"
+                android:dividerHeight="0dp"
+                android:listSelector="@android:color/transparent"/>
+
+            <LinearLayout
+                android:id="@+id/groupMessage_exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_add"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/custom_font"
+                    android:text="채팅방 나가기"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/groupMessage_forced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_forced_exit"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/custom_font"
+                    android:text="강제 퇴장시키기"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </RelativeLayout>
