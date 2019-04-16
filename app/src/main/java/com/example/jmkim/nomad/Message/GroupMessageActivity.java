@@ -3,10 +3,8 @@ package com.example.jmkim.nomad.Message;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.ListUpdateCallback;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,7 +28,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -75,7 +72,7 @@ public class GroupMessageActivity extends Activity {
 
     private Map<String, UserModel> users = new HashMap<>();
     private String destRoom;
-    private String uid;
+    private String myUid;
     private EditText chat;
 
     private RecyclerView recyclerView;
@@ -104,8 +101,11 @@ public class GroupMessageActivity extends Activity {
     private ListView userview;
     private LinearLayout exit;
     private LinearLayout forced;
+
     private List<String> uids = new ArrayList<>();
     private List<UserModel> att = new ArrayList<>();
+    private List<ChatModel> chatModels = new ArrayList<>();
+    private ChatModel chatModel = new ChatModel();
 
     private String king;
 
@@ -119,7 +119,7 @@ public class GroupMessageActivity extends Activity {
         //단체방UID
         destRoom = getIntent().getStringExtra("destRoom");
         //내uid
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         chat = (EditText) findViewById(R.id.groupMessage_et);
 
         drawerLayout = (DrawerLayout)findViewById(R.id.groupMessage_drawer);
@@ -127,6 +127,43 @@ public class GroupMessageActivity extends Activity {
         userview = (ListView)findViewById(R.id.groupMessage_drawer_lv);
         exit = (LinearLayout)findViewById(R.id.groupMessage_exit);
         forced = (LinearLayout)findViewById(R.id.groupMessage_forced);
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("UserBasic")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot item : dataSnapshot.getChildren()){
+                            users.put(item.getKey(), item.getValue(UserModel.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("ChatRooms")
+                .child(destRoom)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        chatModels.clear();
+                        chatModels.add(dataSnapshot.getValue(ChatModel.class));
+                        chatModel =  chatModels.get(0);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
         att.clear();
         FirebaseDatabase
@@ -140,7 +177,6 @@ public class GroupMessageActivity extends Activity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                         for(DataSnapshot item : dataSnapshot1.getChildren()){
                             uids.add(item.getKey());
-
                             FirebaseDatabase
                                     .getInstance()
                                     .getReference()
@@ -149,13 +185,14 @@ public class GroupMessageActivity extends Activity {
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
-                                            att.add(dataSnapshot2.getValue(UserModel.class));
+                                            if(item.getValue(Boolean.class)){
+                                                att.add(dataSnapshot2.getValue(UserModel.class));
 
-                                            String[] names =  new String[att.size()];
-                                            for(int i=0;i<att.size();i++){
-                                                names[i] = att.get(i).userName;
+                                                String[] names =  new String[att.size()];
+                                                for(int i=0;i<att.size();i++){
+                                                    names[i] = att.get(i).userName;
+                                                }
                                             }
-
                                             ListviewAdapter adapter = new ListviewAdapter(GroupMessageActivity.this, R.layout.drawer_friend_row, att);
                                             userview.setAdapter(adapter);
                                         }
@@ -178,24 +215,6 @@ public class GroupMessageActivity extends Activity {
 
                     }
                 });
-
-        FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child("UserBasic")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot item : dataSnapshot.getChildren()){
-                            users.put(item.getKey(), item.getValue(UserModel.class));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
     }
 
 
@@ -206,7 +225,7 @@ public class GroupMessageActivity extends Activity {
             @Override
             public void onClick(View v) {
                 ChatModel.Comment comment = new ChatModel.Comment();
-                comment.uid = uid;
+                comment.uid = myUid;
                 comment.message = chat.getText().toString();
 
                 FirebaseDatabase
@@ -233,9 +252,10 @@ public class GroupMessageActivity extends Activity {
 
                                                 //나를 제외한 사용자에게 푸시메세지
                                                 for (String item : map.keySet()) {
-                                                    if (item.equals(uid)) {
+                                                    if (item.equals(myUid)) {
                                                         continue;
                                                     }
+
                                                     sendPostToFCM(users.get(item).pushToken, comment.message);
                                                 }
                                             }
@@ -261,9 +281,6 @@ public class GroupMessageActivity extends Activity {
             }
         });
 
-        List<ChatModel> chatModel = new ArrayList<>();
-
-
         FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -272,13 +289,9 @@ public class GroupMessageActivity extends Activity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        chatModel.clear();
+                        king = chatModel.king;
 
-                        chatModel.add(dataSnapshot.getValue(ChatModel.class));
-
-                        king = chatModel.get(0).king;
-
-                        if(!king.equals(uid)){
+                        if(!king.equals(myUid)){
                             forced.setVisibility(View.GONE);
                         }else{
                             forced.setVisibility(View.VISIBLE);
@@ -290,7 +303,63 @@ public class GroupMessageActivity extends Activity {
 
                     }
                 });
-        
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(king.equals(myUid)){
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(GroupMessageActivity.this);
+                    dlg.setMessage("방을 나가면 모든 대화내용이 삭제되며 \n상대방도 이 대화방을 사용할 수 없습니다.");
+                    dlg.setPositiveButton("나가기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("ChatRooms")
+                                    .child(destRoom)
+                                    .removeValue();
+                        }
+                    });
+                    dlg.setNegativeButton("취소", null);
+                    dlg.show();
+                }else{
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(GroupMessageActivity.this);
+                    dlg.setMessage("채팅방을 나가시겠습니까?");
+                    dlg.setPositiveButton("나가기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+
+                            chatModel.users.remove(myUid);
+                            chatModel.users.put(myUid, false);
+                            FirebaseDatabase
+                                    .getInstance()
+                                    .getReference()
+                                    .child("ChatRooms")
+                                    .child(destRoom)
+                                    .setValue(chatModel);
+                        }
+                    });
+                    dlg.setNegativeButton("취소", null);
+                    dlg.show();
+                }
+            }
+        });
+
+        forced.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupMessageActivity.this, ForcedOutActivity.class);
+                intent.putExtra("size",att.size());
+                for(int i=0;i<att.size();i++){
+                    intent.putExtra("users"+i ,att.get(i).uid);
+                }
+                intent.putExtra("destRoom",destRoom);
+                startActivity(intent);
+            }
+        });
     }
 
     //푸시메세지 전송
@@ -372,7 +441,7 @@ public class GroupMessageActivity extends Activity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             GroupMessageViewHolder messageViewHolder = ((GroupMessageViewHolder) holder);
 
-            if (comments.get(position).uid.equals(uid)) {
+            if (comments.get(position).uid.equals(myUid)) {
                 Glide.with(holder.itemView.getContext())
                         .load(users.get(comments.get(position).uid).profileImageUrl)
                         .apply(new RequestOptions().circleCrop())
@@ -451,7 +520,7 @@ public class GroupMessageActivity extends Activity {
                                         return;
                                     }
                                     ReportModel reportModel = new ReportModel();
-                                    reportModel.reporter = uid;
+                                    reportModel.reporter = myUid;
                                     reportModel.reportee = comments.get(position).uid;
                                     reportModel.reportUrl = img;
                                     reportModel.reason = report;
@@ -472,7 +541,7 @@ public class GroupMessageActivity extends Activity {
                                                     String[] addr = {"todaynomad97@gmail.com"};
                                                     email.putExtra(Intent.EXTRA_EMAIL, addr);
                                                     email.putExtra(Intent.EXTRA_SUBJECT, comments.get(position).uid + " 신고");
-                                                    email.putExtra(Intent.EXTRA_TEXT, report + "\n" + "신고자 : " + uid + "\n" + "============================================================" + "\n 위 내용은 수정하지 마세요.");
+                                                    email.putExtra(Intent.EXTRA_TEXT, report + "\n" + "신고자 : " + myUid + "\n" + "============================================================" + "\n 위 내용은 수정하지 마세요.");
                                                     startActivity(email);
                                                 }
                                             });
@@ -485,7 +554,7 @@ public class GroupMessageActivity extends Activity {
                                             .getInstance()
                                             .getReference()
                                             .child(comments.get(position).uid)
-                                            .child(uid)
+                                            .child(myUid)
                                             .delete();
                                 }
                             });
@@ -548,7 +617,7 @@ public class GroupMessageActivity extends Activity {
                     .getReference()
                     .child("report")
                     .child(dest)
-                    .child(uid)
+                    .child(myUid)
                     .child(formatDate)
                     .putFile(uri)
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -559,7 +628,7 @@ public class GroupMessageActivity extends Activity {
                                         .getReference()
                                         .child("report")
                                         .child(dest)
-                                        .child(uid)
+                                        .child(myUid)
                                         .child(formatDate);
 
                         @Override
@@ -622,7 +691,6 @@ public class GroupMessageActivity extends Activity {
 
             TextView textView = (TextView)convertView.findViewById(R.id.friendrow_textView);
             textView.setText(userModel.userName);
-
             return convertView;
         }
     }
