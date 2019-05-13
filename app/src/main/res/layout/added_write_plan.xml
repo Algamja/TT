@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="30sp">
+
+        <!-- 검색화면(1) -->
+        <LinearLayout
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="20sp">
+
+            <!-- 어디로 떠나시나요 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#87BCBF"
+                android:orientation="vertical"
+                android:paddingHorizontal="20sp"
+                android:paddingTop="20sp"
+                android:paddingBottom="30sp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="어디로\n떠나시나요?"
+                    android:textColor="#fff"
+                    android:textSize="35sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="검색을 통해서 여행지를 선택해주세요!"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <!-- 검색란 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15sp"
+                android:layout_marginTop="-25sp"
+                android:background="#fff"
+                android:elevation="10sp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/search"
+                    android:layout_width="0sp"
+                    android:layout_height="50sp"
+                    android:layout_weight="1"
+                    android:background="#fff"
+                    android:paddingHorizontal="10sp"
+                    android:paddingVertical="5sp" />
+
+                <ImageView
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:background="#D97D54"
+                    android:padding="5sp"
+                    android:src="@drawable/ic_search_white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- 도시화면(2) -->
+        <LinearLayout
+            android:id="@+id/frame_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="15sp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="150sp"
+                android:layout_height="100sp"
+                android:paddingLeft="15sp"
+                android:scaleType="centerInside"
+                android:src="@drawable/taiwan" />
+
+            <TextView
+                android:layout_width="0sp"
+                android:layout_height="100sp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="15sp"
+                android:text="태국 - 방콕"
+                android:textColor="#000"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- 날짜/인원(고정) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="10sp">
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10sp"
+                android:text="언제 여행을 가시나요?"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="#ddd" />
+
+            <TextView
+                android:id="@+id/info1"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10sp"
+                android:text="몇명이서 가시나요?"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="#ddd" />
+
+            <TextView
+                android:id="@+id/info2"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10sp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- 도시목록 -->
+        <GridView
+            android:id="@+id/cities"
+            android:layout_width="match_parent"
+            android:layout_height="160sp"
+            android:layout_marginTop="20sp"
+            android:numColumns="4"
+            android:visibility="gone" />
+
+        <!-- 추천화면(1) -->
+        <LinearLayout
+            android:id="@+id/frame2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 취향저격일정 타이틀 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10sp">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="50sp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="취향저격 일정!"
+                    android:textColor="#000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="80sp"
+                    android:layout_height="50sp"
+                    android:gravity="center_vertical|right"
+                    android:text="See All &gt;"
+                    android:textColor="#aaa" />
+
+            </LinearLayout>
+
+            <!-- 취향저격일정 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="20sp">
+
+                <LinearLayout
+                    android:id="@+id/listReco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:elevation="10sp"
+                    android:orientation="vertical" />
+
+            </RelativeLayout>
+
+            <!-- 요즘뜨는여행지 타이틀 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10sp"
+                android:text="요즘뜨는여행지"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <!-- 요즘뜨는여행지 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listHot"
+                android:layout_width="match_parent"
+                android:layout_height="150sp"
+                android:layout_marginHorizontal="10sp" />
+
+        </LinearLayout>
+
+        <!-- 스케줄화면(2) -->
+        <LinearLayout
+            android:paddingBottom="20sp"
+            android:id="@+id/frame2_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</ScrollView>

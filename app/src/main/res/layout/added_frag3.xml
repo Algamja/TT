@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 글 작성 버튼 클릭 되었을 때 어두워지는 view -->
+        <View
+            android:id="@+id/mypage_view_black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <!-- 배경프로필 -->
+            <ImageView
+                android:id="@+id/mypage_iv_back_profile"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/profile"
+                android:scaleType="fitXY" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <!-- 사용자 이름 -->
+                        <TextView
+                            android:id="@+id/mypage_tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/custom_font"
+                            android:textColor="@android:color/black"
+                            android:textSize="13dp" />
+
+                        <!-- 사용자 이메일 -->
+                        <TextView
+                            android:id="@+id/mypage_tv_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/custom_font"
+                            android:textColor="@android:color/black"
+                            android:textSize="13dp" />
+
+                        <!-- 사용자 상태메시지 -->
+                        <TextView
+                            android:id="@+id/mypage_tv_stateMsg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/custom_font"
+                            android:textColor="@android:color/black"
+                            android:textSize="13dp" />
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:id="@+id/mypage_iv_mytalk"
+                        app:srcCompat="@drawable/ic_chat"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginVertical="15dp"
+                        android:visibility="gone"
+                        android:layout_toLeftOf="@+id/mypage_iv_infoedit" />
+
+                    <!-- 정보수정 페이지로 가는 ImageView -->
+                    <ImageView
+                        android:id="@+id/mypage_iv_infoedit"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="15dp"
+                        android:src="@drawable/ic_infoedit" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!-- 하단 버튼 4개 -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <!-- 내가 쓴 글 -->
+                <LinearLayout
+                    android:id="@+id/mypage_ll_myboard"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ImageView
+                        app:srcCompat="@drawable/ic_myboard"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="내가 쓴 글" />
+                </LinearLayout>
+
+                <!-- 내 여행일정 -->
+                <LinearLayout
+                    android:id="@+id/mypage_ll_myplan"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ImageView
+                        app:srcCompat="@drawable/ic_myplan"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="내 여행일정" />
+                </LinearLayout>
+
+                <!-- 스크랩한 글 -->
+                <LinearLayout
+                    android:id="@+id/mypage_ll_myscrap"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ImageView
+                        app:srcCompat="@drawable/ic_myscrap"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="스크랩한 글" />
+                </LinearLayout>
+
+                <!-- 나의 활동 -->
+                <LinearLayout
+                    android:id="@+id/mypage_ll_myhistory"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <ImageView
+                        app:srcCompat="@drawable/ic_myhistory"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="나의 활동" />
+                </LinearLayout>
+            </GridLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

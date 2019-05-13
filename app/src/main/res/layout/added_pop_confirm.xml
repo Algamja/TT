@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/added_border_radius"
+        android:orientation="vertical"
+        android:paddingHorizontal="5sp"
+        android:paddingVertical="25sp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center"
+            android:text="제목"
+            android:textColor="#D97D54"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:background="#fff"
+            android:gravity="center"
+            android:text="내용"
+            android:textColor="#555"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginHorizontal="30sp"
+            android:layout_marginTop="20sp"
+            android:background="#fafafa"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ok"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Yes"
+                android:textColor="#D97D54" />
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="No"
+                android:textColor="#555" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingHorizontal="13sp"
+    android:paddingTop="15sp"
+    android:paddingBottom="5sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/added_border_radius"
+        android:elevation="5sp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="15sp">
+
+        <com.example.jmkim.nomad.added.CustomImageView
+            android:layout_width="55sp"
+            android:layout_height="55sp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/dokyo" />
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="15sp"
+            android:text="#태국"
+            android:textColor="#4E6289" />
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:paddingLeft="15sp"
+            android:text="#2019.05.25 ~ 2016.05.27"
+            android:textColor="#4E6289" />
+
+    </LinearLayout>
+
+</RelativeLayout>

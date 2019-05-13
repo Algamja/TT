@@ -5,12 +5,14 @@ public class Board {
     public String publisher;
     public String like;
     public String country;
+    public String img;
 
-    public Board(String title, String publisher, String like, String country) {
+    public Board(String title, String publisher, String like, String country, String img) {
         this.title = title;
         this.publisher = publisher;
         this.like = like;
         this.country = country;
+        this.img = img;
     }
 
     public Board() {
@@ -46,5 +48,13 @@ public class Board {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

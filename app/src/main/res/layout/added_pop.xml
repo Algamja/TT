@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- FAB사용을 위한 Frame -->
+    <FrameLayout
+        android:id="@+id/main_ll_write_float"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:background="#00000000"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <!-- 리뷰작성 FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fb_write_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#fff"
+            android:src="@drawable/ic_review"
+            app:borderWidth="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginRight="60dp"
+            android:fontFamily="@font/custom_font"
+            android:text="리뷰쓰기"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+        <!-- 일정 작성 FAB -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fb_write_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="60dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#fff"
+            android:src="@drawable/ic_plan"
+            app:borderWidth="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="60dp"
+            android:fontFamily="@font/custom_font"
+            android:text="일정짜기"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

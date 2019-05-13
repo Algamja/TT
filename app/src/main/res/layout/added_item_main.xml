@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingHorizontal="13sp"
+    android:paddingTop="10sp"
+    android:paddingBottom="5sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/added_border_radius"
+        android:elevation="5sp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:paddingTop="10sp"
+            android:paddingHorizontal="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/board_profile"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_margin="5sp"
+                android:src="@drawable/profile"
+                android:scaleType="fitXY"/>
+
+            <LinearLayout
+                android:paddingHorizontal="5sp"
+                android:layout_width="0sp"
+                android:layout_height="50sp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/board_name"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="작성자 이름"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/board_country"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/custom_font"
+                    android:text="여행할 국가"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/board_img"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"/>
+
+        <TextView
+            android:background="#ddd"
+            android:layout_width="match_parent"
+            android:layout_height="1sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/board_tv_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/board_btn_like"
+                android:layout_marginRight="5dp"
+                android:text="4K"
+                android:textSize="17sp"
+                android:layout_toStartOf="@+id/board_btn_like"
+                android:layout_marginEnd="5dp" />
+
+            <ToggleButton
+                android:id="@+id/board_btn_like"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/button_like"
+                android:checked="false"
+                android:text=""
+                android:textOff=""
+                android:textOn=""
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

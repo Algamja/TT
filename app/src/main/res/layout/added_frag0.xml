@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/box"
+        android:paddingBottom="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200sp">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/slide"
+                android:layout_width="match_parent"
+                android:layout_height="200sp" />
+
+            <com.example.jmkim.nomad.added.CircleAnimIndicator
+                android:id="@+id/circleAnimIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

@@ -2,8 +2,8 @@ package com.example.jmkim.nomad.Message;
 
 import android.os.Bundle;
 
-import com.example.jmkim.nomad.ChatPagerAdapter;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.prev.ChatPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;

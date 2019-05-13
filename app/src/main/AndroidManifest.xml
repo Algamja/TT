@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jmkim.nomad">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,49 +11,63 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".prev.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".GenAgeActivity" />
-        <activity android:name=".ActivitySelectActivity" />
-        <activity android:name=".SignEndActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".FindIdPwActivity" />
-        <activity android:name=".MypageActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".UserInfoEditActivity" />
-        <activity android:name=".BasicEditActivity" />
-        <activity android:name=".PartyEditActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".WriterActivity" />
-        <activity android:name=".ActivityEditActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".WritePlanActivity" />
-        <activity android:name=".WriteReviewActivity" />
+        <activity android:name=".prev.SignUpActivity" />
+        <activity android:name=".prev.GenAgeActivity" />
+        <activity android:name=".prev.ActivitySelectActivity" />
+        <activity android:name=".prev.SignEndActivity" />
+        <activity android:name=".prev.SignInActivity" />
+        <activity android:name=".prev.FindIdPwActivity" />
+        <activity android:name=".prev.MypageActivity" />
+        <activity android:name=".prev.MainActivity" />
+        <activity android:name=".prev.UserInfoEditActivity" />
+        <activity android:name=".prev.BasicEditActivity" />
+        <activity android:name=".prev.PartyEditActivity" />
+        <activity android:name=".prev.WelcomeActivity" />
+        <activity android:name=".prev.WriterActivity" />
+        <activity android:name=".prev.ActivityEditActivity" />
+        <activity android:name=".prev.SearchActivity" />
+        <activity android:name=".prev.WritePlanActivity" />
+        <activity android:name=".prev.WriteReviewActivity" />
         <activity android:name=".Message.ChatActivity" />
-        <activity
-            android:name=".Message.MessageActivity"
-            android:windowSoftInputMode="adjustPan" />
 
-        <service android:name=".FireBaseMessagingService">
+        <!-- added -->
+        <activity android:name=".added.Main" />
+        <activity android:name=".added.WritePlan"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".added.Pop"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity
+            android:name=".added.SearchCity"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+        <activity android:name=".added.Review" />
+        <!-- added -->
+
+        <service android:name=".prev.FireBaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".FirebaseInstanceIDService">
+        <service android:name=".prev.FirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".Message.MessageActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Message.GroupMessageActivity" />
-        <activity android:name=".TestActivity" />
+        <activity android:name=".prev.TestActivity" />
         <activity android:name=".Message.ForcedOutActivity"></activity>
     </application>
 

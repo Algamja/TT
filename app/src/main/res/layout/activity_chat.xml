@@ -10,7 +10,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/chat_tab"
+        android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
@@ -20,7 +20,7 @@
         app:tabIndicatorColor="@color/colorPrimary"/>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/chat_vp"
+        android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

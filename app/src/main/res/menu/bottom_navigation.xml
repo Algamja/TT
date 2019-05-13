@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/nav_heart"
-        android:icon="@drawable/ic_board"
+        android:icon="@drawable/ic_chat_bubble_outline"
         android:title=""/>
 
     <item

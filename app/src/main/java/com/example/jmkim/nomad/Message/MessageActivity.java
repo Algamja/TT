@@ -41,7 +41,7 @@ import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.ReportModel;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.R;
-import com.example.jmkim.nomad.WriterActivity;
+import com.example.jmkim.nomad.prev.WriterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

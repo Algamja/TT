@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="75sp">
+
+    <ImageView
+        android:id="@+id/navi2"
+        android:layout_width="55sp"
+        android:layout_height="55sp"
+        android:src="@drawable/ic_add3"
+        android:elevation="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <LinearLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:elevation="10sp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/navi0"
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="36sp"
+            android:padding="8sp"
+            android:src="@drawable/ic_home_svg" />
+
+        <ImageView
+            android:id="@+id/navi1"
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="36sp"
+            android:padding="8sp"
+            android:src="@drawable/ic_chat_bubble_outline" />
+
+        <ImageView
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="0sp"/>
+
+        <ImageView
+            android:id="@+id/navi3"
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="36sp"
+            android:padding="8sp"
+            android:src="@drawable/ic_search_svg" />
+
+        <ImageView
+            android:id="@+id/navi4"
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="36sp"
+            android:padding="8sp"
+            android:src="@drawable/ic_profile_svg" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
