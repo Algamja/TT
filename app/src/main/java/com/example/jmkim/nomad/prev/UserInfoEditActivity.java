@@ -211,13 +211,8 @@ public class UserInfoEditActivity extends AppCompatActivity {
         linear_logout.setOnClickListener(new View.OnClickListener() { //로그아웃 시작
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserInfoEditActivity.this, SplashActivity.class));
-                finish();
-
-                //MypageActivity mypageActivity = (MypageActivity)MypageActivity.Mypage;
-                //mypageActivity.finish(); //마이페이지 종료
                 FirebaseAuth.getInstance().signOut();
-                System.exit(0);
+                ActivityCompat.finishAffinity(UserInfoEditActivity.this);
             }
         }); //로그아웃 끝
 

@@ -52,7 +52,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.mContext = mContext;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    private static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView hashtag;
         ImageView add_pic;
         LinearLayout pictures;
@@ -90,8 +90,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 rl.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mContext, "클릭됨", Toast.LENGTH_SHORT).show();
-
                         Intent intent = new Intent(Intent.ACTION_PICK);
                         intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                         ((WriteReviewActivity) writeReviewActivity).startActivityForResult(intent,PICK_FROM_ALBUM);
@@ -196,7 +194,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void setIndex(int index) {
             this.index = index;
         }
-
 
         public Uri getImageUri() {
             return imageUri;

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/WPD_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/WPD_ll_dayn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_gravity="center"
+                android:src="@drawable/schedule" />
+
+            <TextView
+                android:id="@+id/WPD_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/custom_font"
+                android:text="DAY 1"
+                android:textColor="#000"
+                android:textSize="28dp" />
+
+            <ImageButton
+                android:id="@+id/memo_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#00000000"
+                android:padding="11dp"
+                android:src="@drawable/memo_plus" />
+
+            <ImageButton
+                android:id="@+id/memo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:src="@drawable/memo"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/WPD_ll_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/WPD_ll_dayn">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginLeft="23dp"
+                    android:background="#00000000"
+                    android:src="@drawable/day_line"
+                    android:layout_below="@+id/WPD_ll_dayn"/>
+
+                <ImageButton
+                    android:id="@+id/memo_oneline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#00000000"
+                    android:src="@drawable/tag_add"/>
+
+                <EditText
+                    android:id="@+id/memo_editText"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:hint="메모를 입력해 주세요"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/WPD_ll_hashtag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/schedule2" />
+
+                <TextView
+                    android:id="@+id/WPD_hashtag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/custom_font"
+                    android:text="#해시태그"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

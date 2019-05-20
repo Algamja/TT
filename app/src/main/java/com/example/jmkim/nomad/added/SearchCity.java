@@ -1,61 +1,111 @@
 package com.example.jmkim.nomad.added;
 
-import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.prev.DbOpenHelper;
+import com.example.jmkim.nomad.prev.SearchAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SearchCity extends AppCompatActivity {
+    private EditText search;
+    private ListView cities;
+
+    private List<String> list;
+    private SearchAdapter adapter;
+    private ArrayList<String> arrayList;
+
+    private DbOpenHelper mDbOpenHelper;
+    private Cursor iCursor;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.added_search_city);
 
-        TextView itemCity = findViewById(R.id.itemCity);
-        TextView itemCity1 = findViewById(R.id.itemCity1);
-        TextView itemCity2 = findViewById(R.id.itemCity2);
+        search = findViewById(R.id.plan_search);
+        cities = findViewById(R.id.plan_city);
 
-        itemCity.setOnClickListener(l);
-        itemCity1.setOnClickListener(l);
-        itemCity2.setOnClickListener(l);
+        list = new ArrayList<String>();
+        settingList();
+
+        arrayList = new ArrayList<String>();
+        arrayList.addAll(list);
+
+        adapter = new SearchAdapter(list,getApplicationContext());
+        cities.setAdapter(adapter);
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(search.getText().toString().equals("")) {
+                    cities.setVisibility(View.GONE);
+                }
+                else{
+                    cities.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = search.getText().toString();
+                searching(text);
+            }
+        });
+
+        cities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String city = list.get(position);
+                String country[] = city.split(" ");
+
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("city", city);
+                resultIntent.putExtra("country",country[country.length-1]);
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            }
+        });
     }
 
-    View.OnClickListener l = view -> {
-        final Dialog dlg = new Dialog(SearchCity.this);
-        dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dlg.setContentView(R.layout.added_pop_confirm);
-        dlg.show();
+    private void searching(String charText){
+        list.clear();
 
-        final TextView title = dlg.findViewById(R.id.title);
-        final TextView content = dlg.findViewById(R.id.content);
-        final TextView ok = dlg.findViewById(R.id.ok);
-        final TextView cancel = dlg.findViewById(R.id.cancel);
+        if(charText.length() != 0){
+            for(int i=0;i<arrayList.size();i++){
+                if(arrayList.get(i).toLowerCase().contains(charText)){
+                    list.add(arrayList.get(i));
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
 
-        title.setText("일정이 있습니다!");
-        content.setText("해당 국가에 관한 스크랩 일정이 8개 있습니다. 불러올까요?");
+    private void settingList(){
+        mDbOpenHelper = new DbOpenHelper(getApplicationContext());
+        mDbOpenHelper.open();
 
-        ok.setOnClickListener(v -> {
-            dlg.dismiss();
-
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("city", "yes");
-            setResult(RESULT_OK, resultIntent);
-            finish();
-        });
-        cancel.setOnClickListener(v -> {
-            dlg.dismiss();
-
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("city", "no");
-            setResult(RESULT_OK, resultIntent);
-            finish();
-        });
-    };
+        iCursor = mDbOpenHelper.selectColumns();
+        while(iCursor.moveToNext()){
+            String tmpCity = iCursor.getString(iCursor.getColumnIndex("city"));
+            list.add(tmpCity);
+        }
+    }
 }

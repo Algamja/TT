@@ -305,7 +305,6 @@ public class Fragment2 extends Fragment {
         iCursor = mDbOpenHelper.selectColumns();
         while(iCursor.moveToNext()){
             String tmpCity = iCursor.getString(iCursor.getColumnIndex("city"));
-            Log.e("iC",iCursor.getString(iCursor.getColumnIndex("city")));
             list.add(tmpCity);
         }
     }

@@ -1,24 +1,40 @@
 package com.example.jmkim.nomad.added;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jmkim.nomad.DB.Add_Tag;
+import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,45 +45,58 @@ import ru.slybeaver.slycalendarview.SlyCalendarDialog;
 
 public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Callback {
     private LinearLayoutManager mLayoutManager;
-    LinearLayout frame;
-    LinearLayout frame_next;
-    LinearLayout frame2;
-    LinearLayout frame2_next;
-    GridView cities;
+    private RecyclerView.LayoutManager layoutManager;
 
-    TextView info;
-    TextView info1;
-    TextView info2;
+    private LinearLayout search_layout;
+    private LinearLayout country_info_layout;
+    private LinearLayout recommend_layout;
+    private RecyclerView tag_layout;
+
+    private ImageView flag;
+    private TextView city;
+    private TextView when;
+    private TextView many;
+    private TextView want;
+    private LinearLayout recommend_list;
+    private RecyclerView hot_list;
+    private CheckBox agree;
+    private Button submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.added_write_plan);
 
-        frame = findViewById(R.id.frame);
-        frame_next = findViewById(R.id.frame_next);
-        frame2 = findViewById(R.id.frame2);
-        frame2_next = findViewById(R.id.frame2_next);
+        mLayoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
 
-        info = findViewById(R.id.info);
-        info1 = findViewById(R.id.info1);
-        info2 = findViewById(R.id.info2);
+        search_layout = findViewById(R.id.plan_search_layout);
+        country_info_layout = findViewById(R.id.plan_country_info_layout);
+        recommend_layout = findViewById(R.id.plan_recom_layout);
+        tag_layout = findViewById(R.id.plan_schedule_layout);
+
+        flag = findViewById(R.id.plan_flag);
+        city = findViewById(R.id.plan_city);
+        when = findViewById(R.id.plan_when);
+        many = findViewById(R.id.plan_many);
+        want = findViewById(R.id.plan_want);
+        recommend_list = findViewById(R.id.plan_recom_list);
+        hot_list = findViewById(R.id.plan_hot_list);
+        agree = findViewById(R.id.plan_agree);
+        submit = findViewById(R.id.plan_submit);
+
+        tag_layout.setLayoutManager(layoutManager);
 
         // 검색
-        EditText search = findViewById(R.id.search);
+        EditText search = findViewById(R.id.plan_search_editText);
         search.setOnClickListener(view -> {
             startActivityForResult(new Intent(WritePlan.this, SearchCity.class), 0);
             overridePendingTransition(0, android.R.anim.fade_in);
         });
 
-        // 도시목록
-        cities = findViewById(R.id.cities);
-        CitiesAdapter citiesAdapter = new CitiesAdapter(WritePlan.this);
-        cities.setAdapter(citiesAdapter);
-
         // 날짜/인원
-        info.setOnClickListener(view -> {
-            if(frame.getVisibility() == View.VISIBLE) {
+        when.setOnClickListener(view -> {
+            if(search_layout.getVisibility() == View.VISIBLE) {
                 Toast.makeText(WritePlan.this, "도시를 먼저 선택해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -77,38 +106,110 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
                     .setCallback(this)
                     .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
         });
-        info1.setOnClickListener(friends);
+        many.setOnClickListener(friends);
 
         // 취향저격일정
-        LinearLayout listReco = findViewById(R.id.listReco);
         for (int i = 0; i < 5; i++) {
             ItemReco itemReco = new ItemReco(WritePlan.this);
-            listReco.addView(itemReco);
+            recommend_list.addView(itemReco);
         }
 
         // 요즘뜨는 여행지
-        RecyclerView listHot = findViewById(R.id.listHot);
-        mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        listHot.setLayoutManager(mLayoutManager);
+        hot_list.setLayoutManager(mLayoutManager);
         String[] items = new String[]{"도쿄", "도쿄", "도쿄", "도쿄", "도쿄", "도쿄"};
         HotAdapter hotAdapter = new HotAdapter(items);
-        listHot.setAdapter(hotAdapter);
+        hot_list.setAdapter(hotAdapter);
 
         // 리뷰
         Intent intent = getIntent();
         if(intent.getStringExtra("review") != null) {
             String txt = "5월 25일 ~ 5월 27일(2박 3일)";
-            info.setText(txt);
+            when.setText(txt);
             setSchedule(3);
 
-            frame.setVisibility(View.GONE);
-            frame_next.setVisibility(View.VISIBLE);
+            search_layout.setVisibility(View.GONE);
+            country_info_layout.setVisibility(View.VISIBLE);
 
-            info1.setText("5명과 함께 떠나요!");
-            info2.setText("현재 3명이 함께해요!");
-            info2.setVisibility(View.VISIBLE);
+            many.setText("5명과 함께 떠나요!");
+            want.setText("현재 3명이 함께해요!");
+            want.setVisibility(View.VISIBLE);
         }
+
+        agree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(agree.isChecked()==false){
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(WritePlan.this);
+                    dlg.setMessage("비공개시 글이 다른 사용자에게 노출되지 않으며\n파티원 모집시 불이익이 있을 수 있습니다");
+                    dlg.setPositiveButton("비공개", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            agree.setChecked(false);
+                            Toast.makeText(WritePlan.this, "글이 비공개됩니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            agree.setChecked(true);
+                        }
+                    });
+                    dlg.show();
+                }
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("Imsi")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Object hashtag =  dataSnapshot.getValue();
+
+                                Plan plan = new Plan();
+                                plan.publisher = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                plan.country = city.getText().toString();
+                                plan.hashtag = hashtag;
+
+                                if(plan.hashtag != null){
+                                    FirebaseDatabase
+                                            .getInstance()
+                                            .getReference()
+                                            .child("Plan")
+                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .push()
+                                            .setValue(plan)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    FirebaseDatabase
+                                                            .getInstance()
+                                                            .getReference()
+                                                            .child("Imsi")
+                                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                            .removeValue();
+
+                                                    Toast.makeText(WritePlan.this, "일정 등록이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                            });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+            }
+        });
     }
 
     // 도시검색후
@@ -116,12 +217,39 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 0) { // 도시검색
             if (data != null && data.getStringExtra("city") != null) {
-                frame.setVisibility(View.GONE);
-                frame_next.setVisibility(View.VISIBLE);
+                search_layout.setVisibility(View.GONE);
+                country_info_layout.setVisibility(View.VISIBLE);
 
-                String city = data.getStringExtra("city");
-                if (city.equals("yes")) cities.setVisibility(View.VISIBLE);
-                else cities.setVisibility(View.GONE);
+                String imsi = data.getStringExtra("city");
+                city.setText(imsi);
+
+                imsi = data.getStringExtra("country");
+                if(imsi.equals("일본")) {
+                    flag.setImageDrawable(getResources().getDrawable(R.drawable.japan));
+                }
+            }
+        }
+
+        if(requestCode == 0){
+            if(data != null && data.getStringExtra("tag") != null){
+                String tag = data.getStringExtra("tag");
+                final ItemSchedule.schedule input = new ItemSchedule.schedule();
+                input.setHashtag(tag);
+                input.setTagOk(true);
+
+                Add_Tag add_tag = new Add_Tag();
+                add_tag.tag_name = tag;
+                add_tag.index = String.valueOf(input.getIndex());
+                add_tag.position = String.valueOf(input.getPosition());
+
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("Imsi")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child(String.valueOf(input.getPosition()))
+                        .child(String.valueOf(input.getIndex()))
+                        .setValue(add_tag);
             }
         }
     }
@@ -130,13 +258,13 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
     @Override
     public void onDataSelected(Calendar firstDate, Calendar secondDate, int hours, int minutes) {
         if (secondDate == null) secondDate = firstDate;
-        String txt = firstDate.get(Calendar.MONTH) + "월 " + firstDate.get(Calendar.DATE) + "일 ~ ";
-        txt += secondDate.get(Calendar.MONTH) + "월 " + secondDate.get(Calendar.DATE) + "일";
+        String txt = firstDate.get(Calendar.MONTH) + 1 + "월 " + firstDate.get(Calendar.DATE) + "일 ~ ";
+        txt += secondDate.get(Calendar.MONTH) + 1 + "월 " + secondDate.get(Calendar.DATE) + "일";
+
 
         int days = (int) (secondDate.getTimeInMillis() - firstDate.getTimeInMillis()) / (1000 * 60 * 60 * 24) + 1;
         txt += "(" + (days - 1) + "박 " + days + "일)";
-        info.setText(txt);
-
+        when.setText(txt);
         setSchedule(days);
     }
 
@@ -146,7 +274,7 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
 
     // 인원선택
     View.OnClickListener friends = view -> {
-        if(frame.getVisibility() == View.VISIBLE) {
+        if(search_layout.getVisibility() == View.VISIBLE) {
             Toast.makeText(WritePlan.this, "도시를 먼저 선택해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -156,50 +284,18 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         dlg.setContentView(R.layout.added_pop_friends);
         dlg.show();
 
-        final EditText num0 = dlg.findViewById(R.id.num0);
-        final EditText num1 = dlg.findViewById(R.id.num1);
+        final EditText num0 = dlg.findViewById(R.id.num_total);
+        final EditText num1 = dlg.findViewById(R.id.num_want);
         final TextView ok = dlg.findViewById(R.id.ok);
 
         ok.setOnClickListener(v -> {
             dlg.dismiss();
 
-            info1.setText(num0.getText().toString() + "명과 함께 떠나요!");
-            info2.setText("현재 " + num1.getText().toString() + "명이 함께해요!");
-            info2.setVisibility(View.VISIBLE);
+            many.setText("총 " + num0.getText().toString() + "명이 함께 떠나요!");
+            want.setText("현재 " + num1.getText().toString() + "명을 구해요!");
+            want.setVisibility(View.VISIBLE);
         });
     };
-
-    // 도시목록
-    public class CitiesAdapter extends BaseAdapter {
-        Context context;
-        LayoutInflater inf;
-
-        public CitiesAdapter(Context context) {
-            this.context = context;
-            inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return 8;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            if (view == null) view = inf.inflate(R.layout.added_item_city, null);
-            return view;
-        }
-    }
 
     // 요즘뜨는여행지목록
     public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -234,7 +330,6 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             HotViewHolder planViewHolder = (HotViewHolder) holder;
 
-            // planViewHolder.img
             planViewHolder.title.setText(items[position]);
         }
 
@@ -245,18 +340,10 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
     }
 
     void setSchedule(int days) {
-        for(int i=1; i<=days; i++) {
-            ItemSchedule schedule = new ItemSchedule(WritePlan.this, i);
-            frame2_next.addView(schedule);
-        }
+        ItemSchedule schedule = new ItemSchedule(WritePlan.this, days, WritePlan.this);
+        tag_layout.setAdapter(schedule);
 
-        for(int i=1; i<=days; i++) {
-            ItemSchedule2 schedule2 = new ItemSchedule2(WritePlan.this, i);
-            frame2_next.addView(schedule2);
-        }
-
-        cities.setVisibility(View.GONE);
-        frame2.setVisibility(View.GONE);
-        frame2_next.setVisibility(View.VISIBLE);
+        recommend_layout.setVisibility(View.GONE);
+        tag_layout.setVisibility(View.VISIBLE);
     }
 }

@@ -59,5 +59,4 @@ public class SearchAdapter extends BaseAdapter {
     class ViewHolder{
         public TextView label;
     }
-
 }

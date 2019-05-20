@@ -21,6 +21,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,11 +60,9 @@ public class WriteReviewActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         if (requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK) {
             imageUri = data.getData();
-
-            Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_SHORT).show();
 
             final ReviewAdapter.pic picture = new ReviewAdapter.pic();
             picture.setImageUri(imageUri);

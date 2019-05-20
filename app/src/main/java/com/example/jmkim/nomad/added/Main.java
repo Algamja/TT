@@ -1,19 +1,11 @@
 package com.example.jmkim.nomad.added;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.jmkim.nomad.R;
 import com.example.jmkim.nomad.prev.Close;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

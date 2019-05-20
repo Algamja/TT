@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.added.Main;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -28,13 +31,21 @@ public class WelcomeActivity extends Activity {
     private Button signIn;
     private Button singUp;
 
-    DbOpenHelper mDbOpenHelper;
-    ProgressDialog pd;
+    private DbOpenHelper mDbOpenHelper;
+    private ProgressDialog pd;
+
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(firebaseUser != null){
+            startActivity(new Intent(WelcomeActivity.this, Main.class));
+        }
 
         mDbOpenHelper = new DbOpenHelper(this);
 

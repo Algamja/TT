@@ -21,9 +21,7 @@ public class ItemSchedule2 extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rootView = inflater.inflate(R.layout.added_schedule2, this, true);
 
-        TextView day = rootView.findViewById(R.id.day);
+        TextView day = rootView.findViewById(R.id.wPlan_day);
         day.setText("> DAY " + num);
-
-
     }
 }

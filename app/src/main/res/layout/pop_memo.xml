@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/added_border_radius"
+        android:orientation="vertical"
+        android:padding="20sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center"
+            android:text="메모를 작성해주세요!"
+            android:textColor="#D97D54"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/memo_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:gravity="center"
+            android:hint="간단한 메모를 작성하실 수 있습니다"
+            android:maxLines="7"
+            android:inputType="textMultiLine|textNoSuggestions" />
+
+        <TextView
+            android:id="@+id/memo_ok"
+            android:layout_width="70sp"
+            android:layout_height="35sp"
+            android:layout_gravity="right"
+            android:layout_marginTop="20sp"
+            android:background="#ddd"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="#fff" />
+    </LinearLayout>
+</RelativeLayout>

@@ -8,6 +8,7 @@ public class ChatModel {
     public Map<String, Comment> comments = new HashMap<>();
     public String type;
     public String king;
+    public String member_count;
 
     public static class  Comment{
         public String uid;

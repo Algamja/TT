@@ -192,9 +192,6 @@
                         android:text="나의 활동" />
                 </LinearLayout>
             </GridLayout>
-
         </LinearLayout>
-
     </LinearLayout>
-
 </ScrollView>

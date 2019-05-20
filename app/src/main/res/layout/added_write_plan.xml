@@ -14,7 +14,7 @@
 
         <!-- 검색화면(1) -->
         <LinearLayout
-            android:id="@+id/frame"
+            android:id="@+id/plan_search_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -45,7 +45,6 @@
                     android:text="검색을 통해서 여행지를 선택해주세요!"
                     android:textColor="#fff"
                     android:textSize="18sp" />
-
             </LinearLayout>
 
             <!-- 검색란 -->
@@ -59,7 +58,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/search"
+                    android:id="@+id/plan_search_editText"
                     android:layout_width="0sp"
                     android:layout_height="50sp"
                     android:layout_weight="1"
@@ -73,14 +72,12 @@
                     android:background="#D97D54"
                     android:padding="5sp"
                     android:src="@drawable/ic_search_white" />
-
             </LinearLayout>
-
         </LinearLayout>
 
         <!-- 도시화면(2) -->
         <LinearLayout
-            android:id="@+id/frame_next"
+            android:id="@+id/plan_country_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -88,6 +85,7 @@
             android:visibility="gone">
 
             <ImageView
+                android:id="@+id/plan_flag"
                 android:layout_width="150sp"
                 android:layout_height="100sp"
                 android:paddingLeft="15sp"
@@ -95,6 +93,7 @@
                 android:src="@drawable/taiwan" />
 
             <TextView
+                android:id="@+id/plan_city"
                 android:layout_width="0sp"
                 android:layout_height="100sp"
                 android:layout_weight="1"
@@ -104,7 +103,6 @@
                 android:textColor="#000"
                 android:textSize="30sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
         <!-- 날짜/인원(고정) -->
@@ -115,7 +113,7 @@
             android:paddingHorizontal="10sp">
 
             <TextView
-                android:id="@+id/info"
+                android:id="@+id/plan_when"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:gravity="center_vertical"
@@ -130,7 +128,7 @@
                 android:background="#ddd" />
 
             <TextView
-                android:id="@+id/info1"
+                android:id="@+id/plan_many"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:gravity="center_vertical"
@@ -145,7 +143,7 @@
                 android:background="#ddd" />
 
             <TextView
-                android:id="@+id/info2"
+                android:id="@+id/plan_want"
                 android:layout_width="match_parent"
                 android:layout_height="50sp"
                 android:gravity="center_vertical"
@@ -153,21 +151,11 @@
                 android:textColor="#000"
                 android:textStyle="bold"
                 android:visibility="gone" />
-
         </LinearLayout>
-
-        <!-- 도시목록 -->
-        <GridView
-            android:id="@+id/cities"
-            android:layout_width="match_parent"
-            android:layout_height="160sp"
-            android:layout_marginTop="20sp"
-            android:numColumns="4"
-            android:visibility="gone" />
 
         <!-- 추천화면(1) -->
         <LinearLayout
-            android:id="@+id/frame2"
+            android:id="@+id/plan_recom_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -196,7 +184,6 @@
                     android:gravity="center_vertical|right"
                     android:text="See All &gt;"
                     android:textColor="#aaa" />
-
             </LinearLayout>
 
             <!-- 취향저격일정 -->
@@ -207,13 +194,12 @@
                 android:paddingBottom="20sp">
 
                 <LinearLayout
-                    android:id="@+id/listReco"
+                    android:id="@+id/plan_recom_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"
                     android:elevation="10sp"
                     android:orientation="vertical" />
-
             </RelativeLayout>
 
             <!-- 요즘뜨는여행지 타이틀 -->
@@ -228,21 +214,35 @@
 
             <!-- 요즘뜨는여행지 -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listHot"
+                android:id="@+id/plan_hot_list"
                 android:layout_width="match_parent"
                 android:layout_height="150sp"
                 android:layout_marginHorizontal="10sp" />
-
         </LinearLayout>
 
         <!-- 스케줄화면(2) -->
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/plan_schedule_layout"
             android:paddingBottom="20sp"
-            android:id="@+id/frame2_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:visibility="gone"/>
 
+        <CheckBox
+            android:id="@+id/plan_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="다른 사용자에게 글 보이기"
+            android:layout_gravity="right"
+            android:checked="true"
+            android:layout_marginRight="10sp"/>
+
+        <Button
+            android:id="@+id/plan_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="완료"
+            android:layout_marginRight="10sp"/>
     </LinearLayout>
 </ScrollView>

@@ -41,14 +41,15 @@
 
         <!-- added -->
         <activity android:name=".added.Main" />
-        <activity android:name=".added.WritePlan"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".added.WritePlan"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".added.Pop"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
             android:name=".added.SearchCity"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
+            android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".added.Review" />
         <!-- added -->
 
@@ -68,7 +69,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Message.GroupMessageActivity" />
         <activity android:name=".prev.TestActivity" />
-        <activity android:name=".Message.ForcedOutActivity"></activity>
+        <activity android:name=".Message.ForcedOutActivity" />
+        <activity android:name=".added.SearchTag"></activity>
     </application>
 
 </manifest>

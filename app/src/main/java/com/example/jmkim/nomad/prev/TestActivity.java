@@ -27,6 +27,7 @@ public class TestActivity extends AppCompatActivity {
         chatModel.users.put("Nvi25OVRWKWKBexNbOXqZfVbnAi2", true);
         chatModel.users.put("9DT9bXFtbWeK9449mNeNPSIcMvm2", true);
         chatModel.type = "group";
+        chatModel.king="9DT9bXFtbWeK9449mNeNPSIcMvm2";
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
