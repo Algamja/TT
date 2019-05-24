@@ -33,7 +33,7 @@
             android:layout_gravity="bottom|center"
             android:layout_marginRight="60dp"
             android:fontFamily="@font/custom_font"
-            android:text="리뷰쓰기"
+            android:text="리뷰 작성"
             android:textColor="#fff"
             android:textSize="20dp" />
 
@@ -55,7 +55,7 @@
             android:layout_gravity="bottom|center"
             android:layout_marginLeft="60dp"
             android:fontFamily="@font/custom_font"
-            android:text="일정짜기"
+            android:text="일정 작성"
             android:textColor="#fff"
             android:textSize="20dp" />
 
