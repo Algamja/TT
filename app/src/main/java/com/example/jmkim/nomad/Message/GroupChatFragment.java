@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.UserModel;
-import com.example.jmkim.nomad.Message.GroupMessageActivity;
 import com.example.jmkim.nomad.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -49,6 +50,11 @@ public class GroupChatFragment extends Fragment {
         private List<String> keys = new ArrayList<>();
         private String uid;
         private ArrayList<String> destUser = new ArrayList<>();
+
+        private Map<String, UserModel> userModelMap = new HashMap<>();
+        private ArrayList<String> uids = new ArrayList<>();
+        private ArrayList<UserModel> members = new ArrayList<>();
+        String title="";
 
         public GroupChatRecyclerViewAdapter(){
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -78,6 +84,24 @@ public class GroupChatFragment extends Fragment {
 
                         }
                     });
+
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("UserBasic")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot item : dataSnapshot.getChildren()){
+                                userModelMap.put(item.getKey(),item.getValue(UserModel.class));
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
         }
 
         @NonNull
@@ -91,7 +115,55 @@ public class GroupChatFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             final CustomViewHolder customViewHolder = (CustomViewHolder)holder;
-            String destUid = null;
+            String destUid = "";
+            members.clear();
+
+            FirebaseDatabase
+                    .getInstance()
+                    .getReference()
+                    .child("ChatRooms")
+                    .child(keys.get(position))
+                    .child("users")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot item : dataSnapshot.getChildren()){
+                                uids.add(item.getKey());
+
+                                FirebaseDatabase
+                                        .getInstance()
+                                        .getReference()
+                                        .child("UserBasic")
+                                        .child(uids.get(uids.size()-1))
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if(item.getValue(Boolean.class)){
+
+                                                    members.add(dataSnapshot.getValue(UserModel.class));
+
+                                                    String names="";
+                                                    for(int i=0;i<members.size();i++){
+                                                        names+=members.get(i).userName+" ";
+                                                    }
+                                                    customViewHolder.textView_title.setText(names);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
             for(String user : chatModels.get(position).users.keySet()){
                 if(!user.equals(uid)){
@@ -100,29 +172,10 @@ public class GroupChatFragment extends Fragment {
                 }
             }
 
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("UserBasic")
-                    .child(destUid)
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                            Glide.with(customViewHolder.imageView.getContext())
-                                    .load(userModel.profileImageUrl)
-                                    .apply(new RequestOptions().circleCrop())
-                                    .into(customViewHolder.imageView);
-
-                            customViewHolder.textView_last_message.setText(userModel.userName);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
+            Glide.with(customViewHolder.imageView.getContext())
+                    .load("https://firebasestorage.googleapis.com/v0/b/trip-box-1be2a.appspot.com/o/group.png?alt=media&token=6bf6e800-ba18-425b-bbe4-3e31a78e2ce7")
+                    .apply(new RequestOptions().circleCrop())
+                    .into(customViewHolder.imageView);
             Map<String, ChatModel.Comment> commentMap = new TreeMap<>(Collections.<String>reverseOrder());
             commentMap.putAll(chatModels.get(position).comments);
 

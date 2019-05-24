@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.DB.Review;
 import com.example.jmkim.nomad.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -13,12 +15,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,13 +58,48 @@ public class WriteReviewActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
-        ArrayList<ReviewMainInfo> reviewMainInfos = new ArrayList<>();
-        reviewMainInfos.add(new ReviewMainInfo("해시태그1"));
-        reviewMainInfos.add(new ReviewMainInfo("해시태그2"));
-        reviewMainInfos.add(new ReviewMainInfo("해시태그3"));
+        String key = getIntent().getStringExtra("key");
+        Log.e("KEY",key);
 
-        ReviewAdapter reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewMainInfos, WriteReviewActivity.this);
-        rv_main.setAdapter(reviewAdapter);
+        ArrayList<ReviewMainInfo> reviewMainInfos = new ArrayList<>();
+
+        List<Plan> plans = new ArrayList<>();
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Plan")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(key)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        plans.clear();
+
+                        plans.add(dataSnapshot.getValue(Plan.class));
+
+                        for(int i=0;i<plans.get(0).hashtag.size();i++){
+                            Log.e("SIZE", String.valueOf(plans.get(0).hashtag.size()));
+
+                            Set set = plans.get(0).hashtag.keySet();
+                            Iterator iterator = set.iterator();
+
+                            reviewMainInfos.clear();
+                            while (iterator.hasNext()){
+                                String key = (String)iterator.next();
+                                reviewMainInfos.add(new ReviewMainInfo(key));
+                                Log.e("TAG",key);
+                            }
+                        }
+                        ReviewAdapter reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewMainInfos, WriteReviewActivity.this);
+                        rv_main.setAdapter(reviewAdapter);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     @Override

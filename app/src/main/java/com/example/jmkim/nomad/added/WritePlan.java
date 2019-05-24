@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jmkim.nomad.DB.Add_Tag;
+import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -61,6 +62,9 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
     private RecyclerView hot_list;
     private CheckBox agree;
     private Button submit;
+
+    private int member;
+    private ChatModel chatModel = new ChatModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,21 +125,6 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         HotAdapter hotAdapter = new HotAdapter(items);
         hot_list.setAdapter(hotAdapter);
 
-        // 리뷰
-        Intent intent = getIntent();
-        if(intent.getStringExtra("review") != null) {
-            String txt = "5월 25일 ~ 5월 27일(2박 3일)";
-            when.setText(txt);
-            setSchedule(3);
-
-            search_layout.setVisibility(View.GONE);
-            country_info_layout.setVisibility(View.VISIBLE);
-
-            many.setText("5명과 함께 떠나요!");
-            want.setText("현재 3명이 함께해요!");
-            want.setVisibility(View.VISIBLE);
-        }
-
         agree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -163,20 +152,52 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Add_Tag tag = new Add_Tag();
+
+                if(member != 0){
+                    chatModel.users.put(FirebaseAuth.getInstance().getCurrentUser().getUid(),true);
+                    chatModel.type="group";
+                    chatModel.king=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    chatModel.member_count= String.valueOf(member);
+
+                    FirebaseDatabase
+                            .getInstance()
+                            .getReference()
+                            .child("ChatRooms")
+                            .push()
+                            .setValue(chatModel);
+                }
+
+                List<Add_Tag> add_tags = new ArrayList<>();
                 FirebaseDatabase
                         .getInstance()
                         .getReference()
                         .child("Imsi")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("hashtag")
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Object hashtag =  dataSnapshot.getValue();
+                                add_tags.clear();
+
+                                for(DataSnapshot item : dataSnapshot.getChildren()){
+                                    add_tags.add(item.getValue(Add_Tag.class));
+                                }
 
                                 Plan plan = new Plan();
                                 plan.publisher = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 plan.country = city.getText().toString();
-                                plan.hashtag = hashtag;
+                                plan.period = when.getText().toString();
+                                for(int i=0;i<add_tags.size();i++){
+                                    plan.hashtag.put(add_tags.get(i).tag_name, add_tags.get(i));
+                                }
+
+                                if(agree.isChecked()){
+                                    plan.open=true;
+                                }else{
+                                    plan.open=false;
+                                }
 
                                 if(plan.hashtag != null){
                                     FirebaseDatabase
@@ -233,6 +254,7 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         if(requestCode == 0){
             if(data != null && data.getStringExtra("tag") != null){
                 String tag = data.getStringExtra("tag");
+
                 final ItemSchedule.schedule input = new ItemSchedule.schedule();
                 input.setHashtag(tag);
                 input.setTagOk(true);
@@ -247,8 +269,8 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
                         .getReference()
                         .child("Imsi")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child(String.valueOf(input.getPosition()))
-                        .child(String.valueOf(input.getIndex()))
+                        .child("hashtag")
+                        .child(tag)
                         .setValue(add_tag);
             }
         }
@@ -290,6 +312,8 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
 
         ok.setOnClickListener(v -> {
             dlg.dismiss();
+
+            member= Integer.parseInt(num0.getText().toString());
 
             many.setText("총 " + num0.getText().toString() + "명이 함께 떠나요!");
             want.setText("현재 " + num1.getText().toString() + "명을 구해요!");

@@ -30,7 +30,5 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="15sp" />
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

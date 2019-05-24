@@ -23,22 +23,24 @@
             android:scaleType="centerCrop"
             android:src="@drawable/dokyo" />
 
-        <TextView
-            android:layout_width="0sp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="15sp"
-            android:text="#태국"
-            android:textColor="#4E6289" />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:paddingLeft="15sp"
-            android:text="#2019.05.25 ~ 2016.05.27"
-            android:textColor="#4E6289" />
+            <TextView
+                android:id="@+id/review_list_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15sp"
+                android:textColor="#4E6289" />
 
+            <TextView
+                android:id="@+id/review_list_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15sp"
+                android:textColor="#4E6289" />
+        </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>

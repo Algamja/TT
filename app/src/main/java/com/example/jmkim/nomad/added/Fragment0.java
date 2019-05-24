@@ -38,7 +38,6 @@ public class Fragment0 extends Fragment {
     public static Fragment0 create() {
         Fragment0 fragment = new Fragment0();
         Bundle args = new Bundle();
-        //args.putInt("image", image);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +45,6 @@ public class Fragment0 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //image = getArguments().getInt("image");
     }
 
     @Override
@@ -63,7 +61,6 @@ public class Fragment0 extends Fragment {
         circleAnimIndicator.setItemMargin(15);
         circleAnimIndicator.setAnimDuration(300);
         circleAnimIndicator.createDotPanel(4, R.drawable.indicator_non , R.drawable.indicator_on);
-
 
         boards = new ArrayList<>();
 
@@ -85,7 +82,6 @@ public class Fragment0 extends Fragment {
                         publisher = boards.get(imsi).publisher;
 
                         final int final_i = imsi;
-                        Log.e("FINAL", String.valueOf(final_i));
 
                         FirebaseDatabase.getInstance().getReference()
                                 .child("UserBasic")

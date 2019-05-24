@@ -249,7 +249,6 @@ public class GroupMessageActivity extends Activity {
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 Map<String, Boolean> map = (Map<String, Boolean>) dataSnapshot.getValue();
 
-                                                //나를 제외한 사용자에게 푸시메세지
                                                 for (String item : map.keySet()) {
                                                     if (item.equals(myUid)) {
                                                         continue;
@@ -264,7 +263,6 @@ public class GroupMessageActivity extends Activity {
 
                                             }
                                         });
-                                //editText 공란처리
                                 chat.setText("");
                             }
                         });

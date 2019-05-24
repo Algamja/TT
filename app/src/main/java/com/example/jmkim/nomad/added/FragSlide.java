@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 public class FragSlide extends Fragment {
 
-    int[] imgs = {R.drawable.slide0, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3};
+    int[] imgs = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4};
     int position;
 
     public static FragSlide create(int position) {

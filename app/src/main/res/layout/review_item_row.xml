@@ -19,7 +19,8 @@
             android:text="#해시태그"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_centerInParent="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20sp"/>
 
         <RatingBar
             android:id="@+id/review_item_ratingBar"
@@ -57,5 +58,6 @@
         android:layout_height="30dp"
         android:src="@drawable/ic_add"
         android:layout_below="@id/review_item_ll"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20sp"/>
 </RelativeLayout>

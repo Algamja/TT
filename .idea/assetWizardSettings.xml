@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="c3cbce" />
-                            <entry key="outputName" value="ic_chat_bubble_outline" />
-                            <entry key="sourceFile" value="C:\Users\JMKIM" />
+                            <entry key="outputName" value="ic_group" />
+                            <entry key="sourceFile" value="C:\Users\JMKIM\Desktop\group.svg" />
                           </map>
                         </option>
                       </PersistentState>

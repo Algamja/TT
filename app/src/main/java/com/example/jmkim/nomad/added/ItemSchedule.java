@@ -3,6 +3,7 @@ package com.example.jmkim.nomad.added;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,11 +66,11 @@ public class ItemSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final MyViewHolder myViewHolder = (MyViewHolder)holder;
+        final MyViewHolder myViewHolder = (MyViewHolder) holder;
 
         days = new int[num];
-        for(int i=0;i<num;i++){
-            days[i] = i+1;
+        for (int i = 0; i < num; i++) {
+            days[i] = i + 1;
         }
 
         myViewHolder.day.setText("DAY " + days[position]);
@@ -84,8 +85,8 @@ public class ItemSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 tag.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((WritePlan)writePlan).startActivityForResult(new Intent(context, SearchTag.class), 0);
-                        ((WritePlan)writePlan).overridePendingTransition(0, android.R.anim.fade_in);
+                        ((WritePlan) writePlan).startActivityForResult(new Intent(context, SearchTag.class), 0);
+                        ((WritePlan) writePlan).overridePendingTransition(0, android.R.anim.fade_in);
 
                         schedule input = new schedule();
                         input.setPosition(position);
@@ -118,7 +119,7 @@ public class ItemSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                 .addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if(dataSnapshot.getValue()!=null){
+                                        if (dataSnapshot.getValue() != null) {
                                             String db_memo = dataSnapshot.getValue(String.class);
                                             memo_editText.setText(db_memo);
                                         }
@@ -158,43 +159,45 @@ public class ItemSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         final schedule in = new schedule();
         final int pos;
         final int ind;
+        final String tag;
 
         pos = in.getPosition();
         ind = in.getIndex();
+        tag = in.getHashtag();
 
-        if(in.isPosOk()){
-           final List<Add_Tag> add_tags = new ArrayList<>();
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("Imsi")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child(String.valueOf(in.getPosition()))
-                    .child(String.valueOf(in.getIndex()))
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            add_tags.clear();
+        if (in.getHashtag() != null) {
+            if (in.isPosOk()) {
+                final List<Add_Tag> add_tags = new ArrayList<>();
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("Imsi")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("hashtag")
+                        .child(in.getHashtag())
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                add_tags.clear();
 
-                            add_tags.add(dataSnapshot.getValue(Add_Tag.class));
+                                add_tags.add(dataSnapshot.getValue(Add_Tag.class));
 
-                            if(pos == position){
-                                final TextView new_tag = myViewHolder.tag_layout.getChildAt(ind).findViewById(R.id.tag_item_tag);
-
-                                if(in.isTagOk()){
+                                if (pos == position) {
+                                    final TextView new_tag = myViewHolder.tag_layout.getChildAt(ind).findViewById(R.id.tag_item_tag);
+                                    if(add_tags.get(0)!=null)
                                     new_tag.setText("#" + add_tags.get(0).tag_name);
-                                    in.setTagOk(false);
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+            }
         }
     }
+
 
     @Override
     public int getItemCount() {
