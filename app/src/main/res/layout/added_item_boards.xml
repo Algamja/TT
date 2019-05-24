@@ -18,6 +18,7 @@
         android:padding="15sp">
 
         <com.example.jmkim.nomad.added.CustomImageView
+            android:id="@+id/list_img"
             android:layout_width="55sp"
             android:layout_height="55sp"
             android:scaleType="centerCrop"
@@ -29,17 +30,19 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/review_list_country"
+                android:id="@+id/list_country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15sp"
+                android:fontFamily="@font/custom_font"
                 android:textColor="#4E6289" />
 
             <TextView
-                android:id="@+id/review_list_period"
+                android:id="@+id/list_period"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15sp"
+                android:fontFamily="@font/custom_font"
                 android:textColor="#4E6289" />
         </LinearLayout>
     </LinearLayout>

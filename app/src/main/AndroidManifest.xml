@@ -70,7 +70,9 @@
         <activity android:name=".Message.GroupMessageActivity" />
         <activity android:name=".prev.TestActivity" />
         <activity android:name=".Message.ForcedOutActivity" />
-        <activity android:name=".added.SearchTag"></activity>
+        <activity android:name=".added.SearchTag" />
+        <activity android:name=".added.BoardsActivity" />
+        <activity android:name=".added.FriendsActivity"></activity>
     </application>
 
 </manifest>

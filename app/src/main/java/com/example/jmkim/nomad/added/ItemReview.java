@@ -1,13 +1,11 @@
 package com.example.jmkim.nomad.added;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.jmkim.nomad.DB.Add_Tag;
 import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,12 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class ItemReview extends LinearLayout {
     Review parent;
@@ -58,7 +52,7 @@ public class ItemReview extends LinearLayout {
 
     private void init(int num) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rootView = inflater.inflate(R.layout.added_item_review, this, true);
+        View rootView = inflater.inflate(R.layout.added_item_boards, this, true);
 
         List<Plan> plans = new ArrayList<>();
         for(int i=0;i<keys.size();i++){
@@ -75,8 +69,8 @@ public class ItemReview extends LinearLayout {
 
                             plans.add(dataSnapshot.getValue(Plan.class));
 
-                            TextView city = rootView.findViewById(R.id.review_list_country);
-                            TextView period = rootView.findViewById(R.id.review_list_period);
+                            TextView city = rootView.findViewById(R.id.list_country);
+                            TextView period = rootView.findViewById(R.id.list_period);
 
                             city.setText("#"+plans.get(0).country);
                             period.setText(plans.get(0).period);

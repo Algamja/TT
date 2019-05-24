@@ -45,10 +45,10 @@ public class Review extends AppCompatActivity {
 
                         for(int i=0; i<keys.size(); i++) {
                             ItemReview item = new ItemReview(Review.this, i);
-                            int finalI = i;
+                            int I = i;
                             item.setOnClickListener(view -> {
                                 Intent intent = new Intent(Review.this, WriteReviewActivity.class);
-                                intent.putExtra("key",keys.get(finalI));
+                                intent.putExtra("key",keys.get(I));
                                 startActivity(intent);
                             });
                             reviews.addView(item);
