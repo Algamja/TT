@@ -67,7 +67,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                 .removeValue();
 
         finish();
-        parent.finish();
+        parent.finish(); 
     }
 
     @Override
