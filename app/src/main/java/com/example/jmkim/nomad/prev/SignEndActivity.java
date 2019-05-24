@@ -97,67 +97,69 @@ public class SignEndActivity extends Activity {
 
                                             @Override
                                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                                Task<Uri> uriTask = profileImageRef.getDownloadUrl();
-                                                while (!uriTask.isSuccessful()) ;
-                                                Uri downloadUrl = uriTask.getResult();
-                                                String imageUrl = String.valueOf(downloadUrl); //프로필사진 경로 받아옴
+                                                profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        String imageUrl = String.valueOf(uri); //프로필사진 경로 받아옴
 
-                                                UserModel userModel = new UserModel();
-                                                userModel.userEmail = email;
-                                                userModel.userName = name;
-                                                userModel.userPhone = phone;
-                                                userModel.userSex = sex;
-                                                userModel.userAge = age;
-                                                userModel.profileImageUrl = imageUrl;
-                                                userModel.stateMessage = "상태메시지를 입력해주세요";
-                                                userModel.party = party;
-                                                userModel.uid = uid;//UserModel에 DB에 저장할 값 입력
+                                                        UserModel userModel = new UserModel();
+                                                        userModel.userEmail = email;
+                                                        userModel.userName = name;
+                                                        userModel.userPhone = phone;
+                                                        userModel.userSex = sex;
+                                                        userModel.userAge = age;
+                                                        userModel.profileImageUrl = imageUrl;
+                                                        userModel.stateMessage = "상태메시지를 입력해주세요";
+                                                        userModel.party = party;
+                                                        userModel.uid = uid;//UserModel에 DB에 저장할 값 입력
 
-                                                if (!(partyAge.equals("")) && !(partySex.equals(""))) { //파티원에 동의한 사람만 DB저장
-                                                    UserParty userParty = new UserParty();
-                                                    userParty.partyAge = partyAge;
-                                                    userParty.partySex = partySex;
+                                                        if (!(partyAge.equals("")) && !(partySex.equals(""))) { //파티원에 동의한 사람만 DB저장
+                                                            UserParty userParty = new UserParty();
+                                                            userParty.partyAge = partyAge;
+                                                            userParty.partySex = partySex;
 
-                                                    FirebaseDatabase
-                                                            .getInstance()
-                                                            .getReference()
-                                                            .child("UserParty")
-                                                            .child(uid)
-                                                            .setValue(userParty); //UserParty에 값 저장
-                                                }
+                                                            FirebaseDatabase
+                                                                    .getInstance()
+                                                                    .getReference()
+                                                                    .child("UserParty")
+                                                                    .child(uid)
+                                                                    .setValue(userParty); //UserParty에 값 저장
+                                                        }
 
-                                                FirebaseDatabase
-                                                        .getInstance()
-                                                        .getReference()
-                                                        .child("UserActivity")
-                                                        .child(uid)
-                                                        .setValue(activities); //UserActivity에 값 저장
+                                                        FirebaseDatabase
+                                                                .getInstance()
+                                                                .getReference()
+                                                                .child("UserActivity")
+                                                                .child(uid)
+                                                                .setValue(activities); //UserActivity에 값 저장
 
-                                                FirebaseDatabase
-                                                        .getInstance()
-                                                        .getReference()
-                                                        .child("UserBasic")
-                                                        .child(uid)
-                                                        .setValue(userModel) //UserBasic에 값 저장
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                pd.dismiss();
-                                                                Toast.makeText(getApplicationContext(), "가입완료", Toast.LENGTH_SHORT).show();
-                                                                // startActivity(new Intent(SignEndActivity.this, MainActivity.class));
-                                                                startActivity(new Intent(SignEndActivity.this, Main.class));
-                                                                finish(); //뒤로가기 안하려고
+                                                        FirebaseDatabase
+                                                                .getInstance()
+                                                                .getReference()
+                                                                .child("UserBasic")
+                                                                .child(uid)
+                                                                .setValue(userModel) //UserBasic에 값 저장
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        pd.dismiss();
+                                                                        Toast.makeText(getApplicationContext(), "가입완료", Toast.LENGTH_SHORT).show();
+                                                                        // startActivity(new Intent(SignEndActivity.this, MainActivity.class));
+                                                                        startActivity(new Intent(SignEndActivity.this, Main.class));
+                                                                        finish(); //뒤로가기 안하려고
 
-                                                                ActivitySelectActivity activitySelectActivity = (ActivitySelectActivity) ActivitySelectActivity.ActivitySelect;
-                                                                activitySelectActivity.finish();
+                                                                        ActivitySelectActivity activitySelectActivity = (ActivitySelectActivity) ActivitySelectActivity.ActivitySelect;
+                                                                        activitySelectActivity.finish();
 
-                                                                GenAgeActivity genAgeActivity = (GenAgeActivity) GenAgeActivity.GenAge;
-                                                                genAgeActivity.finish();
+                                                                        GenAgeActivity genAgeActivity = (GenAgeActivity) GenAgeActivity.GenAge;
+                                                                        genAgeActivity.finish();
 
-                                                                SignUpActivity signUpActivity = (SignUpActivity) SignUpActivity.Signup;
-                                                                signUpActivity.finish();
-                                                            }
-                                                        });
+                                                                        SignUpActivity signUpActivity = (SignUpActivity) SignUpActivity.Signup;
+                                                                        signUpActivity.finish();
+                                                                    }
+                                                                });
+                                                    }
+                                                });
                                             }
                                         });
                             }

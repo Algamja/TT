@@ -1,18 +1,20 @@
 package com.example.jmkim.nomad.DB;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Review {
-    public String uid;
-    public String position;
-    public String index;
-    public String imageUri;
+    public String publisher;
+    public String period;
+    public String city;
+    public Map<String,Review_Tag> hashtag= new HashMap<>();
 
-    public Review(String uid, String position, String index, String imageUri) {
-        this.uid = uid;
-        this.position = position;
-        this.index = index;
-        this.imageUri = imageUri;
-    }
-
-    public Review() {
+    public static class Review_Tag{
+        public String uid;
+        public String position;
+        public String index;
+        public String imageUri;
+        public String comment;
+        public String rate;
     }
 }

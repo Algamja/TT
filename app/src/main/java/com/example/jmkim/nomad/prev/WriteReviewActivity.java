@@ -4,7 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.service.autofill.Dataset;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.jmkim.nomad.DB.Plan;
@@ -24,8 +27,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -39,11 +44,31 @@ public class WriteReviewActivity extends AppCompatActivity {
     private RecyclerView rv_main;
     private RecyclerView.LayoutManager main_layoutManager;
 
-    private Uri imageUri;
+    private Button submit;
 
+    private Uri imageUri;
     private FirebaseUser user;
     private String uid;
     private int PICK_FROM_ALBUM = 10;
+
+    ArrayList<ReviewMainInfo> reviewMainInfos = new ArrayList<>();
+    Review review = new Review();
+    Map<String,Review.Review_Tag> review_tagMap = new HashMap<>();
+
+    com.example.jmkim.nomad.added.Review parent = (com.example.jmkim.nomad.added.Review) com.example.jmkim.nomad.added.Review.activity_review;
+
+    @Override
+    public void onBackPressed() {
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Imsi")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .removeValue();
+
+        finish();
+        parent.finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +80,62 @@ public class WriteReviewActivity extends AppCompatActivity {
         main_layoutManager = new LinearLayoutManager(this);
         rv_main.setLayoutManager(main_layoutManager);
 
+        submit = findViewById(R.id.review_submit);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("Imsi")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                review_tagMap.clear();
+
+                                for(DataSnapshot item : dataSnapshot.getChildren()) {
+                                    review_tagMap.put(item.getKey(),item.getValue(Review.Review_Tag.class));
+                                }
+                                review.hashtag.putAll(review_tagMap);
+
+                                FirebaseDatabase
+                                        .getInstance()
+                                        .getReference()
+                                        .child("Review")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .push()
+                                        .setValue(review)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                finish();
+                                                parent.finish();
+                                                Toast.makeText(WriteReviewActivity.this, "리뷰작성이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                                                FirebaseDatabase
+                                                        .getInstance()
+                                                        .getReference()
+                                                        .child("Imsi")
+                                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                        .removeValue();
+                                            }
+                                        });
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+            }
+        });
+
         String key = getIntent().getStringExtra("key");
-        Log.e("KEY",key);
-
-        ArrayList<ReviewMainInfo> reviewMainInfos = new ArrayList<>();
-
         List<Plan> plans = new ArrayList<>();
 
         FirebaseDatabase
@@ -79,8 +152,6 @@ public class WriteReviewActivity extends AppCompatActivity {
                         plans.add(dataSnapshot.getValue(Plan.class));
 
                         for(int i=0;i<plans.get(0).hashtag.size();i++){
-                            Log.e("SIZE", String.valueOf(plans.get(0).hashtag.size()));
-
                             Set set = plans.get(0).hashtag.keySet();
                             Iterator iterator = set.iterator();
 
@@ -88,7 +159,9 @@ public class WriteReviewActivity extends AppCompatActivity {
                             while (iterator.hasNext()){
                                 String key = (String)iterator.next();
                                 reviewMainInfos.add(new ReviewMainInfo(key));
-                                Log.e("TAG",key);
+                                review.period = plans.get(0).period;
+                                review.publisher = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                review.city = plans.get(0).country;
                             }
                         }
                         ReviewAdapter reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewMainInfos, WriteReviewActivity.this);
@@ -121,8 +194,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                     .getReference()
                     .child("review")
                     .child(uid)
-                    .child(String.valueOf(picture.getPosition()))
-                    .child(String.valueOf(picture.getIndex()))
+                    .child(reviewMainInfos.get(picture.getPosition()).hashtag)
                     .putFile(imageUri)
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
 
@@ -131,40 +203,38 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 .getReference()
                                 .child("review")
                                 .child(uid)
-                                .child(String.valueOf(picture.getPosition()))
-                                .child(String.valueOf(picture.getIndex()));
+                                .child(reviewMainInfos.get(picture.getPosition()).hashtag);
 
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            Task<Uri> uriTask = ref.getDownloadUrl();
-                            while (!uriTask.isSuccessful());
-                            Uri downloadUri = uriTask.getResult();
-                            String image = String.valueOf(downloadUri);
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String image = String.valueOf(uri);
 
-                            Review review = new Review();
-                            review.uid = uid;
-                            review.index = String.valueOf(picture.getIndex());
-                            review.position = String.valueOf(picture.getPosition());
-                            review.imageUri = image;
+                                    Review.Review_Tag review_tag = new Review.Review_Tag();
+                                    review_tag.uid = uid;
+                                    review_tag.index = String.valueOf(picture.getIndex());
+                                    review_tag.position = String.valueOf(picture.getPosition());
+                                    review_tag.imageUri = image;
 
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("Review")
-                                    .child(uid)
-                                    .child(String.valueOf(picture.getPosition()))
-                                    .child(String.valueOf(picture.getIndex()))
-                                    .setValue(review)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(WriteReviewActivity.this, "완료", Toast.LENGTH_SHORT).show();
-                                            pd.dismiss();
-                                        }
-                                    });
+                                    FirebaseDatabase
+                                            .getInstance()
+                                            .getReference()
+                                            .child("Imsi")
+                                            .child(uid)
+                                            .child(reviewMainInfos.get(picture.getPosition()).hashtag)
+                                            .setValue(review_tag)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    pd.dismiss();
+                                                }
+                                            });
+                                }
+                            });
                         }
                     });
-
         }
     }
 }

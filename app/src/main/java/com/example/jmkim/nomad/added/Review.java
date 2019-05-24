@@ -1,5 +1,6 @@
 package com.example.jmkim.nomad.added;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,13 +20,14 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Review extends AppCompatActivity {
-
-    List<String> keys = new ArrayList<>();
+    public static Activity activity_review ;
+    private List<String> keys = new ArrayList<>();
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.added_review);
+        activity_review = Review.this;
 
         LinearLayout reviews = findViewById(R.id.reviews);
 

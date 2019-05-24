@@ -67,6 +67,17 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
     private ChatModel chatModel = new ChatModel();
 
     @Override
+    public void onBackPressed() {
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Imsi")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .removeValue();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.added_write_plan);
@@ -199,7 +210,7 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
                                     plan.open=false;
                                 }
 
-                                if(plan.hashtag != null){
+                                if(plan.hashtag.size() > 1){
                                     FirebaseDatabase
                                             .getInstance()
                                             .getReference()
