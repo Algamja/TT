@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/custom_font"
-            android:text="파티원 모집에 동의합니다."
+            android:text="동행인 모집에 동의합니다."
             android:textStyle="bold"/> <!-- 파티원 모집 동의 체크 -->
 
         <LinearLayout
@@ -146,7 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/custom_font"
-                    android:text="파티원"
+                    android:text="동행인"
                     android:textSize="15dp"
                     android:textColor="@android:color/white"/>
 
@@ -208,7 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/custom_font"
-                    android:text="파티원"
+                    android:text="동행인"
                     android:textSize="15dp"
                     android:textColor="@android:color/white"/>
 
