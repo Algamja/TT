@@ -85,7 +85,9 @@ public class ItemSchedule extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 tag.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((WritePlan) writePlan).startActivityForResult(new Intent(context, SearchTag.class), 0);
+                        Intent intent = new Intent(context, SearchTag.class);
+                        intent.putExtra("type","plan");
+                        ((WritePlan) writePlan).startActivityForResult(intent, 0);
                         ((WritePlan) writePlan).overridePendingTransition(0, android.R.anim.fade_in);
 
                         schedule input = new schedule();
