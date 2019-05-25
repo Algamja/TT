@@ -5,14 +5,15 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <!-- 어디로 떠나시나요 -->
     <LinearLayout
+        android:id="@+id/search_city_top"
         android:layout_width="match_parent"
         android:layout_height="40sp"
-        android:background="#87BCBF"/>
+        android:background="#87BCBF"
+        android:orientation="horizontal"/>
 
-    <!-- 검색란 -->
     <LinearLayout
+        android:id="@+id/search_city_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15sp"
@@ -37,7 +38,6 @@
             android:background="#D97D54"
             android:padding="5sp"
             android:src="@drawable/ic_search_white" />
-
     </LinearLayout>
 
     <ListView

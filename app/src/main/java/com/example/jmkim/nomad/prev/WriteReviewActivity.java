@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.service.autofill.Dataset;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,6 +11,7 @@ import android.widget.Toast;
 import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.DB.Review;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.added.WriteReview;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -55,7 +54,7 @@ public class WriteReviewActivity extends AppCompatActivity {
     Review review = new Review();
     Map<String,Review.Review_Tag> review_tagMap = new HashMap<>();
 
-    com.example.jmkim.nomad.added.Review parent = (com.example.jmkim.nomad.added.Review) com.example.jmkim.nomad.added.Review.activity_review;
+    WriteReview parent = (WriteReview) WriteReview.activity_review;
 
     @Override
     public void onBackPressed() {
@@ -106,7 +105,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 FirebaseDatabase
                                         .getInstance()
                                         .getReference()
-                                        .child("Review")
+                                        .child("WriteReview")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .push()
                                         .setValue(review)

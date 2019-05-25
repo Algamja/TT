@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Plan {
     public String country;
-    public String like;
+    public Map<String, Boolean> like = new HashMap<>();
     public String publisher;
     public Map<String,Add_Tag> hashtag = new HashMap<>();
     public boolean open;

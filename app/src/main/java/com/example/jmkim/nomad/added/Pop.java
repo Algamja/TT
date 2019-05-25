@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.jmkim.nomad.R;
-import com.example.jmkim.nomad.prev.WriteReviewActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +27,7 @@ public class Pop extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //WriteReviewActivity로 이동
-                startActivity(new Intent(Pop.this, Review.class));
+                startActivity(new Intent(Pop.this, WriteReview.class));
                 finish();
             }
         });

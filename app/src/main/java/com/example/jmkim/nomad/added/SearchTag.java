@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchTag extends AppCompatActivity {
-    private FirebaseDatabase database;
-
     private EditText search;
     private ListView tags;
 
@@ -39,8 +37,6 @@ public class SearchTag extends AppCompatActivity {
 
         search = findViewById(R.id.tag_search);
         tags = findViewById(R.id.tag_list);
-
-        database = FirebaseDatabase.getInstance();
 
         list = new ArrayList<String>();
         settingList();
@@ -76,11 +72,19 @@ public class SearchTag extends AppCompatActivity {
         tags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent result = new Intent();
+                String type = getIntent().getStringExtra("type");
                 String tag = list.get(position);
-                result.putExtra("tag",tag);
-                setResult(RESULT_OK, result);
-                finish();
+
+                if(type.equals("search")){
+                    Intent intent = new Intent(SearchTag.this, HashTagInfoActivity.class);
+                    intent.putExtra("tag",tag);
+                    startActivity(intent);
+                }else{
+                    Intent result = new Intent();
+                    result.putExtra("tag",tag);
+                    setResult(RESULT_OK, result);
+                    finish();
+                }
             }
         });
     }
@@ -99,7 +103,11 @@ public class SearchTag extends AppCompatActivity {
     }
 
     private void settingList(){
-        database.getReference().child("Hashtag").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("Hashtag")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();

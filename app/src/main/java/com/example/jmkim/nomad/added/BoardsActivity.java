@@ -88,7 +88,7 @@ public class BoardsActivity extends AppCompatActivity {
         FirebaseDatabase
                 .getInstance()
                 .getReference()
-                .child("Review")
+                .child("WriteReview")
                 .child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

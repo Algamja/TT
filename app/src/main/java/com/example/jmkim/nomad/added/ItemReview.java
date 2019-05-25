@@ -18,13 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemReview extends LinearLayout {
-    Review parent;
+    WriteReview parent;
     ArrayList<Plan> plans = new ArrayList<>();
     List<String> keys = new ArrayList<>();
 
     public ItemReview(Context context, int num) {
         super(context);
-        parent = (Review) context;
+        parent = (WriteReview) context;
 
         FirebaseDatabase
                 .getInstance()

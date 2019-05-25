@@ -50,7 +50,7 @@
         <activity
             android:name=".added.SearchCity"
             android:theme="@style/Theme.AppCompat.Translucent" />
-        <activity android:name=".added.Review" />
+        <activity android:name=".added.WriteReview" />
         <!-- added -->
 
         <service android:name=".prev.FireBaseMessagingService">
@@ -72,7 +72,8 @@
         <activity android:name=".Message.ForcedOutActivity" />
         <activity android:name=".added.SearchTag" />
         <activity android:name=".added.BoardsActivity" />
-        <activity android:name=".added.FriendsActivity"></activity>
+        <activity android:name=".added.FriendsActivity" />
+        <activity android:name=".added.HashTagInfoActivity"></activity>
     </application>
 
 </manifest>

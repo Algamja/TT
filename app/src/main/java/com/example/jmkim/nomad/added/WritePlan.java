@@ -53,6 +53,7 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
     private LinearLayout recommend_layout;
     private RecyclerView tag_layout;
 
+    private EditText search;
     private ImageView flag;
     private TextView city;
     private TextView when;
@@ -90,6 +91,7 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         recommend_layout = findViewById(R.id.plan_recom_layout);
         tag_layout = findViewById(R.id.plan_schedule_layout);
 
+        search = findViewById(R.id.plan_search_editText);
         flag = findViewById(R.id.plan_flag);
         city = findViewById(R.id.plan_city);
         when = findViewById(R.id.plan_when);
@@ -102,10 +104,25 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
 
         tag_layout.setLayoutManager(layoutManager);
 
+        String get_city = getIntent().getStringExtra("city");
+        String get_country = getIntent().getStringExtra("country");
+
+        if(get_city != null){
+            search_layout.setVisibility(View.GONE);
+            country_info_layout.setVisibility(View.VISIBLE);
+
+            city.setText(get_city);
+
+            if(get_country.equals("일본")) {
+                flag.setImageDrawable(getResources().getDrawable(R.drawable.japan));
+            }
+        }
+
         // 검색
-        EditText search = findViewById(R.id.plan_search_editText);
         search.setOnClickListener(view -> {
-            startActivityForResult(new Intent(WritePlan.this, SearchCity.class), 0);
+            Intent intent = new Intent(WritePlan.this, SearchCity.class);
+            intent.putExtra("type","plan");
+            startActivityForResult(intent, 0);
             overridePendingTransition(0, android.R.anim.fade_in);
         });
 

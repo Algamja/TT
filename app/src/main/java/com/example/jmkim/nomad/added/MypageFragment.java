@@ -11,14 +11,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.Message.ChatActivity;
 import com.example.jmkim.nomad.R;
@@ -38,7 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-public class Fragment3 extends Fragment {
+public class MypageFragment extends Fragment {
 
     private FirebaseUser user;
 
@@ -66,8 +64,8 @@ public class Fragment3 extends Fragment {
 
     private RequestManager mGlide;
 
-    public static Fragment3 create() {
-        Fragment3 fragment = new Fragment3();
+    public static MypageFragment create() {
+        MypageFragment fragment = new MypageFragment();
         Bundle args = new Bundle();
         //args.putInt("image", image);
         fragment.setArguments(args);

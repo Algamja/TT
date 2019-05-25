@@ -46,7 +46,7 @@
             android:layout_height="match_parent">
 
             <ScrollView
-                android:id="@+id/searchActivity_sv"
+                android:id="@+id/search_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -77,7 +77,7 @@
 
                                 <!-- City -->
                                 <RadioButton
-                                    android:id="@+id/searchActivity_rb_city"
+                                    android:id="@+id/search_rb_city"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:button="@drawable/radiobutton"
@@ -91,13 +91,13 @@
 
                                 <!-- Activity -->
                                 <RadioButton
-                                    android:id="@+id/searchActivity_rb_activity"
+                                    android:id="@+id/search_rb_hashtag"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:button="@drawable/radiobutton"
                                     android:background="#ffffff"
                                     android:fontFamily="@font/custom_font"
-                                    android:text="Activity"
+                                    android:text="HashTag"
                                     android:textSize="25dp"
                                     android:textColor="#a6a6a6a6"/>
                             </RadioGroup>
@@ -170,7 +170,7 @@
                                 android:layout_marginHorizontal="20dp">
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_1"
+                                    android:id="@+id/search_recom_word_5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -186,7 +186,7 @@
                                     android:background="#1f515151" />
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_2"
+                                    android:id="@+id/search_recom_word_2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -203,7 +203,7 @@
                                 android:layout_marginHorizontal="20dp">
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_3"
+                                    android:id="@+id/search_recom_word_3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -219,7 +219,7 @@
                                     android:background="#1f515151" />
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_4"
+                                    android:id="@+id/search_recom_word_4"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -236,7 +236,7 @@
                                 android:layout_marginHorizontal="20dp">
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_5"
+                                    android:id="@+id/search_recom_word_5"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -252,7 +252,7 @@
                                     android:background="#1f515151" />
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_6"
+                                    android:id="@+id/search_recom_word_1"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -269,7 +269,7 @@
                                 android:layout_marginHorizontal="20dp">
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_7"
+                                    android:id="@+id/search_recom_word_7"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -285,7 +285,7 @@
                                     android:background="#1f515151" />
 
                                 <Button
-                                    android:id="@+id/searchActivity_btn_recommend_8"
+                                    android:id="@+id/search_recom_word_8"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
@@ -331,7 +331,7 @@
                                     android:layout_columnWeight="1">
 
                                     <ImageView
-                                        android:id="@+id/searchActivity_iv_1"
+                                        android:id="@+id/search_recom_plan_1"
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
                                         android:layout_centerHorizontal="true"
@@ -340,9 +340,9 @@
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignBottom="@+id/searchActivity_iv_1"
-                                        android:layout_alignLeft="@+id/searchActivity_iv_1"
-                                        android:layout_alignRight="@+id/searchActivity_iv_1"
+                                        android:layout_alignBottom="@+id/search_recom_plan_1"
+                                        android:layout_alignLeft="@+id/search_recom_plan_1"
+                                        android:layout_alignRight="@+id/search_recom_plan_1"
                                         android:gravity="bottom|center_horizontal"
                                         android:background="#d9000000"
                                         android:orientation="vertical">
@@ -373,7 +373,7 @@
 
 
                                     <ImageView
-                                        android:id="@+id/searchActivity_iv_2"
+                                        android:id="@+id/search_recom_plan_2"
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
                                         android:layout_centerHorizontal="true"
@@ -382,9 +382,9 @@
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignBottom="@+id/searchActivity_iv_2"
-                                        android:layout_alignLeft="@+id/searchActivity_iv_2"
-                                        android:layout_alignRight="@+id/searchActivity_iv_2"
+                                        android:layout_alignBottom="@+id/search_recom_plan_2"
+                                        android:layout_alignLeft="@+id/search_recom_plan_2"
+                                        android:layout_alignRight="@+id/search_recom_plan_2"
                                         android:gravity="bottom|center_horizontal"
                                         android:background="#d9000000"
                                         android:orientation="vertical">
@@ -414,7 +414,7 @@
                                     android:layout_columnWeight="1">
 
                                     <ImageView
-                                        android:id="@+id/searchActivity_iv_3"
+                                        android:id="@+id/search_recom_plan_3"
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
                                         android:layout_centerHorizontal="true"
@@ -423,9 +423,9 @@
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignBottom="@+id/searchActivity_iv_3"
-                                        android:layout_alignLeft="@+id/searchActivity_iv_3"
-                                        android:layout_alignRight="@+id/searchActivity_iv_3"
+                                        android:layout_alignBottom="@+id/search_recom_plan_3"
+                                        android:layout_alignLeft="@+id/search_recom_plan_3"
+                                        android:layout_alignRight="@+id/search_recom_plan_3"
                                         android:gravity="bottom|center_horizontal"
                                         android:background="#d9000000"
                                         android:orientation="vertical">
@@ -456,7 +456,7 @@
                                     android:layout_columnWeight="1">
 
                                     <ImageView
-                                        android:id="@+id/searchActivity_iv_4"
+                                        android:id="@+id/search_recom_plan_4"
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
                                         android:layout_centerHorizontal="true"
@@ -465,9 +465,9 @@
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignBottom="@+id/searchActivity_iv_4"
-                                        android:layout_alignLeft="@+id/searchActivity_iv_4"
-                                        android:layout_alignRight="@+id/searchActivity_iv_4"
+                                        android:layout_alignBottom="@+id/search_recom_plan_4"
+                                        android:layout_alignLeft="@+id/search_recom_plan_4"
+                                        android:layout_alignRight="@+id/search_recom_plan_4"
                                         android:gravity="bottom|center_horizontal"
                                         android:background="#d9000000"
                                         android:orientation="vertical">
@@ -498,7 +498,7 @@
                                     android:layout_marginTop="15dp">
 
                                     <ImageView
-                                        android:id="@+id/searchActivity_iv_5"
+                                        android:id="@+id/search_recom_plan_5"
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
                                         android:layout_centerHorizontal="true"
@@ -507,9 +507,9 @@
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignBottom="@+id/searchActivity_iv_5"
-                                        android:layout_alignLeft="@+id/searchActivity_iv_5"
-                                        android:layout_alignRight="@+id/searchActivity_iv_5"
+                                        android:layout_alignBottom="@+id/search_recom_plan_5"
+                                        android:layout_alignLeft="@+id/search_recom_plan_5"
+                                        android:layout_alignRight="@+id/search_recom_plan_5"
                                         android:gravity="bottom|center_horizontal"
                                         android:background="#d9000000"
                                         android:orientation="vertical">
@@ -540,7 +540,7 @@
                                     android:layout_marginTop="15dp">
 
                                     <ImageView
-                                        android:id="@+id/searchActivity_iv_6"
+                                        android:id="@+id/search_recom_plan_6"
                                         android:layout_width="100dp"
                                         android:layout_height="100dp"
                                         android:layout_centerHorizontal="true"
@@ -549,9 +549,9 @@
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignBottom="@+id/searchActivity_iv_6"
-                                        android:layout_alignLeft="@+id/searchActivity_iv_6"
-                                        android:layout_alignRight="@+id/searchActivity_iv_6"
+                                        android:layout_alignBottom="@+id/search_recom_plan_6"
+                                        android:layout_alignLeft="@+id/search_recom_plan_6"
+                                        android:layout_alignRight="@+id/search_recom_plan_6"
                                         android:gravity="bottom|center_horizontal"
                                         android:background="#d9000000"
                                         android:orientation="vertical">

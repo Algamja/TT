@@ -4,25 +4,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.R;
 import com.example.jmkim.nomad.prev.ChatPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-public class Fragment1 extends Fragment {
+public class ChatFragment extends Fragment {
     private TabLayout mTabLayout;
 
     private ViewPager mViewPager;
     private ChatPagerAdapter mChatPagerAdater;
 
-    public static Fragment1 create() {
-        Fragment1 fragment = new Fragment1();
+    public static ChatFragment create() {
+        ChatFragment fragment = new ChatFragment();
         Bundle args = new Bundle();
         //args.putInt("image", image);
         fragment.setArguments(args);

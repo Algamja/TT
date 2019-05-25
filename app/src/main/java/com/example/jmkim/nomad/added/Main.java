@@ -48,13 +48,13 @@ public class Main extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    return Fragment0.create();
+                    return MainFragment.create();
                 case 1:
-                    return Fragment1.create();
+                    return ChatFragment.create();
                 case 2:
-                    return Fragment2.create();
+                    return SearchFragment.create();
                 default :
-                    return Fragment3.create();
+                    return MypageFragment.create();
             }
         }
     }

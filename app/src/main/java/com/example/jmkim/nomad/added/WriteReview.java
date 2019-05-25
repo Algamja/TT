@@ -3,7 +3,6 @@ package com.example.jmkim.nomad.added;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.example.jmkim.nomad.R;
@@ -19,7 +18,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Review extends AppCompatActivity {
+public class WriteReview extends AppCompatActivity {
     public static Activity activity_review ;
     private List<String> keys = new ArrayList<>();
 
@@ -27,7 +26,7 @@ public class Review extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.added_review);
-        activity_review = Review.this;
+        activity_review = WriteReview.this;
 
         LinearLayout reviews = findViewById(R.id.reviews);
 
@@ -44,10 +43,10 @@ public class Review extends AppCompatActivity {
                         }
 
                         for(int i=0; i<keys.size(); i++) {
-                            ItemReview item = new ItemReview(Review.this, i);
+                            ItemReview item = new ItemReview(WriteReview.this, i);
                             int I = i;
                             item.setOnClickListener(view -> {
-                                Intent intent = new Intent(Review.this, WriteReviewActivity.class);
+                                Intent intent = new Intent(WriteReview.this, WriteReviewActivity.class);
                                 intent.putExtra("key",keys.get(I));
                                 startActivity(intent);
                             });

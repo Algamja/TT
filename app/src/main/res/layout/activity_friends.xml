@@ -4,36 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/searchFragment_bar"
+    <TextView
+        android:id="@+id/friend_topbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/searchFragment_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground">
-
-            <ImageView
-                android:layout_width="20sp"
-                android:layout_height="20sp"
-                android:src="@drawable/search"/>
-
-            <EditText
-                android:id="@+id/friend_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="친구 검색"
-                android:layout_marginLeft="30dp"/>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="50sp"
+        android:background="#fff"
+        android:gravity="center"
+        android:fontFamily="@font/custom_font"
+        android:textSize="25sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friend_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchFragment_bar"/>
+        android:layout_below="@+id/friend_topbar"/>
 </RelativeLayout>

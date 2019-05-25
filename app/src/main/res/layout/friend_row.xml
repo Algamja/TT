@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/custom_font"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#000"
         android:layout_toEndOf="@+id/friend_row_profile"
         android:layout_marginLeft="10sp"
         android:layout_centerVertical="true"/>
@@ -23,9 +23,10 @@
     <Button
         android:id="@+id/friend_row_follow"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_background"
         android:fontFamily="@font/custom_font"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#000"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:visibility="gone"/>

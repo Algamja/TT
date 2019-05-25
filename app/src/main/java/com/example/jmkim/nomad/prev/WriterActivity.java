@@ -87,8 +87,9 @@ public class WriterActivity extends AppCompatActivity {
                 });
 
         if (publisher.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-            my.setVisibility(View.GONE);
-            chat.setClickable(false);
+            my.setVisibility(View.VISIBLE);
+            other.setVisibility(View.GONE);
+            chat.setEnabled(false);
             follow.setVisibility(View.INVISIBLE);
         }
 

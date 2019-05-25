@@ -5,24 +5,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.service.autofill.Dataset;
-import android.text.Editable;
-import android.text.TextWatcher;
+
 import android.util.Log;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.R;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsActivity extends AppCompatActivity {
+    private TextView topbar;
     private RecyclerView list_layout;
 
     private List<UserModel> friends = new ArrayList<>();
@@ -33,19 +34,37 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
+        topbar = (TextView)findViewById(R.id.friend_topbar);
         list_layout = (RecyclerView)findViewById(R.id.friend_list);
+
         list_layout.setHasFixedSize(true);
         list_layout.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         readFriends();
-        Log.e("IN","in");
-        friendAdapter = new FriendAdapter(getApplicationContext(), friends);
-        list_layout.setAdapter(friendAdapter);
     }
 
     private void readFriends() {
         String publisher = getIntent().getStringExtra("publisher");
         List<String> friend_keys = new ArrayList<>();
+
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("UserBasic")
+                .child(publisher)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        UserModel user = dataSnapshot.getValue(UserModel.class);
+
+                        topbar.setText(user.userName + "의 친구 목록");
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
         FirebaseDatabase
                 .getInstance()
@@ -81,6 +100,8 @@ public class FriendsActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+                                        friendAdapter = new FriendAdapter(getApplicationContext(), friends);
+                                        list_layout.setAdapter(friendAdapter);
                                     }
 
                                     @Override

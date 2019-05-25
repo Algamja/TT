@@ -1,15 +1,19 @@
 package com.example.jmkim.nomad.added;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jmkim.nomad.R;
 import com.example.jmkim.nomad.prev.DbOpenHelper;
@@ -21,6 +25,9 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SearchCity extends AppCompatActivity {
+    private LinearLayout top;
+    private LinearLayout search_layout;
+
     private EditText search;
     private ListView cities;
 
@@ -36,6 +43,11 @@ public class SearchCity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.added_search_city);
 
+        SearchFragment parent = (SearchFragment) SearchFragment.fragment_search;
+
+        top = (LinearLayout)findViewById(R.id.search_city_top);
+        search_layout = (LinearLayout)findViewById(R.id.search_city_search);
+
         search = findViewById(R.id.plan_search);
         cities = findViewById(R.id.plan_city);
 
@@ -47,6 +59,15 @@ public class SearchCity extends AppCompatActivity {
 
         adapter = new SearchAdapter(list,getApplicationContext());
         cities.setAdapter(adapter);
+
+        String type = getIntent().getStringExtra("type");
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)search_layout.getLayoutParams();
+        params.topMargin = 0;
+
+        if(type.equals("search")){
+            top.setVisibility(View.GONE);
+            search_layout.setLayoutParams(params);
+        }
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,11 +97,45 @@ public class SearchCity extends AppCompatActivity {
                 String city = list.get(position);
                 String country[] = city.split(" ");
 
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("city", city);
-                resultIntent.putExtra("country",country[country.length-1]);
-                setResult(RESULT_OK, resultIntent);
-                finish();
+                if(type.equals("search")){
+                    Toast.makeText(SearchCity.this, "IN", Toast.LENGTH_SHORT).show();
+
+                    final Dialog dlg = new Dialog(SearchCity.this);
+                    dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dlg.setContentView(R.layout.added_pop_confirm);
+                    dlg.show();
+
+                    final TextView title = (TextView)dlg.findViewById(R.id.confirm_title);
+                    final TextView content = (TextView)dlg.findViewById(R.id.confirm_content);
+                    final TextView ok = dlg.findViewById(R.id.confirm_ok);
+                    final TextView cancel = dlg.findViewById(R.id.confirm_cancel);
+
+                    title.setText(city+" (을)를 선택하셨습니다");
+                    content.setText("일정 작성을 시작할까요?");
+
+                    ok.setOnClickListener(v -> {
+                        dlg.dismiss();
+
+                        Intent intent = new Intent(SearchCity.this, WritePlan.class);
+                        intent.putExtra("city", city);
+                        intent.putExtra("country",country[country.length-1]);
+                        startActivity(intent);
+                        finish();
+                    });
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dlg.dismiss();
+                        }
+                    });
+                }else if(type.equals("plan")){
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("city", city);
+                    resultIntent.putExtra("country",country[country.length-1]);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                }
             }
         });
     }

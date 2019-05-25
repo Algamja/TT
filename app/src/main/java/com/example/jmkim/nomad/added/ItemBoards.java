@@ -53,7 +53,7 @@ public class ItemBoards extends LinearLayout {
             FirebaseDatabase
                     .getInstance()
                     .getReference()
-                    .child("Review")
+                    .child("WriteReview")
                     .child(publisher)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -115,7 +115,7 @@ public class ItemBoards extends LinearLayout {
                 FirebaseDatabase
                         .getInstance()
                         .getReference()
-                        .child("Review")
+                        .child("WriteReview")
                         .child(publisher)
                         .child(review_keys.get(num))
                         .addListenerForSingleValueEvent(new ValueEventListener() {

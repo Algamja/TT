@@ -5,11 +5,8 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Display;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -22,6 +19,8 @@ import android.widget.RadioButton;
 import android.widget.ScrollView;
 
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.added.SearchCity;
+import com.example.jmkim.nomad.added.SearchTag;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -39,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
     private ScrollView sv;
 
     private RadioButton city;
-    private RadioButton activity;
+    private RadioButton hashtag;
 
     private ImageView search;
 
@@ -98,28 +97,28 @@ public class SearchActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("");
 
-        sv = (ScrollView)findViewById(R.id.searchActivity_sv);
+        sv = (ScrollView)findViewById(R.id.search_main);
 
-        city = (RadioButton) findViewById(R.id.searchActivity_rb_city);
-        activity = (RadioButton) findViewById(R.id.searchActivity_rb_activity);
+        city = (RadioButton) findViewById(R.id.search_rb_city);
+        hashtag = (RadioButton) findViewById(R.id.search_rb_hashtag);
 
         search = (ImageView)findViewById(R.id.searchActivity_iv_search);
 
-        recom_1 = (Button)findViewById(R.id.searchActivity_btn_recommend_1);
-        recom_2 = (Button)findViewById(R.id.searchActivity_btn_recommend_2);
-        recom_3 = (Button)findViewById(R.id.searchActivity_btn_recommend_3);
-        recom_4 = (Button)findViewById(R.id.searchActivity_btn_recommend_4);
-        recom_5 = (Button)findViewById(R.id.searchActivity_btn_recommend_5);
-        recom_6 = (Button)findViewById(R.id.searchActivity_btn_recommend_6);
-        recom_7 = (Button)findViewById(R.id.searchActivity_btn_recommend_7);
-        recom_8 = (Button)findViewById(R.id.searchActivity_btn_recommend_8); //추천 검색어
+        recom_1 = (Button)findViewById(R.id.search_recom_word_5);
+        recom_2 = (Button)findViewById(R.id.search_recom_word_2);
+        recom_3 = (Button)findViewById(R.id.search_recom_word_3);
+        recom_4 = (Button)findViewById(R.id.search_recom_word_4);
+        recom_5 = (Button)findViewById(R.id.search_recom_word_5);
+        recom_6 = (Button)findViewById(R.id.search_recom_word_1);
+        recom_7 = (Button)findViewById(R.id.search_recom_word_7);
+        recom_8 = (Button)findViewById(R.id.search_recom_word_8); //추천 검색어
 
-        firstImg = (ImageView)findViewById(R.id.searchActivity_iv_1);
-        secondImg = (ImageView)findViewById(R.id.searchActivity_iv_2);
-        thirdImg = (ImageView)findViewById(R.id.searchActivity_iv_3);
-        fourthImg = (ImageView)findViewById(R.id.searchActivity_iv_4);
-        fifthImg = (ImageView)findViewById(R.id.searchActivity_iv_5);
-        sixthImg = (ImageView)findViewById(R.id.searchActivity_iv_6); //국가 이미지
+        firstImg = (ImageView)findViewById(R.id.search_recom_plan_1);
+        secondImg = (ImageView)findViewById(R.id.search_recom_plan_2);
+        thirdImg = (ImageView)findViewById(R.id.search_recom_plan_3);
+        fourthImg = (ImageView)findViewById(R.id.search_recom_plan_4);
+        fifthImg = (ImageView)findViewById(R.id.search_recom_plan_5);
+        sixthImg = (ImageView)findViewById(R.id.search_recom_plan_6); //국가 이미지
 
         search_city = (EditText)findViewById(R.id.searchActivity_et_search);
 
@@ -151,7 +150,7 @@ public class SearchActivity extends AppCompatActivity {
                     String color = "#000000";
                     city.setTextColor(Color.parseColor(color));
                     color = "#a6a6a6";
-                    activity.setTextColor(Color.parseColor(color));
+                    hashtag.setTextColor(Color.parseColor(color));
 
                     recom_1.setText("도쿄");
                     recom_2.setText("도쿄");
@@ -166,7 +165,7 @@ public class SearchActivity extends AppCompatActivity {
                     String color = "#a6a6a6";
                     city.setTextColor(Color.parseColor(color));
                     color = "#000000";
-                    activity.setTextColor(Color.parseColor(color));
+                    hashtag.setTextColor(Color.parseColor(color));
 
                     recom_1.setText("온천");
                     recom_2.setText("온천");
@@ -180,14 +179,14 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        activity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        hashtag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (city.isChecked()) {
                     String color = "#000000";
                     city.setTextColor(Color.parseColor(color));
                     color = "#a6a6a6";
-                    activity.setTextColor(Color.parseColor(color));
+                    hashtag.setTextColor(Color.parseColor(color));
 
                     recom_1.setText("도쿄");
                     recom_2.setText("도쿄");
@@ -201,7 +200,7 @@ public class SearchActivity extends AppCompatActivity {
                     String color = "#a6a6a6";
                     city.setTextColor(Color.parseColor(color));
                     color = "#000000";
-                    activity.setTextColor(Color.parseColor(color));
+                    hashtag.setTextColor(Color.parseColor(color));
 
                     recom_1.setText("온천");
                     recom_2.setText("온천");
@@ -245,7 +244,7 @@ public class SearchActivity extends AppCompatActivity {
                 .transform(new RoundedTransformation(100,0))
                 .into(sixthImg);
 
-        search.setOnClickListener(new View.OnClickListener() {
+        /*search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 click++;
@@ -259,9 +258,9 @@ public class SearchActivity extends AppCompatActivity {
                     recent.setVisibility(View.VISIBLE);
                 }
             }
-        });
+        });*/
 
-        black.bringToFront();
+        /*black.bringToFront();
         list = new ArrayList<String>();
         settingList();
 
@@ -269,35 +268,20 @@ public class SearchActivity extends AppCompatActivity {
         arrayList.addAll(list);
 
         adapter = new SearchAdapter(list,this);
-        city_list.setAdapter(adapter);
+        city_list.setAdapter(adapter);*/
 
-        search_city.addTextChangedListener(new TextWatcher() {
+        search_city.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(click %2 != 0){
-                    if(search_city.getText().toString().equals("")){
-                        recent.setVisibility(View.VISIBLE);
-                        city_list.setVisibility(View.GONE);
-                    }else{
-                        recent.setVisibility(View.GONE);
-                        city_list.setVisibility(View.VISIBLE);
-                    }
+            public void onClick(View v) {
+                if(city.isChecked()){
+                    startActivityForResult(new Intent(SearchActivity.this, SearchCity.class), 0);
+                }else if(hashtag.isChecked()){
+                    startActivityForResult(new Intent(SearchActivity.this, SearchTag.class), 0);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = search_city.getText().toString();
-                search(text);
             }
         });
 
-        black.setOnTouchListener(new View.OnTouchListener() {
+        /*black.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Search_bottomNavigationView.setSelectedItemId(R.id.nav_search);
@@ -306,7 +290,7 @@ public class SearchActivity extends AppCompatActivity {
                 black.setVisibility(View.GONE);
                 return false;
             }
-        });
+        });*/
 
         if (!bottom_click){
             Search_bottomNavigationView.setSelectedItemId(R.id.nav_search);
