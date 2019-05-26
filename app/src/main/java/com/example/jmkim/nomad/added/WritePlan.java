@@ -19,10 +19,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.jmkim.nomad.DB.Add_Tag;
 import com.example.jmkim.nomad.DB.ChatModel;
 import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.prev.PlanReadActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -141,16 +143,25 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         many.setOnClickListener(friends);
 
         // 취향저격일정
+        String[] tag = new String[]{"도쿄돔","디즈니스토어","우에노동물원","요요기공원","도쿄디즈니씨"};
+        String[] img = new String[]{"https://firebasestorage.googleapis.com/v0/b/trip-box-1be2a.appspot.com/o/hashtag%2F%EB%8F%84%EC%BF%84%EB%8F%94.jpg?alt=media&token=520af6aa-856b-4b9b-9f70-e71e5f049cc4",
+                "https://firebasestorage.googleapis.com/v0/b/trip-box-1be2a.appspot.com/o/hashtag%2F%EB%94%94%EC%A6%88%EB%8B%88%EC%8A%A4%ED%86%A0%EC%96%B4.jpg?alt=media&token=3a08e6ba-c754-4e81-8b49-1e61f30edb1c",
+                "https://firebasestorage.googleapis.com/v0/b/trip-box-1be2a.appspot.com/o/hashtag%2F%EC%9A%B0%EC%97%90%EB%85%B8%EB%8F%99%EB%AC%BC%EC%9B%90.jpg?alt=media&token=25c59e59-4b84-4ee3-aec9-c13182a3344f",
+                "https://firebasestorage.googleapis.com/v0/b/trip-box-1be2a.appspot.com/o/hashtag%2F%EC%9A%94%EC%9A%94%EA%B8%B0%EA%B3%B5%EC%9B%90.jpg?alt=media&token=a3a4c654-0c42-4bfd-9de5-0a391f407b79",
+                "https://firebasestorage.googleapis.com/v0/b/trip-box-1be2a.appspot.com/o/hashtag%2F%EB%8F%84%EC%BF%84%EB%94%94%EC%A6%88%EB%8B%88%EC%94%A8.jpg?alt=media&token=195526df-f8db-4e3b-a2ee-f4bde0af819c"};
         for (int i = 0; i < 5; i++) {
-            ItemReco itemReco = new ItemReco(WritePlan.this);
+            ItemReco itemReco = new ItemReco(WritePlan.this,tag[i],img[i]);
             recommend_list.addView(itemReco);
         }
 
         // 요즘뜨는 여행지
         mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         hot_list.setLayoutManager(mLayoutManager);
-        String[] items = new String[]{"도쿄", "도쿄", "도쿄", "도쿄", "도쿄", "도쿄"};
-        HotAdapter hotAdapter = new HotAdapter(items);
+        String[] items = new String[]{"도쿄 도", "야마가타 현", "야마나시 현", "스자카 시", "오키나와 시", "다이센 시"};
+        int[] imgs = new int[]{R.drawable.dokyo, R.drawable.yamagata, R.drawable.yamanashi, R.drawable.tsuzaka, R.drawable.okinawa, R.drawable.daisen};
+        String[] publishers = new String[]{"9DT9bXFtbWeK9449mNeNPSIcMvm2", "9eDtcPCYIcg3uoyDw8BqRD9LJMF3", "Edn1YAyL0gc3oXpg1jGxoKk68223", "IX4niMXblUXdNfAJHfIgWi1T7uD3", "JKxyLrqXS7OfmpSKUa8Kj4ANQoB2", "Nvi25OVRWKWKBexNbOXqZfVbnAi2"};
+        String[] plan_keys = new String[]{"-LfZdbhk5lzKmI8cIlqC", "-Lfp700Icpc-yFSvc_p6", "-Lfp9wvBSMKIuqs3m3D5", "-LfpC4OCSMiIQAAgp0ea", "-LfpEEwkuVhDZzImRE7S", "-LfpnILWcLS28dXfTfpG"};
+        HotAdapter hotAdapter = new HotAdapter(items, imgs, publishers, plan_keys);
         hot_list.setAdapter(hotAdapter);
 
         agree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -476,6 +487,9 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
     public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         LayoutInflater inflater;
         String[] items;
+        String[] publishers;
+        String[] plan_keys;
+        int[] imgs;
 
         public class HotViewHolder extends RecyclerView.ViewHolder {
             ImageView img;
@@ -489,8 +503,11 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
             }
         }
 
-        HotAdapter(String[] items) {
+        HotAdapter(String[] items, int[] imgs, String[] publishers, String[] plan_keys) {
             this.items = items;
+            this.imgs = imgs;
+            this.publishers = publishers;
+            this.plan_keys = plan_keys;
         }
 
         @NonNull
@@ -506,6 +523,17 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
             HotViewHolder planViewHolder = (HotViewHolder) holder;
 
             planViewHolder.title.setText(items[position]);
+            planViewHolder.img.setImageDrawable(getResources().getDrawable(imgs[position]));
+
+            planViewHolder.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(WritePlan.this, PlanReadActivity.class);
+                    intent.putExtra("publisher", publishers[position]);
+                    intent.putExtra("key",plan_keys[position]);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override

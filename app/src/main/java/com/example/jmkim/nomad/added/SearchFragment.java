@@ -11,8 +11,10 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.prev.PlanReadActivity;
 import com.example.jmkim.nomad.prev.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -40,6 +42,20 @@ public class SearchFragment extends Fragment {
     private ImageView fourthImg;
     private ImageView fifthImg;
     private ImageView sixthImg;
+
+    private TextView city_1;
+    private TextView city_2;
+    private TextView city_3;
+    private TextView city_4;
+    private TextView city_5;
+    private TextView city_6;
+
+    private TextView name_1;
+    private TextView name_2;
+    private TextView name_3;
+    private TextView name_4;
+    private TextView name_5;
+    private TextView name_6;
 
     public static SearchFragment create() {
         SearchFragment fragment = new SearchFragment();
@@ -79,6 +95,20 @@ public class SearchFragment extends Fragment {
         fourthImg = (ImageView)rootView.findViewById(R.id.search_recom_plan_4);
         fifthImg = (ImageView)rootView.findViewById(R.id.search_recom_plan_5);
         sixthImg = (ImageView)rootView.findViewById(R.id.search_recom_plan_6); //국가 이미지
+
+        city_1 = (TextView)rootView.findViewById(R.id.search_recom_city_1);
+        city_2 = (TextView)rootView.findViewById(R.id.search_recom_city_2);;
+        city_3 = (TextView)rootView.findViewById(R.id.search_recom_city_3);;
+        city_4 = (TextView)rootView.findViewById(R.id.search_recom_city_4);;
+        city_5 = (TextView)rootView.findViewById(R.id.search_recom_city_5);;
+        city_6 = (TextView)rootView.findViewById(R.id.search_recom_city_6);;
+
+        name_1 = (TextView)rootView.findViewById(R.id.search_recom_name_1);
+        name_2 = (TextView)rootView.findViewById(R.id.search_recom_name_2);
+        name_3 = (TextView)rootView.findViewById(R.id.search_recom_name_3);
+        name_4 = (TextView)rootView.findViewById(R.id.search_recom_name_4);
+        name_5 = (TextView)rootView.findViewById(R.id.search_recom_name_5);
+        name_6 = (TextView)rootView.findViewById(R.id.search_recom_name_6);
 
         recom_1.setText("도쿄");
         recom_2.setText("오사카");
@@ -176,34 +206,108 @@ public class SearchFragment extends Fragment {
         });
 
         Picasso.with(getContext())
-                .load(R.drawable.flag)
+                .load(R.drawable.dokyo)
                 .transform(new RoundedTransformation(100,0))
                 .into(firstImg);
 
         Picasso.with(getContext())
-                .load(R.drawable.england)
+                .load(R.drawable.yamagata)
                 .transform(new RoundedTransformation(100,0))
                 .into(secondImg);
 
         Picasso.with(getContext())
-                .load(R.drawable.canada)
+                .load(R.drawable.yamanashi)
                 .transform(new RoundedTransformation(100,0))
                 .into(thirdImg);
 
         Picasso.with(getContext())
-                .load(R.drawable.canada)
+                .load(R.drawable.tsuzaka)
                 .transform(new RoundedTransformation(100,0))
                 .into(fourthImg);
 
         Picasso.with(getContext())
-                .load(R.drawable.flag)
+                .load(R.drawable.okinawa)
                 .transform(new RoundedTransformation(100,0))
                 .into(fifthImg);
 
         Picasso.with(getContext())
-                .load(R.drawable.england)
+                .load(R.drawable.daisen)
                 .transform(new RoundedTransformation(100,0))
                 .into(sixthImg);
+
+        city_1.setText("도쿄 도");
+        city_2.setText("야마가타 현");
+        city_3.setText("야마나시 현");
+        city_4.setText("스자카 시");
+        city_5.setText("오키나와 시");
+        city_6.setText("다이센 시");
+
+        name_1.setText("김자명");
+        name_2.setText("여행자");
+        name_3.setText("김자명");
+        name_4.setText("최부탁");
+        name_5.setText("테스트");
+        name_6.setText("HJM");
+
+        firstImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PlanReadActivity.class);
+                intent.putExtra("publisher","9DT9bXFtbWeK9449mNeNPSIcMvm2");
+                intent.putExtra("key","-LfZdbhk5lzKmI8cIlqC");
+                startActivity(intent);
+            }
+        });
+
+        secondImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PlanReadActivity.class);
+                intent.putExtra("publisher","9eDtcPCYIcg3uoyDw8BqRD9LJMF3");
+                intent.putExtra("key","-Lfp700Icpc-yFSvc_p6");
+                startActivity(intent);
+            }
+        });
+
+        thirdImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PlanReadActivity.class);
+                intent.putExtra("publisher","Edn1YAyL0gc3oXpg1jGxoKk68223");
+                intent.putExtra("key","-Lfp9wvBSMKIuqs3m3D5");
+                startActivity(intent);
+            }
+        });
+
+        fourthImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PlanReadActivity.class);
+                intent.putExtra("publisher","IX4niMXblUXdNfAJHfIgWi1T7uD3");
+                intent.putExtra("key","-LfpC4OCSMiIQAAgp0ea");
+                startActivity(intent);
+            }
+        });
+
+        fifthImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PlanReadActivity.class);
+                intent.putExtra("publisher","JKxyLrqXS7OfmpSKUa8Kj4ANQoB2");
+                intent.putExtra("key","-LfpEEwkuVhDZzImRE7S");
+                startActivity(intent);
+            }
+        });
+
+        sixthImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PlanReadActivity.class);
+                intent.putExtra("publisher","Nvi25OVRWKWKBexNbOXqZfVbnAi2");
+                intent.putExtra("key","-LfpnILWcLS28dXfTfpG");
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }

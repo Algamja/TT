@@ -15,6 +15,7 @@ import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.R;
 import com.example.jmkim.nomad.added.ItemSchedule;
 import com.example.jmkim.nomad.added.ReadPlanItem;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -156,7 +157,20 @@ public class PlanReadActivity extends AppCompatActivity {
                                     .child("ChatRooms")
                                     .child(chat_key)
                                     .child("users")
-                                    .setValue(member);
+                                    .setValue(member)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            FirebaseDatabase
+                                                    .getInstance()
+                                                    .getReference()
+                                                    .child("Plan")
+                                                    .child(publisher)
+                                                    .child(plan_key)
+                                                    .child("want")
+                                                    .setValue(String.valueOf(Integer.parseInt(total.getText().toString()) - member.size()));
+                                        }
+                                    });
                             Toast.makeText(PlanReadActivity.this, "신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                             finish();
                             dlg.dismiss();

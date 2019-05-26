@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +21,9 @@ import com.bumptech.glide.RequestManager;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.Message.ChatActivity;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.ReportReadActivity;
 import com.example.jmkim.nomad.prev.UserInfoEditActivity;
+import com.example.jmkim.nomad.prev.WriterActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,16 +48,9 @@ public class MypageFragment extends Fragment {
     private TextView userEmail;
     private TextView userStateMsg;
 
-    private ImageView myTalk;
     private ImageView infoEdit;
-
-    private View black;
-
-    private FrameLayout fb_layout;
-    private FloatingActionButton write_plan;
-    private FloatingActionButton write_review;
-
-    private Boolean bottom_click = false;
+    private LinearLayout my_board;
+    private LinearLayout my_report;
 
     String uid;
     private int PICK_FROM_ALBUM_PROFILE = 10;
@@ -67,7 +63,6 @@ public class MypageFragment extends Fragment {
     public static MypageFragment create() {
         MypageFragment fragment = new MypageFragment();
         Bundle args = new Bundle();
-        //args.putInt("image", image);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,7 +70,6 @@ public class MypageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //image = getArguments().getInt("image");
     }
 
     @Override
@@ -87,24 +81,14 @@ public class MypageFragment extends Fragment {
         userEmail = rootView.findViewById(R.id.mypage_tv_email);
         userStateMsg = rootView.findViewById(R.id.mypage_tv_stateMsg);
 
-        myTalk = rootView.findViewById(R.id.mypage_iv_mytalk);
         infoEdit = rootView.findViewById(R.id.mypage_iv_infoedit);
-
-        black = rootView.findViewById(R.id.mypage_view_black);
-
-        fb_layout = rootView.findViewById(R.id.mypage_ll_write_float);
-        write_plan = rootView.findViewById(R.id.mypage_fb_write_plan);
-        write_review = rootView.findViewById(R.id.mypage_fb_write_review);
+        my_board = rootView.findViewById(R.id.mypage_ll_myboard);
+        my_report = rootView.findViewById(R.id.mypage_ll_myhistory);
 
         mGlide = Glide.with(getContext());
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-
-        Display display = ((Main) getContext()).getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        black.setMinimumHeight(size.y);
 
         final List<UserModel> userModel = new ArrayList<>(); //DB에서 읽어올 준비
         FirebaseDatabase
@@ -172,13 +156,6 @@ public class MypageFragment extends Fragment {
             }
         });
 
-        myTalk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), ChatActivity.class));
-            }
-        });
-
         infoEdit.setOnClickListener(new View.OnClickListener() { //정보수정 버튼 눌렀을 때
             @Override
             public void onClick(View v) {
@@ -186,13 +163,21 @@ public class MypageFragment extends Fragment {
             }
         });
 
-        black.setOnTouchListener(new View.OnTouchListener() {
+        my_board.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                fb_layout.setVisibility(View.INVISIBLE);
-                bottom_click = false;
-                black.setVisibility(View.GONE);
-                return false;
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), BoardsActivity.class);
+                intent.putExtra("publisher",uid);
+                startActivity(intent);
+            }
+        });
+
+        my_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getContext(), ReportReadActivity.class);
+                intent.putExtra("publisher",uid);
+                startActivity(intent);
             }
         });
 
