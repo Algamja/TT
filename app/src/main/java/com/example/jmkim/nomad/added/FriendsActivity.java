@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import android.util.Log;
 import android.widget.TextView;
 
 import com.example.jmkim.nomad.DB.UserModel;
@@ -16,8 +15,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +89,6 @@ public class FriendsActivity extends AppCompatActivity {
 
                                         for(DataSnapshot item : dataSnapshot.getChildren()){
                                             UserModel user = item.getValue(UserModel.class);
-                                            Log.e("NAME",user.userName);
 
                                             for(int i=0;i<friend_keys.size();i++){
                                                 if(user.uid.equals(friend_keys.get(i))){

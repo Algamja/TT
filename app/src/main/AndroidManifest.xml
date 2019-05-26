@@ -65,7 +65,8 @@
         <activity android:name=".added.BoardsActivity" />
         <activity android:name=".added.FriendsActivity" />
         <activity android:name=".added.HashTagInfoActivity" />
-        <activity android:name=".added.ReadReviewActivity"></activity>
+        <activity android:name=".added.ReadReviewActivity"/>
+        <activity android:name=".ReportReadActivity"/>
     </application>
 
 </manifest>

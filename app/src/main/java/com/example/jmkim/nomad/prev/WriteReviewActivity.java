@@ -105,7 +105,7 @@ public class WriteReviewActivity extends AppCompatActivity {
                                 FirebaseDatabase
                                         .getInstance()
                                         .getReference()
-                                        .child("WriteReview")
+                                        .child("Review")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .push()
                                         .setValue(review)

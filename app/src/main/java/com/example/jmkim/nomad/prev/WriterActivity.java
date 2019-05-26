@@ -10,13 +10,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.Message.MessageActivity;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.ReportReadActivity;
 import com.example.jmkim.nomad.added.BoardsActivity;
 import com.example.jmkim.nomad.added.FriendsActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -184,7 +186,9 @@ public class WriterActivity extends AppCompatActivity {
         reports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Intent intent= new Intent(WriterActivity.this, ReportReadActivity.class);
+                intent.putExtra("publisher",publisher);
+                startActivity(intent);
             }
         });
     }
