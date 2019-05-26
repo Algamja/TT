@@ -20,6 +20,7 @@ import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.DB.Review;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.prev.PlanReadActivity;
 import com.example.jmkim.nomad.prev.WriterActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -139,6 +140,16 @@ public class ItemMain extends LinearLayout {
 
                     }
                 });
+
+        img.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PlanReadActivity.class);
+                intent.putExtra("publisher",plan.publisher);
+                intent.putExtra("key",key);
+                context.startActivity(intent);
+            }
+        });
 
         profile.setOnClickListener(new OnClickListener() {
             @Override
@@ -291,7 +302,7 @@ public class ItemMain extends LinearLayout {
                     FirebaseDatabase
                             .getInstance()
                             .getReference()
-                            .child("WriteReview")
+                            .child("Review")
                             .child(review.publisher)
                             .child(key)
                             .child("like")
@@ -309,7 +320,7 @@ public class ItemMain extends LinearLayout {
                     FirebaseDatabase
                             .getInstance()
                             .getReference()
-                            .child("WriteReview")
+                            .child("Review")
                             .child(review.publisher)
                             .child(key)
                             .child("like")

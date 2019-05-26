@@ -80,7 +80,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_add"/>
+                    android:src="@drawable/ic_exit"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,7 +108,28 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/custom_font"
-                    android:text="강제 퇴장시키기"/>
+                    android:text="강제 퇴장"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/groupMessage_get_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_copy"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/custom_font"
+                    android:text="비밀번호 복사"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.drawerlayout.widget.DrawerLayout>

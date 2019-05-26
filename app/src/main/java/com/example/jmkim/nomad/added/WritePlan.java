@@ -180,84 +180,206 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Add_Tag tag = new Add_Tag();
 
-                if(member != 0){
-                    chatModel.users.put(FirebaseAuth.getInstance().getCurrentUser().getUid(),true);
-                    chatModel.type="group";
-                    chatModel.king=FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    chatModel.member_count= String.valueOf(member);
-                    chatModel.title = city.getText().toString();
+                if(agree.isChecked()){
+                    if(member > 1){
+                        chatModel.users.put(FirebaseAuth.getInstance().getCurrentUser().getUid(),true);
+                        chatModel.type="group";
+                        chatModel.king=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        chatModel.member_count= String.valueOf(member);
+                        chatModel.title = city.getText().toString();
 
+                        String imsi_chat_key = FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("ChatRooms")
+                                .push()
+                                .getKey();
+
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("ChatRooms")
+                                .child(imsi_chat_key)
+                                .setValue(chatModel);
+
+                        List<Add_Tag> add_tags = new ArrayList<>();
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("Imsi")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("hashtag")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        add_tags.clear();
+
+                                        for(DataSnapshot item : dataSnapshot.getChildren()){
+                                            add_tags.add(item.getValue(Add_Tag.class));
+                                        }
+
+                                        Plan plan = new Plan();
+                                        plan.publisher = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        plan.country = city.getText().toString();
+                                        plan.period = when.getText().toString();
+                                        plan.open = agree.isChecked();
+                                        plan.chat_key = imsi_chat_key;
+                                        plan.total = String.valueOf(member);
+                                        plan.want = String.valueOf(member - 1);
+
+                                        for(int i=0;i<add_tags.size();i++){
+                                            plan.hashtag.put(add_tags.get(i).tag_name, add_tags.get(i));
+                                        }
+
+                                        if(plan.hashtag.size() > 1){
+                                            FirebaseDatabase
+                                                    .getInstance()
+                                                    .getReference()
+                                                    .child("Plan")
+                                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                    .push()
+                                                    .setValue(plan)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            FirebaseDatabase
+                                                                    .getInstance()
+                                                                    .getReference()
+                                                                    .child("Imsi")
+                                                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                    .removeValue();
+
+                                                            Toast.makeText(WritePlan.this, "일정 등록이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                        }
+                                                    });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                    }else{
+                        List<Add_Tag> add_tags = new ArrayList<>();
+                        FirebaseDatabase
+                                .getInstance()
+                                .getReference()
+                                .child("Imsi")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("hashtag")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        add_tags.clear();
+
+                                        for(DataSnapshot item : dataSnapshot.getChildren()){
+                                            add_tags.add(item.getValue(Add_Tag.class));
+                                        }
+
+                                        Plan plan = new Plan();
+                                        plan.publisher = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        plan.country = city.getText().toString();
+                                        plan.period = when.getText().toString();
+                                        plan.open = agree.isChecked();
+
+                                        for(int i=0;i<add_tags.size();i++){
+                                            plan.hashtag.put(add_tags.get(i).tag_name, add_tags.get(i));
+                                        }
+
+                                        if(plan.hashtag.size() > 1){
+                                            FirebaseDatabase
+                                                    .getInstance()
+                                                    .getReference()
+                                                    .child("Plan")
+                                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                    .push()
+                                                    .setValue(plan)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            FirebaseDatabase
+                                                                    .getInstance()
+                                                                    .getReference()
+                                                                    .child("Imsi")
+                                                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                    .removeValue();
+
+                                                            Toast.makeText(WritePlan.this, "일정 등록이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                        }
+                                                    });
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                    }
+                }
+                else if(!agree.isChecked()){
+                    List<Add_Tag> add_tags = new ArrayList<>();
                     FirebaseDatabase
                             .getInstance()
                             .getReference()
-                            .child("ChatRooms")
-                            .push()
-                            .setValue(chatModel);
+                            .child("Imsi")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("hashtag")
+                            .addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    add_tags.clear();
+
+                                    for(DataSnapshot item : dataSnapshot.getChildren()){
+                                        add_tags.add(item.getValue(Add_Tag.class));
+                                    }
+
+                                    Plan plan = new Plan();
+                                    plan.publisher = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    plan.country = city.getText().toString();
+                                    plan.period = when.getText().toString();
+                                    plan.open = agree.isChecked();
+
+                                    for(int i=0;i<add_tags.size();i++){
+                                        plan.hashtag.put(add_tags.get(i).tag_name, add_tags.get(i));
+                                    }
+
+                                    if(plan.hashtag.size() > 1){
+                                        FirebaseDatabase
+                                                .getInstance()
+                                                .getReference()
+                                                .child("Plan")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                .push()
+                                                .setValue(plan)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        FirebaseDatabase
+                                                                .getInstance()
+                                                                .getReference()
+                                                                .child("Imsi")
+                                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                                .removeValue();
+
+                                                        Toast.makeText(WritePlan.this, "일정 등록이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }
+                                                });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                 }
-
-                List<Add_Tag> add_tags = new ArrayList<>();
-                FirebaseDatabase
-                        .getInstance()
-                        .getReference()
-                        .child("Imsi")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .child("hashtag")
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                add_tags.clear();
-
-                                for(DataSnapshot item : dataSnapshot.getChildren()){
-                                    add_tags.add(item.getValue(Add_Tag.class));
-                                }
-
-                                Plan plan = new Plan();
-                                plan.publisher = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                plan.country = city.getText().toString();
-                                plan.period = when.getText().toString();
-                                for(int i=0;i<add_tags.size();i++){
-                                    plan.hashtag.put(add_tags.get(i).tag_name, add_tags.get(i));
-                                }
-
-                                if(agree.isChecked()){
-                                    plan.open=true;
-                                }else{
-                                    plan.open=false;
-                                }
-
-                                if(plan.hashtag.size() > 1){
-                                    FirebaseDatabase
-                                            .getInstance()
-                                            .getReference()
-                                            .child("Plan")
-                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .push()
-                                            .setValue(plan)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    FirebaseDatabase
-                                                            .getInstance()
-                                                            .getReference()
-                                                            .child("Imsi")
-                                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                            .removeValue();
-
-                                                    Toast.makeText(WritePlan.this, "일정 등록이 완료 되었습니다.", Toast.LENGTH_SHORT).show();
-                                                    finish();
-                                                }
-                                            });
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
             }
         });
     }

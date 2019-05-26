@@ -10,6 +10,7 @@ public class ChatModel {
     public String king;
     public String member_count;
     public String title;
+    public String plan_key;
 
     public static class  Comment{
         public String uid;

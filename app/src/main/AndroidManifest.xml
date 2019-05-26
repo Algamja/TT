@@ -46,6 +46,7 @@
         <activity android:name=".Message.ChatActivity" />
         <activity android:name=".added.Main" />
         <activity android:name=".added.WriteReview"/>
+        <activity android:name=".prev.PlanReadActivity"/>
 
         <activity
             android:name=".added.WritePlan"

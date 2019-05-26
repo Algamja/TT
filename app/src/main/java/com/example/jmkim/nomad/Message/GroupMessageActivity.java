@@ -16,6 +16,8 @@ import okhttp3.Response;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -100,6 +102,7 @@ public class GroupMessageActivity extends Activity {
     private ListView userview;
     private LinearLayout exit;
     private LinearLayout forced;
+    private LinearLayout copy_key;
 
     private List<String> uids = new ArrayList<>();
     private List<UserModel> att = new ArrayList<>();
@@ -126,6 +129,7 @@ public class GroupMessageActivity extends Activity {
         userview = (ListView)findViewById(R.id.groupMessage_drawer_lv);
         exit = (LinearLayout)findViewById(R.id.groupMessage_exit);
         forced = (LinearLayout)findViewById(R.id.groupMessage_forced);
+        copy_key = (LinearLayout)findViewById(R.id.groupMessage_get_key);
 
         FirebaseDatabase
                 .getInstance()
@@ -290,8 +294,10 @@ public class GroupMessageActivity extends Activity {
 
                         if(!king.equals(myUid)){
                             forced.setVisibility(View.GONE);
+                            copy_key.setVisibility(View.GONE);
                         }else{
                             forced.setVisibility(View.VISIBLE);
+                            copy_key.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -356,6 +362,14 @@ public class GroupMessageActivity extends Activity {
                 intent.putExtra("destRoom",destRoom);
                 startActivity(intent);
             }
+        });
+
+        copy_key.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("ChatPW",destRoom);
+                clipboardManager.setPrimaryClip(clipData);}
         });
     }
 

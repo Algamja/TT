@@ -10,4 +10,7 @@ public class Plan {
     public Map<String,Add_Tag> hashtag = new HashMap<>();
     public boolean open;
     public String period;
+    public String total;
+    public String want;
+    public String chat_key;
 }
