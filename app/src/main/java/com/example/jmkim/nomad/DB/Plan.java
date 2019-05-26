@@ -13,4 +13,5 @@ public class Plan {
     public String total;
     public String want;
     public String chat_key;
+    public String like_count;
 }

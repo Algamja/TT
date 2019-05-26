@@ -16,6 +16,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -445,6 +447,18 @@ public class MessageActivity extends AppCompatActivity {
                 //좌측 정렬
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
             }
+
+            messageViewHolder.textView_message.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("ChatPW",messageViewHolder.textView_message.getText().toString());
+                    clipboardManager.setPrimaryClip(clipData);
+                    return true;
+                }
+
+
+            });
 
             //상대방 프로필 롱클릭
             messageViewHolder.imageView_dest_profile.setOnLongClickListener(new View.OnLongClickListener() {

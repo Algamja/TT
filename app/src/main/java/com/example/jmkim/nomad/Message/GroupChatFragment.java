@@ -64,7 +64,7 @@ public class GroupChatFragment extends Fragment {
                     .child("ChatRooms")
                     .orderByChild("users/" + uid)
                     .equalTo(true)
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                    .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             chatModels.clear();
