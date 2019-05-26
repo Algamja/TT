@@ -283,6 +283,16 @@ public class ItemMain extends LinearLayout {
                     }
                 });
 
+        img.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ReadReviewActivity.class);
+                intent.putExtra("publisher",review.publisher);
+                intent.putExtra("key",key);
+                context.startActivity(intent);
+            }
+        });
+
         profile.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

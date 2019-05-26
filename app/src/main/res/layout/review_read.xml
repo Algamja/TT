@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/review_read_rl_hashtag"
@@ -20,10 +20,10 @@
             android:layout_marginLeft="20sp"/>
 
         <RatingBar
-            android:id="@+id/review_item_ratingBar"
+            android:id="@+id/review_read_ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:isIndicator="false"
+            android:isIndicator="true"
             android:numStars="5"
             android:stepSize="0.1"
             android:scaleX="0.5"
@@ -51,5 +51,4 @@
         android:scaleType="fitCenter"
         android:layout_below="@+id/review_read_tv_comment"
         android:layout_marginTop="30dp"/>
-
 </RelativeLayout>

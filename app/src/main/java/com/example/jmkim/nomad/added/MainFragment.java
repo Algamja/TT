@@ -143,7 +143,6 @@ public class MainFragment extends Fragment {
                                             for(int k=0;k<reviews.size();k++){
                                                 ItemMain itemMain = new ItemMain(getContext(), reviews.get(k),users.get(I),review_keys.get(k));
                                                 box.addView(itemMain);
-                                                Log.e("PLAN_",reviews.get(k).city);
                                             }
                                         }
 

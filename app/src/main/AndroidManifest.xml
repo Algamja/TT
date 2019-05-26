@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jmkim.nomad">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBtwoKA5OA88jvkAVmck6BT6HsC40r-ZZE" />
@@ -45,9 +44,8 @@
         <activity android:name=".prev.WriteReviewActivity" />
         <activity android:name=".Message.ChatActivity" />
         <activity android:name=".added.Main" />
-        <activity android:name=".added.WriteReview"/>
-        <activity android:name=".prev.PlanReadActivity"/>
-
+        <activity android:name=".added.WriteReview" />
+        <activity android:name=".prev.PlanReadActivity" />
         <activity
             android:name=".added.WritePlan"
             android:windowSoftInputMode="stateHidden" />
@@ -57,7 +55,6 @@
         <activity
             android:name=".added.SearchCity"
             android:theme="@style/Theme.AppCompat.Translucent" />
-
         <activity
             android:name=".Message.MessageActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -67,7 +64,8 @@
         <activity android:name=".added.SearchTag" />
         <activity android:name=".added.BoardsActivity" />
         <activity android:name=".added.FriendsActivity" />
-        <activity android:name=".added.HashTagInfoActivity"></activity>
+        <activity android:name=".added.HashTagInfoActivity" />
+        <activity android:name=".added.ReadReviewActivity"></activity>
     </application>
 
 </manifest>
