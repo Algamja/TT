@@ -53,6 +53,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
     implementation 'com.github.psinetron:slycalendarview:0.0.9'
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.google.android.gms:play-services-location:11.8.0'
+    implementation 'com.naver.maps:map-sdk:3.3.0'
 }
 apply plugin: 'com.google.gms.google-services'
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
