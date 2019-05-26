@@ -188,6 +188,7 @@ public class WritePlan extends AppCompatActivity implements SlyCalendarDialog.Ca
                     chatModel.type="group";
                     chatModel.king=FirebaseAuth.getInstance().getCurrentUser().getUid();
                     chatModel.member_count= String.valueOf(member);
+                    chatModel.title = city.getText().toString();
 
                     FirebaseDatabase
                             .getInstance()

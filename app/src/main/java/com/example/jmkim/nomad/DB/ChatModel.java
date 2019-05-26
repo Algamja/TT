@@ -9,6 +9,7 @@ public class ChatModel {
     public String type;
     public String king;
     public String member_count;
+    public String title;
 
     public static class  Comment{
         public String uid;

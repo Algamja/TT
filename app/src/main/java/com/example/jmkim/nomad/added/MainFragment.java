@@ -127,7 +127,7 @@ public class MainFragment extends Fragment {
                             FirebaseDatabase
                                     .getInstance()
                                     .getReference()
-                                    .child("WriteReview")
+                                    .child("Review")
                                     .child(user_key.get(i))
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override

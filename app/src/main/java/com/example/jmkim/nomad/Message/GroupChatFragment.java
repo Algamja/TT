@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.ChatModel;
+import com.example.jmkim.nomad.DB.Plan;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class GroupChatFragment extends Fragment {
+    String group_title = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,14 +49,11 @@ public class GroupChatFragment extends Fragment {
 
     class GroupChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private List<ChatModel> chatModels = new ArrayList<>();
-        private List<String> keys = new ArrayList<>();
+        private List<String> room_keys = new ArrayList<>();
         private String uid;
         private ArrayList<String> destUser = new ArrayList<>();
 
         private Map<String, UserModel> userModelMap = new HashMap<>();
-        private ArrayList<String> uids = new ArrayList<>();
-        private ArrayList<UserModel> members = new ArrayList<>();
-        String title="";
 
         public GroupChatRecyclerViewAdapter(){
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -73,7 +72,7 @@ public class GroupChatFragment extends Fragment {
                             for(DataSnapshot item : dataSnapshot.getChildren()){
                                 if(item.getValue(ChatModel.class).type.equals("group")){
                                     chatModels.add(item.getValue(ChatModel.class));
-                                    keys.add(item.getKey());
+                                    room_keys.add(item.getKey());
                                 }
                             }
                             notifyDataSetChanged();
@@ -85,23 +84,7 @@ public class GroupChatFragment extends Fragment {
                         }
                     });
 
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("UserBasic")
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot item : dataSnapshot.getChildren()){
-                                userModelMap.put(item.getKey(),item.getValue(UserModel.class));
-                            }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
         }
 
         @NonNull
@@ -116,53 +99,7 @@ public class GroupChatFragment extends Fragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             final CustomViewHolder customViewHolder = (CustomViewHolder)holder;
             String destUid = "";
-            members.clear();
 
-            FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("ChatRooms")
-                    .child(keys.get(position))
-                    .child("users")
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot item : dataSnapshot.getChildren()){
-                                uids.add(item.getKey());
-
-                                FirebaseDatabase
-                                        .getInstance()
-                                        .getReference()
-                                        .child("UserBasic")
-                                        .child(uids.get(uids.size()-1))
-                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if(item.getValue(Boolean.class)){
-
-                                                    members.add(dataSnapshot.getValue(UserModel.class));
-
-                                                    String names="";
-                                                    for(int i=0;i<members.size();i++){
-                                                        names+=members.get(i).userName+" ";
-                                                    }
-                                                    customViewHolder.textView_title.setText(names);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
 
 
             for(String user : chatModels.get(position).users.keySet()){
@@ -183,12 +120,13 @@ public class GroupChatFragment extends Fragment {
                 String lastMessageKey = (String)commentMap.keySet().toArray()[0];
                 customViewHolder.textView_last_message.setText(chatModels.get(position).comments.get(lastMessageKey).message);
             }
+            customViewHolder.textView_title.setText(chatModels.get(position).title);
 
             customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getView().getContext(), GroupMessageActivity.class);
-                    intent.putExtra("destRoom", keys.get(position));
+                    intent.putExtra("destRoom", room_keys.get(position));
                     startActivity(intent);
                 }
             });

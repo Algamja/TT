@@ -53,7 +53,7 @@ public class ItemBoards extends LinearLayout {
             FirebaseDatabase
                     .getInstance()
                     .getReference()
-                    .child("WriteReview")
+                    .child("Review")
                     .child(publisher)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -61,7 +61,7 @@ public class ItemBoards extends LinearLayout {
                             reviews.clear();
 
                             for (DataSnapshot item : dataSnapshot.getChildren()) {
-                                reviews.add(item.getValue(com.example.jmkim.nomad.DB.Review.class));
+                                reviews.add(item.getValue(Review.class));
                                 review_keys.add(item.getKey());
                             }
                             init(num,"review", publisher);
@@ -115,7 +115,7 @@ public class ItemBoards extends LinearLayout {
                 FirebaseDatabase
                         .getInstance()
                         .getReference()
-                        .child("WriteReview")
+                        .child("Review")
                         .child(publisher)
                         .child(review_keys.get(num))
                         .addListenerForSingleValueEvent(new ValueEventListener() {
