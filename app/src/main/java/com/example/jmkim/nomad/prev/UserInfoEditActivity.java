@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -170,7 +171,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         EditText dlg_et_stateMsg = (EditText)dlg_stateMsg.findViewById(R.id.stateMsg_et);
-
+ 
                         final List<UserModel> userModel = new ArrayList<>();
                         FirebaseDatabase
                                 .getInstance()
@@ -275,18 +276,21 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            Task<Uri> uriTask = profileImageRef.getDownloadUrl();
-                            while(!uriTask.isSuccessful());
-                            Uri downloadUrl = uriTask.getResult();
-                            String imageUrl = String.valueOf(downloadUrl);
+                            profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Uri downloadUrl = uri;
+                                    String imageUrl = String.valueOf(downloadUrl);
 
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("UserBasic")
-                                    .child(uid)
-                                    .child("profileImageUrl")
-                                    .setValue(imageUrl);
+                                    FirebaseDatabase
+                                            .getInstance()
+                                            .getReference()
+                                            .child("UserBasic")
+                                            .child(uid)
+                                            .child("profileImageUrl")
+                                            .setValue(imageUrl);
+                                }
+                            });
                         }
                     });
         }

@@ -22,6 +22,7 @@ import com.example.jmkim.nomad.DB.UserModel;
 import com.example.jmkim.nomad.Message.ChatActivity;
 import com.example.jmkim.nomad.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -297,18 +298,21 @@ public class MypageActivity extends AppCompatActivity {
 
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            Task<Uri> uriTask = profileImageRef.getDownloadUrl();
-                            while(!uriTask.isSuccessful());
-                            Uri downloadUrl = uriTask.getResult();
-                            String imageUrl = String.valueOf(downloadUrl);
+                            profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Uri downloadUrl = uri;
+                                    String imageUrl = String.valueOf(downloadUrl);
 
-                            FirebaseDatabase
-                                    .getInstance()
-                                    .getReference()
-                                    .child("UserBasic")
-                                    .child(uid)
-                                    .child("profileImageUrl")
-                                    .setValue(imageUrl);
+                                    FirebaseDatabase
+                                            .getInstance()
+                                            .getReference()
+                                            .child("UserBasic")
+                                            .child(uid)
+                                            .child("profileImageUrl")
+                                            .setValue(imageUrl);
+                                }
+                            });
                         }
                     });
         }

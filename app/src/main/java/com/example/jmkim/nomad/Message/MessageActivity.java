@@ -607,7 +607,6 @@ public class MessageActivity extends AppCompatActivity {
                     .child(formatDate)
                     .putFile(uri)
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-
                         final StorageReference ref =
                                 FirebaseStorage
                                         .getInstance()
@@ -619,16 +618,18 @@ public class MessageActivity extends AppCompatActivity {
 
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            Task<Uri> uriTask = ref.getDownloadUrl();
-                            while (!uriTask.isSuccessful());
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Uri download = uri;
+                                    img = String.valueOf(download);
 
-                            Uri download = uriTask.getResult();
-                            img = String.valueOf(download);
-
-                            dlg_add.setVisibility(View.GONE);
-                            dlg_img_root.setVisibility(View.VISIBLE);
-                            dlg_img_root.setText(img);
-                            pd.dismiss();
+                                    dlg_add.setVisibility(View.GONE);
+                                    dlg_img_root.setVisibility(View.VISIBLE);
+                                    dlg_img_root.setText(img);
+                                    pd.dismiss();
+                                }
+                            });
                         }
                     });
 
