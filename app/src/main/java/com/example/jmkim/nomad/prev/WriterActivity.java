@@ -180,5 +180,12 @@ public class WriterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        reports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
     }
 }
