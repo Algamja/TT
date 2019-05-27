@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.jmkim.nomad.R;
+import com.example.jmkim.nomad.prev.PlanReadActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,7 +73,10 @@ public class BoardsActivity extends AppCompatActivity {
                             itemBoards.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    Intent intent = new Intent(BoardsActivity.this, PlanReadActivity.class);
+                                    intent.putExtra("publisher",uid);
+                                    intent.putExtra("key",plan_keys.get(I));
+                                    startActivity(intent);
                                 }
                             });
                             boards_layout.addView(itemBoards);
@@ -104,7 +108,10 @@ public class BoardsActivity extends AppCompatActivity {
                             itemBoards.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
+                                    Intent intent = new Intent(BoardsActivity.this, ReadReviewActivity.class);
+                                    intent.putExtra("publisher",uid);
+                                    intent.putExtra("key",review_keys.get(I));
+                                    startActivity(intent);
                                 }
                             });
                             setView(itemBoards);

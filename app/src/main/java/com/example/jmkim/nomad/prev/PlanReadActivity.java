@@ -50,6 +50,7 @@ public class PlanReadActivity extends AppCompatActivity {
     private Button confirm_btn;
     private Button pw_btn;
     String chat_key = "";
+    Plan plan;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class PlanReadActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Plan plan = dataSnapshot.getValue(Plan.class);
+                        plan = dataSnapshot.getValue(Plan.class);
                         String imsi = plan.country;
                         String imsi_array[] = imsi.split(" ");
 
@@ -99,6 +100,12 @@ public class PlanReadActivity extends AppCompatActivity {
                         imsi_array = imsi.split("일");
                         imsi = imsi_array[0];
                         chat_key = plan.chat_key;
+
+                        if(Integer.parseInt(plan.want) == 0){
+                            confirm_btn.setText("신청마감");
+                            confirm_btn.setClickable(false);
+                            confirm_btn.setEnabled(false);
+                        }
 
                         ReadPlanItem readPlanItem = new ReadPlanItem(PlanReadActivity.this, Integer.parseInt(imsi), plan, PlanReadActivity.this);
                         schedule.setAdapter(readPlanItem);
@@ -168,7 +175,7 @@ public class PlanReadActivity extends AppCompatActivity {
                                                     .child(publisher)
                                                     .child(plan_key)
                                                     .child("want")
-                                                    .setValue(String.valueOf(Integer.parseInt(total.getText().toString()) - member.size()));
+                                                    .setValue(String.valueOf(Integer.parseInt(plan.total) - member.size()));
                                         }
                                     });
                             Toast.makeText(PlanReadActivity.this, "신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
